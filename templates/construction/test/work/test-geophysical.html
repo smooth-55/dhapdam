@@ -1,0 +1,80 @@
+{% extends '../../../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link rel="stylesheet" href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Geophysical Investigation{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'company:geophysical-test' %}" class="link text-theme-light-blue">Construction / Geophysical Investigation</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Geophysical Investigation</h5>
+                <div class="bsa-border rounded bsa-custom-table">
+                    <div class="table-responsive">
+                        <table id="data-table" class="table table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th width="2%">SN</th>
+                                    <th>Name of Test</th>
+                                    <th>No. of Test</th>
+                                    <th>Test Standard</th>
+                                    <th>Remarks</th>
+    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in object_list %}
+                                <tr>
+                                    <td class="text-center">{{forloop.counter}}</td>
+                                    <td>{{item.name_of_test}}</td>
+                                    <td>{{item.no_of_test}}</td>
+                                    <td>{{item.test_standard}}</td>
+                                    <td>{{item.remarks}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Work Test</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'company:concrete-test' %}" class="sidebar-bar__item---link">Concrete Tests</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:compaction-test' %}" class="sidebar-bar__item---link">Compaction Tests</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:grouting-test' %}" class="sidebar-bar__item---link">Grouting Tests</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:copper-test' %}" class="sidebar-bar__item---link">Copper Water Stopper Tests</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:permeability-test' %}" class="sidebar-bar__item---link">Permeability Test</a></li>
+                        <li class="sidebar-bar__item active"><a href="{% url 'company:geophysical-test' %}" class="sidebar-bar__item---link active">Geophysical Investigation</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:core-drill' %}" class="sidebar-bar__item---link">Core Drill Test</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+<!-- script -->
+{% block script%}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#data-table').DataTable();
+    });
+</script>
+{% endblock %} active

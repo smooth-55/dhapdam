@@ -1,0 +1,125 @@
+ {% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% block static %}
+<link rel="stylesheet" href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}">
+<link rel="stylesheet" href="{% static 'css/cooltipz.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/bootstrap3-wysihtml5.min.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Darta{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Darta List</h5>
+
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Darta List</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- content -->
+{% include 'admin/fade_call.html' %}
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="table_dataframe" class="table table-bordered administration-table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">दर्ता नं.</th>
+                                <th width="10%" rowspan="2">दर्ता मिति</th>
+                                <th colspan="3" class="border-bottom text-center">प्राप्त</th>
+                                <th rowspan="2">पठाउने व्यक्तिको वा कार्यालय</th>
+                                <th rowspan="2">ठेगाना</th>
+                                <th rowspan="2">विषय</th>
+                                <th rowspan="2">पठाउने शाखा</th>
+                                <th rowspan="2">कैफियत</th>
+                                <th rowspan="2">पत्रकाे फाेटाे / संलग्न कागजात</th>
+                                <th width="12%" rowspan="2">Action</th>
+                            </tr>
+                            <tr>
+                                <th>पत्र संख्या</th>
+                                <th>पत्रको च.नं.</th>
+                                <th>पत्रको मिति</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in darta %}
+                            <tr>
+
+                                <td>{{item.darta_no}}</td>
+                                <td>{{item.date}}</td>
+                                <td>{{item.patra_no}}</td>
+                                <td>{{item.cha_no}}</td>
+                                <td>{{item.patra_received_date}}</td>
+                                <td>{{item.sender}}</td>
+                                <td>{{item.address}}</td>
+                                <td>{{item.subject}}</td>
+                                <td>{{item.medium}}</td>
+
+                                <td>{% if item.remark %}{{item.remark}}{% endif %}</td>
+                                <td class="table-image">
+                                    {% if item.image %}<span class="action-icon mr-3"><a href="{{item.image.url}}" target="_blank"
+                                            data-toggle="tooltip" data-placement="bottom" title="Open">{{item.image.url|slice:"20:"}}</a></span> {% endif %}
+
+                                </td>
+                                <td class="text-center">
+                                    <!-- <span class="action-icon mr-3"><a href="" data-toggle="tooltip"
+                                        data-placement="bottom" title="Open"><i
+                                            class="fas fa-eye text-secondary"></i></a></span> -->
+                                    <span class="action-icon mr-3"><a href="{% url 'news:darta-update' item.id %}"
+                                             data-toggle="tooltip" data-placement="bottom" title="Edit"><i
+                                                 class="fas fa-edit text-secondary"></i></a></span>
+                                    <span class="action-icon mr-3"><button
+                                             data-id="{% url 'news:darta-delete' item.id %}"
+                                             class="darta-delete btn btn-transparent bg-white p-0"><i
+                                                 class="fas fa-trash text-danger"></i></button>
+                                     </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block script %}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+<script>
+    $(document).ready(function() {
+        $('#table_dataframe').DataTable({
+            scrollX: true,
+            "ordering": false
+        });
+    });
+    // delete alert
+    // delete alert
+    $(".darta-delete").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data("id"),
+        });
+    });
+</script>
+{% endblock %}

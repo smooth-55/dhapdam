@@ -1,0 +1,59 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/nanogallery2.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/nanogallery2.woff.min.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Photos{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'company:photo' %}" class="link text-theme-light-blue">Photos</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Photos</h5>
+                <div id="nanogallery2" class="mt-3" data-nanogallery2 = '{
+                    "thumbnailHeight":  150,
+                    "thumbnailWidth":   auto}'>
+                    {% if photos_catgeory %} 
+                        {% for item in photos_catgeory %}
+                            {% for element in item.photos_set.all|slice:":1" %}
+                                <a href="" data-ngkind="album" data-ngid="{{item.id}}" data-ngthumb="{{element.image.url}}">{{item.name}}</a>
+                            {% endfor %} 
+                            {% for element in item.photos_set.all %}
+                                <a href="{{element.image.url}}" data-ngid="{{element.id}}" data-ngalbumid="{{item.id}}"  data-ngthumb="{{element.image.url}}">{{element.category}}</a>
+                                {% comment %} <a href="{{photo.image.url}}" data-ngthumb="{{photo.image.url}}">{% if element.name %}ram{% endif %}</a> {% endcomment %} 
+                            {% endfor %} 
+                        {% endfor %}                         
+                    {% endif %}
+                    {% for photo in photos %} 
+                        <a href="{{photo.image.url}}" data-ngthumb="{{photo.image.url}}">
+                        {% if photo.title %}{{photo.title}}{% endif %}
+                        </a> 
+                    {% endfor %} 
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Gallery</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item active"><a href="{% url 'company:photo' %}" class="sidebar-bar__item---link active">Photos</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:video' %}" class="sidebar-bar__item---link">Videos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script src="{% static 'js/jquery.nanogallery2.min.js' %}"></script>
+{% endblock %}

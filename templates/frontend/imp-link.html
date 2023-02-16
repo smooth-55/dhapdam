@@ -1,0 +1,56 @@
+ {% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Important Link{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'company:imp-link' %}" class="link text-theme-light-blue">Important Links</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="col-lg-12 mx-auto">
+            <h5 class="content-title">Important Links</h5>
+            <table id="table_dataframe" class="table" style="width:100%">
+                <thead class="d-none">
+                    <tr>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody class="imp-link">
+                    {% for link in implinks %}
+                    <tr>
+                        <td>
+                            <a traget="_blank" href="{{ link.link }}">{{link.title}}</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block script %}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#table_dataframe').DataTable({
+            // "paging": false,
+            "ordering": false,
+            "info": false,
+            "scrollX": true
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %} {% load google_translate %}
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/custom.min.css' %}" /> {% block static %} {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon-32x32.png' %}" />
+    <title>
+        {% block title %} {% endblock %} | Bagmati Improvement Project
+    </title>
+</head>
+
+<body>
+    {% include 'layout/header.html' %}
+    <main>{% block content %} {% endblock %}</main>
+    {% include 'layout/footer.html' %}
+
+    <!-- login modal -->
+    <div class="modal fade" id="login" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bsa-modal-content">
+                <div class="modal-header bsaModal__header">
+                    <h5 class="bsaModal__header---title">Login with</h5>
+                    <button type="button" class="btn btn-close" data-dismiss="modal">
+                  <i class="fas fa-times"></i>
+                </button>
+                </div>
+                <div class="modal-body bsaModal__body">
+                    <form action="#" class="sign-in-form">
+                        <p class="auth-text">
+                            Log in to get in the moment updates on the things that interest you.
+                        </p>
+
+                        <div class="mb-3">
+                            <label for="" class="bsa-label">Username / Email</label>
+                            <input name="username" placeholder="Username / Email" type="text" class="form-control bsa-input" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="" class="bsa-label">Password</label>
+                            <input name="password" placeholder="*********" type="password" class="form-control bsa-input" />
+                        </div>
+                        <div class="mb-3 text-right">
+                            <a href="#" class="f-12 link text-theme-light-blue font-weight-500">Forgot Password ?</a
+                    >
+                  </div>
+                  <button class="btn btn-secondary-theme btn-block btn-lg">
+                    Login
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script src="{% static 'js/jquery-3.5.1.min.js' %}" ></script>
+        <script src="{% static 'js/popper.min.js' %}" ></script>
+        <script src="{% static 'js/bootstrap.min.js' %}" ></script>
+        <script src="{% static 'js/side_drawer.js' %}" ></script>
+            <script
+            type="text/javascript"
+            src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" defer></script>
+            <script
+            type="text/javascript"
+            src="//translate.google.com/#en/hi/Hello" defer>
+            </script>
+            <script>
+              $('document').ready(function () {
+
+
+// RESTYLE THE DROPDOWN MENU
+$('#google_translate_element').on("click", function () {
+    // Change font family and color
+    $("iframe").contents().find(".goog-te-menu2-item div")
+      .css({
+          'color': '#4d4c4b',
+          'font-family': 'Poppins',
+    });
+    $("iframe").contents().find(".goog-te-menu2-item-selected div")
+    .css({
+        'color': '#004a89',
+        'font-family': 'Poppins',
+        'font-weight': '400'
+    });
+    $("iframe").contents().find(".goog-te-menu2-item div .indicator, .goog-te-menu2-item-selected div .indicator")
+    .css({
+      'display':'none',
+    });
+
+   	// Change menu's padding
+    $("iframe").contents().find('.goog-te-menu2, .goog-te-menu2-item-selected')
+    .css ({
+      'padding':'0px',
+    });
+     // Change hover effects
+     $("iframe").contents().find(".goog-te-menu2-item div").hover(function () {
+            $(this).css('background-color', '#4385F5').find('span.text').css('color', 'white');
+        }, function () {
+            $(this).css('background-color', 'white').find('span.text').css('color', '#544F4B');
+        });
+
+        // Change iframes's size
+        $("iframe").contents().find('.goog-te-menu2').css({
+            'height': '100%',
+            'width': '100%',
+        });
+       // Change the width of the languages
+        $("iframe").contents().find('.goog-te-menu2-item').css('width', '100%');
+        $("iframe").contents().find('td').css('width', '100%');
+  });
+});
+</script>
+            {% block script %} {% endblock %}
+  </body>
+</html>

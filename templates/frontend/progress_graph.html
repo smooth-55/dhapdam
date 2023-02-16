@@ -1,0 +1,213 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Progress{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'company:progress' %}" class="link text-theme-light-blue">Progress</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Annual financial progress</h5>
+                <div id="id_year" class="rounded bsa-custom-table">
+                    <form method="GET" class="row row-cols-lg-auto g-3 align-items-center mb-3" id="graphForm" data-year-url="{% url 'company:graph-ajax' %}" novalidate>
+                        <div class="col-12">
+                            <label for="bsa-label">Select Fiscal Year: </label>
+
+                        </div>
+                        <div class="col-12">
+                            <select id="graph-name" class="notranslate bsa-custom-select form-select">
+                                {% if yrs %}
+                                    {% for year in fiscal %}
+                                        <option value="{{ year.id }}" {% if year.year == yrs.year %}
+                                            selected="selected" {% endif %}>{{ year.year }}</option>
+                                    {% endfor %}
+
+                                {% endif %}
+                                <!--current year -->
+                            </select>
+                        </div>
+                    </form>
+                    <div class="position-relative mb-4">
+                        <canvas id="myChart" height="200"></canvas>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Overall Progress</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'company:progress' %}" class="sidebar-bar__item---link">Table</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:graph' %}"
+                            class="sidebar-bar__item---link active">Annual financial progress</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:overall-graph' %}"
+                            class="sidebar-bar__item---link">Overall physical progress</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script src="{% static 'admin/js/Chart.min.js' %}"></script>
+<script src="{% static 'js/progress-chart.js' %}"></script>
+<script>
+        $(function() {
+            'use strict'
+
+            var ticksStyle = {
+                fontColor: '#495057',
+                fontStyle: 'bold'
+            }
+
+            var mode = 'index'
+            var intersect = true
+
+            var $visitorsChart = $('#myChart')
+            var visitorsChart = new Chart($visitorsChart, {
+                data: {
+                    labels: ['Shrawn', 'Bhadra', 'Ashoj', 'Kartik', 'Mangsir', 'Poush', 'Magh', 'Falgun', 'Chaitra', 'Baisakh', 'Jestha', 'Asar'],
+                    datasets: [{
+                        type: 'line',
+                        data: [{% for overall in total_cost %} {{ overall}}, {% endfor %}],
+                        backgroundColor: 'transparent',
+                        borderColor: '#007bff',
+                        pointBorderColor: '#007bff',
+                        pointBackgroundColor: '#007bff',
+                        fill: false
+                    }, {
+                        type: 'line',
+                        data: [{% for overall in total_cost %} {{ overall}}, {% endfor %}],
+                        backgroundColor: 'tansparent',
+                        borderColor: '#ced4da',
+                        pointBorderColor: '#ced4da',
+                        pointBackgroundColor: '#ced4da',
+                        fill: false
+                            // pointHoverBackgroundColor: '#ced4da',
+                            // pointHoverBorderColor    : '#ced4da'
+                    }],
+                    options: options
+
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+
+                    //percentage calcualtion
+                    hover: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+                    legend: {
+                        display: false
+                    },
+
+                    scales: {
+                        yAxes: [{
+                            // display: false,
+                            gridLines: {
+                                display: true,
+                                lineWidth: '4px',
+                                color: 'rgba(0, 0, 0, .2)',
+                                zeroLineColor: 'transparent'
+                            },
+                            ticks: {
+                                min: 0,
+                                max: 100, // Your absolute max value
+                                
+                            },
+                            
+                        }],
+                        xAxes: [{
+                            display: true,
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: ticksStyle
+                        }]
+                    }
+                }
+            })
+            console.log("vistors",visitorsChart)
+
+            console.log("visitorsChart",typeof(visitorsChart.data.datasets[0].data))
+            
+            $("#graph-name").change(function () {
+                var url = $("#graphForm").attr("data-year-url");  // get the url of the `graph form` view
+                var yearId = $(this).val();  // get the selected year ID from the HTML input
+
+                $.ajax({                       // initialize an AJAX request
+                    url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                    data: {
+                    'yearId': yearId       // add the country id to the GET parameters
+                    },
+                    dataType: "json",
+
+                    
+                    success: function(alldata) {
+
+                        // var ctx = document.getElementById("myChart");
+                        // Extract data from the response
+                        const labels = alldata.data.labels
+                        const dataset = alldata.data.datasets[0].data
+
+                        //reset the current data
+                        visitorsChart.data.datasets[1].data = []
+                        visitorsChart.data.datasets[0].data = []
+
+
+                        // Load new data into the chart
+                        visitorsChart.data.labels = labels;
+                        dataset.forEach(dataset => {
+                            visitorsChart.data.datasets[1].data.push(dataset);
+                            visitorsChart.data.datasets[0].data.push(dataset);
+
+                        });
+                        visitorsChart.update();
+
+                }
+    
+
+    })
+
+
+
+    
+        
+
+
+        //success: function(data) {
+          //   console.log("data",data)
+             //$('#progress-chart').html(jQuery(data).find('#progress-chart').html())
+        //}
+             //sucess message 
+
+        //success: function (data) {   
+          //  console.log("data",data)
+          //$("#id_city").html(data);  
+        //}
+
+      });
+
+    });
+
+</script>
+
+
+
+
+</script>
+{% endblock %}

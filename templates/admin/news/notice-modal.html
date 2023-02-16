@@ -1,0 +1,133 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% block static %}
+
+<link rel="stylesheet" href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}" />
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}" />
+<link rel="stylesheet" href="{% static 'css/cooltipz.min.css' %}" />
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}" /> {%endblock %} {% load widget_tweaks %}
+<!-- title -->
+{% block title %}Notice{% endblock %}
+
+
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Notice</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Notice</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                {% include 'admin/fade_call.html' %}
+                <a class="notice-create btn btn-block btn-success btn-theme-admin rounded-0"
+                    data-id="{% url 'news:notice-create' %}">
+                    Add Notice</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-striped table-bordered" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th width="2%">SN</th>
+                                <th>Image</th>
+                                <th>Content</th>
+                                <th>Display</th>
+                                <th>Files</th>
+                                <th width="12%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in notices %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td class="table-image">
+                                        {% if item.image %}<img src="{{item.image.url}}" alt=""
+                                            class="img-fluid">{% else %}None{% endif %}
+                                </td>
+                                <td>{%if item.content %}{{item.content}}{% endif %}</td>
+                                <td>{%if item.display %}<p>Displayed</p>{% else %}Not Displayed{% endif %}</td>
+
+                                <td>{% if item.files %}<a target="_blank" data-toggle="tooltip" data-placement="bottom" href="{{ item.files.url }}"><i class="fas fa-envelope-open-text text-secondary"></a></i>{% else %}None{% endif %}</td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3">
+                                        <a class="notice-update" data-id="{% url 'news:notice-update' item.pk  %}"
+                                            data-cooltipz-dir="bottom" aria-label="Edit"><i
+                                                class="fas fa-edit text-secondary"></i>
+                                        </a>
+                                    </span>
+                                    <span class="action-icon mr-3">
+                                        <a class="notice-delete" data-id="{% url 'news:notice-delete' item.pk %}"
+                                            data-cooltipz-dir="bottom" aria-label="Edit"><i
+                                                class="fas fa-trash text-danger"></i>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- edit Modal -->
+{% endblock %} {% block script%}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+<script src="{% static 'admin/js/modal/jquery.bootstrap.modal.forms.js' %}"></script>
+<script src="{% static 'admin/js/modal/jquery.bootstrap.modal.forms.min.js' %}"></script>
+<!-- You can alternativeadmin/ly load the minified version -->
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+
+<script>
+    $(document).ready(function () {
+        $("#data-table").DataTable();
+    });
+
+    //create
+    $(".notice-create").each(function () {
+        $(this).modalForm({
+            formURL: $(this).data("id"),
+        });
+    });
+
+    // //update
+    $(".notice-update").each(function () {
+        $(this).modalForm({
+            formURL: $(this).data("id"),
+        });
+    });
+
+    // //delete
+    $(".notice-delete").each(function () {
+        $(this).modalForm({
+            formURL: $(this).data("id"),
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,141 @@
+// color
+:root {
+    --bs-theme-blue: #004a89;
+    --bs-theme-light-blue: #2f6fd0;
+    --bs-theme-red: #c00000;
+    --bs-theme-green: #109d59;
+    --bs-theme-dark: #333333;
+    --bs-theme-medium: #555555;
+    --bs-theme-light: #878282;
+    --bs-border: #ced4da;
+    --bs-fade: #f2f2f2;
+    --bs-title: #102f4a;
+}
+
+.backgroundGrey {
+    background-color: var(--bs-fade);
+}
+
+.bg-theme-green {
+    background-color: var(--bs-theme-green);
+}
+
+.bg-theme-light-blue {
+    background-color: var(--bs-theme-light-blue);
+}
+
+.text-theme-blue {
+    color: var(--bs-theme-blue);
+}
+
+.text-theme-light-blue {
+    color: var(--bs-theme-light-blue);
+}
+
+.text-theme-red {
+    color: var(--bs-theme-red);
+}
+
+.text-theme-green {
+    color: var(--bs-theme-green);
+}
+
+.text-light {
+    color: var(--bs-theme-light);
+}
+
+.text-medium {
+    color: var(--bs-theme-medium);
+}
+
+.text-dark {
+    color: var(--bs-theme-dark);
+}
+
+.f-normal {
+    font-size: 1rem;
+}
+
+.f-12 {
+    font-size: 0.75rem;
+}
+
+.f-13 {
+    font-size: 0.8125rem;
+}
+
+.f-14 {
+    font-size: 0.875rem;
+}
+
+.font-weight-400 {
+    font-weight: 400;
+}
+
+.font-weight-500 {
+    font-weight: 500;
+}
+
+.pad-top-bot {
+    padding: 2rem 0;
+}
+
+//grid break points
+$grid-breakpoints: ( xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px, xxl:1400px, xga: 1600px, fhd: 1920px);
+$container-max-widths: ( sm: 540px, md: 720px, lg: 960px, xl: 1140px, xxl: 1320px, xga: 1530px, fhd: 1830px);
+// 
+.col-xga-1,
+.col-fhd-1,
+.col-xga-2,
+.col-fhd-2,
+.col-xga-3,
+.col-fhd-3,
+.col-xga-4,
+.col-fhd-4,
+.col-xga-5,
+.col-fhd-5,
+.col-xga-6,
+.col-fhd-6,
+.col-xga-7,
+.col-fhd-7,
+.col-xga-8,
+.col-fhd-8,
+.col-xga-9,
+.col-fhd-9,
+.col-xga-10,
+.col-fhd-10,
+.col-xga-11,
+.col-fhd-11,
+.col-xga-12,
+.col-fhd-12 {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+// Ratios for typography
+$double-octave: 4;
+$pi: 3.14159265359;
+$major-twelfth: 3;
+$major-eleventh: 2.666666667;
+$major-tenth: 2.5;
+$octave: 2;
+$major-seventh: 1.875;
+$minor-seventh: 1.777777778;
+$major-sixth: 1.666666667;
+$phi: 1.618034;
+$golden: $phi;
+$minor-sixth: 1.6;
+$fifth: 1.5;
+$augmented-fourth: 1.41421;
+$fourth: 1.333333333;
+$major-third: 1.25;
+$minor-third: 1.2;
+$major-second: 1.125;
+$minor-second: 1.066666667;
+// Base config
+$ms-base: 1em !default;
+$ms-ratio: $fifth !default;
+$modularscale: () !default;

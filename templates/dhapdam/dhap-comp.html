@@ -1,0 +1,85 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Dhap Dam{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'contracts:dhap-work-components' %}" class="link text-theme-light-blue">Dhap Dam / Work Components</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Major Work Components</h5>
+                <ul class="about__content---list">
+                     <li class="nested">
+                        <a data-toggle="collapse" href="#md" role="button">Main Dam</a>
+                        <div class="collapse" id="md">
+                            <ol class="about__content---list">
+                            {% for work_com in work_components_main_dam %}
+                                <li><a href="{% url 'contracts:dhap-work-components-detail' work_com.id %}" class="link text-theme-blue" target="_blank">{{work_com.title}}</a></li>
+                            {% endfor %}
+
+                        </ol>
+                        </div>
+                    </li>
+                    <li class="nested">
+                        <a data-toggle="collapse" href="#sd" role="button">Saddle Dam</a>
+                        <div class="collapse" id="sd">
+                            <ol class="about__content---list">
+                                {% for work_com in work_components_saddle_dam %}
+                                    <li><a href="{% url 'contracts:dhap-work-components-detail' work_com.id %}" class="link text-theme-blue" target="_blank">{{work_com.title}}</a></li>
+                                {% endfor %}
+
+                            </ol>
+                        </div>
+                    </li>
+                </ul>
+                {% comment %} {% for item in work_components %}
+                <h5 class="content-title">Major Work Components</h5>
+                <div class="about__content">
+                    <ul class="about__content---list">
+                        <li class="nested">
+                            {{ item.title|safe }}
+                            {% if item.sub_major_work_components %}
+                                {% for i in item.sub_major_work_components.all %}
+                                    <ul class="about__content---list">
+                                        <li class="sub-nested">{{i.title}}</li>
+                                    </ul>
+                                {% endfor %}
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+                <div class="about__image">
+                    {% if item.image %}<img src="{{item.image.url}}" class="img-fluid" alt="">{% endif %}
+                </div>
+                {% endfor %} {% endcomment %}
+            </div>
+            
+
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Dham Dam</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-dam' %}" class="sidebar-bar__item---link">Introduction</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-features' %}" class="sidebar-bar__item---link">Salient features of Dam</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-location' %}" class="sidebar-bar__item---link">Location and Accessibility</a></li>
+                        <li class="sidebar-bar__item active"><a href="{% url 'contracts:dhap-work-components' %}" class="sidebar-bar__item---link active">Major Work Components</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-contract' %}" class="sidebar-bar__item---link">Contract Details</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-design' %}" class="sidebar-bar__item---link">Design and Quality Aspects</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-environmental' %}" class="sidebar-bar__item---link">Environmental Aspects</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-maps' %}" class="sidebar-bar__item---link">Dhap Dam Maps</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

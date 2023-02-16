@@ -1,0 +1,151 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% load widget_tweaks %}
+{% block static %}
+    <link rel="stylesheet" href="{% static 'css/nepali.datepicker.v3.7.min.css' %}">
+{% endblock %}
+
+<!-- title -->
+{% block title %}Employee{% endblock %}
+
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Edit Ex Project Head</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'company:ex-project-list' %}">Ex Project Head</a></li>
+                    <li class="breadcrumb-item active">Edit Ex Project Head</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="form-title">Personal Information</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Name<span class="text-danger">*</span></label> {% render_field form.full_name class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.full_name.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Phone<span class="text-danger">*</span></label> {% render_field form.phone class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.phone.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 file-input-block">
+                                <label class="tractor-label d-block">Images<span class="text-danger">*</span></label>
+                                <div class="upt-custom-file">
+                                    <div class="bg-white"></div>
+                                    <div class="edit-custom"> {% render_field form.image class="form-control career-file" %}
+                                        <input type="text" class="career-text form-control bsa-file">
+                                    </div>
+                                </div>
+                                <div class="text-danger">{{ form.image.errors }}</div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Temporary Address</label> {% render_field form.temporary_address class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.temporary_address.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Permanent Address<span class="text-danger">*</span></label> {% render_field form.permanent_address class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.permanent_address.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Joined Date<span class="text-danger">*</span></label> {% render_field form.date_joined class="form-control bsa-input nepali-datepicker" placeholder="dd/mm/yyyy" %}
+                                    <div class="text-danger">{{ form.date_joined.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3" id="leave_data">
+                                    <label class="tractor-label">Leave Date<span class="text-danger">*</span></label> {% render_field form.leave_date class="form-control bsa-input nepali-datepicker"  placeholder="dd/mm/yyyy" %}
+                                    {% if form.non_field_errors %}<div class="text-danger">{{ form.non_field_errors }}</div>{% endif %}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">User Information</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Designation<span class="text-danger">*</span></label> {% render_field form.designation class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.designation.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Email</label> {% render_field form.email class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.email.errors }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" href="" class="btn btn-success btn-theme-admin rounded-0">Update Ex Project Head</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} {% block script %}
+<script src="{% static 'js/nepali.datepicker.v3.7.min.js' %}"></script>
+
+<script>
+    $('#checkboxes').on('click', ':checkbox', function(e) {
+        $('#checkboxes :checkbox').each(function() {
+            if (this != e.target)
+                $(this).prop('checked', false);
+            else
+                $(this).prop('checked', true);
+
+        });
+    });
+    // input-file-image
+    $('.upt-custom-file input[type="file"]').change(function(e) {
+        $(this).siblings('input[type="text"]').val(e.target.files[0].name);
+        $('.edit-custom a').hide()
+    })
+
+
+    window.onload = function() {
+        var mainInput = document.getElementsByClassName("nepali-datepicker");
+        mainInput.nepaliDatePicker({
+            dateFormat: "DD/MM/YYYY"
+        });
+    };
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %}{% load widget_tweaks %}
+<!-- title -->
+{% block title %}Contract{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Edit Contract Progress</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'company:contract-progress' %}">Contract Progress</a>
+                    </li>
+                    <li class="breadcrumb-item active">Add Contract Progress</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="form-title">Contract Information</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Project Name</label> {% render_field form.contract class="form-control tractor-input" rows="4" %}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">Financial</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Financial Progress Amount</label> {% render_field form.financial_progress_amount class="form-control tractor-input" %}
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Last payment Date</label> {% render_field form.financial_progress_date class="form-control tractor-input" %}
+
+
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <h6 class="form-title">Physical</h6>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Physical Progress Percent</label> {% render_field form.physical_percent_amount class="form-control tractor-input" %}
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Physical Progress Date</label> {% render_field form.physical_progress_date class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">Other Information</h6>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Remarks</label> {% render_field form.remarks class="form-control tractor-input" %}
+                                    <!-- tractor-textarea -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <input class="btn btn-success btn-theme-admin rounded-0" type="submit" value="Update Contract Progress" />
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

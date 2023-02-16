@@ -1,0 +1,99 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Ex Employee{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'users:ex-employee' %}" class="link text-theme-light-blue">Ex Employee
+                    Detail</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12 ">
+                <h5 class="content-title">Ex Employee Details</h5>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive bsa-responsive-table p-3">
+
+                            <table id="table_dataframe" class="table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th width="2%">S.No</th>
+                                        <th width="8%">Photo</th>
+                                        <th width="18%">Name</th>
+                                        <th width="15%">Designation</th>
+                                        <th width="8%">Phone</th>
+                                        <th width="12%">Email</th>
+                                        <th width="15%">Temporary Address</th>
+                                        <th width="15%">Permanment Address</th>
+                                        <th width="12%">Join Date</th>
+                                        <th width="12%">Leave Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for user in ex_employees %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        {% if user.image %}
+                                        <td><img src="{{ user.image.url }}" alt="" width="80" class="img-fluid border">
+                                        </td>{% endif %}
+                                        <td>{{ user.full_name }}</td>
+                                        <td><span class="badge bg-theme-light-blue f-13 font-weight-400">{% if user.designation %}{{ user.designation }}{% else %} None {% endif %}</span>
+                                        </td>
+                                        <td><span class="badge bg-theme-green f-13 font-weight-400">{{ user.phone }}</span>
+                                        </td>
+                                        <td>{% if user.email %}{{user.email}}{% else %}--{% endif %}</td>
+                                        <td>{{user.temporary_address}}</td>
+                                        <td>{{user.permanent_address}}</td>
+                                        <td><span class="badge bg-secondary f-13 font-weight-400">{{ user.date_joined }}</span>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-secondary f-14 font-weight-400">{% if user.leave_date %}{{user.leave_date}}{% else %}working{% endif %}</span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 ">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">About Us</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'company:about' %}" class="sidebar-bar__item---link">Introduction</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:structure' %}" class="sidebar-bar__item---link">Organization Structure</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:citizen-charter' %}" class="sidebar-bar__item---link">Citizen Charter</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'users:employee-detail' %}" class="sidebar-bar__item---link">Employee Details</a></li>
+                        <li class="sidebar-bar__item active"><a href="{% url 'users:ex-employee' %}" class="sidebar-bar__item---link active">Ex Employess</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'users:ex-projecthead' %}" class="sidebar-bar__item---link">Ex Project Heads</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#table_dataframe').DataTable({
+            "scrollX": true
+        });
+    });
+</script>
+{% endblock %}

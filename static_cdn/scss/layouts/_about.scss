@@ -1,0 +1,325 @@
+// about
+.tabBlock__navContainer {
+    border: 1px solid var(--bs-theme-blue);
+}
+
+.customNavtab {
+    border-bottom: 2px solid #eee;
+    .nav-item {
+        border-right: 1px solid #bfbfbf;
+        &:last-child {
+            border-right: 0;
+        }
+    }
+    .nav-link {
+        border: 0;
+        border-bottom: 2px solid #eee;
+        border-radius: 0;
+        color: var(--bs-theme-medium);
+        font-weight: 400;
+        background-color: var(--bs-fade);
+        &:hover,
+        &:focus {
+            border-color: var(--bs-theme-green);
+        }
+        &.active {
+            border-bottom: 2px solid var(--bs-theme-blue);
+            background-color: var(--bs-theme-blue);
+            color: white
+        }
+    }
+}
+
+.about-tab-content {
+    padding: 1rem;
+    border-radius: 0 0 4px 4px;
+    p {
+        color: var(--bs-theme-medium);
+        font-size: 0.875rem;
+        line-height: 1.6;
+    }
+}
+
+.content-title {
+    color: var(--bs-title);
+    padding: 0 0 12px;
+    margin: 0 0 12px;
+    position: relative;
+    font-weight: 700;
+    line-height: 28px;
+}
+
+.content-title::before {
+    content: "";
+    height: 4px;
+    width: 55px;
+    background: var(--bs-theme-green);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.content-para {
+    text-indent: 55px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--bs-theme-medium);
+}
+
+.about {
+    &__content {
+        &---para,
+        p {
+            line-height: 1.6;
+            font-size: 0.9375rem;
+            color: var(--bs-theme-medium);
+            margin-bottom: 0.75rem;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        &---para {
+            ul {
+                position: relative;
+                li {
+                    padding: .5rem 0 .5rem 1.5rem;
+                    font-size: 0.875rem;
+                    padding-left: 1.5rem;
+                    color: var(--bs-theme-medium);
+                    &::before {
+                        position: absolute;
+                        left: 0;
+                        content: '\f101';
+                        font-family: 'Font Awesome 5 Free';
+                        font-size: inherit;
+                        text-rendering: auto;
+                        font-weight: 900;
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                    }
+                    ul {
+                        position: relative;
+                        li {
+                            &::before {
+                                position: absolute;
+                                left: 0;
+                                content: '\f105';
+                                font-family: 'Font Awesome 5 Free';
+                                font-size: inherit;
+                                text-rendering: auto;
+                                font-weight: 900;
+                                -webkit-font-smoothing: antialiased;
+                                -moz-osx-font-smoothing: grayscale;
+                            }
+                        }
+                    }
+                }
+            }
+            ol {
+                position: relative;
+                li {
+                    padding: .5rem 0 .5rem .5rem;
+                    font-size: 0.875rem;
+                    color: var(--bs-theme-medium);
+                    &::before {
+                        position: absolute;
+                        left: 0;
+                        content: '';
+                    }
+                }
+            }
+        }
+        a {
+            font-size: 0.9375rem;
+            color: var(--bs-theme-blue);
+            &:hover,
+            &:focus {
+                text-decoration: underline;
+            }
+        }
+        &---list {
+            position: relative;
+            li {
+                padding: .5rem 0 .5rem 1.5rem;
+                font-size: 0.875rem;
+                padding-left: 1.5rem;
+                color: var(--bs-theme-medium);
+            }
+            .nested {
+                color: var(--bs-theme-dark);
+                &::before {
+                    position: absolute;
+                    left: 0;
+                    content: '\f101';
+                    font-family: 'Font Awesome 5 Free';
+                    font-size: inherit;
+                    text-rendering: auto;
+                    font-weight: 900;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                }
+            }
+            .sub-nested {
+                &::before {
+                    position: absolute;
+                    left: 0;
+                    content: '\f105';
+                    font-family: 'Font Awesome 5 Free';
+                    font-size: inherit;
+                    text-rendering: auto;
+                    font-weight: 900;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                }
+            }
+        }
+        ul {
+            position: relative;
+            li {
+                padding: .5rem 0 .5rem 1.5rem;
+                font-size: 0.875rem;
+                padding-left: 1.5rem;
+                color: var(--bs-theme-medium);
+                &::before {
+                    position: absolute;
+                    left: 0;
+                    content: '\f101';
+                    font-family: 'Font Awesome 5 Free';
+                    font-size: inherit;
+                    text-rendering: auto;
+                    font-weight: 900;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                }
+                ul {
+                    position: relative;
+                    li {
+                        &::before {
+                            position: absolute;
+                            left: 0;
+                            content: '\f105';
+                            font-family: 'Font Awesome 5 Free';
+                            font-size: inherit;
+                            text-rendering: auto;
+                            font-weight: 900;
+                            -webkit-font-smoothing: antialiased;
+                            -moz-osx-font-smoothing: grayscale;
+                        }
+                    }
+                }
+            }
+        }
+        ol {
+            position: relative;
+            li {
+                padding: .5rem 0 .5rem .5rem;
+                font-size: 0.875rem;
+                color: var(--bs-theme-medium);
+                &::before {
+                    position: absolute;
+                    left: 0;
+                    content: '';
+                }
+            }
+        }
+    }
+    &__image {
+        max-height: 350px;
+        overflow: hidden;
+        img {
+            width: 80%;
+            max-height: 350px;
+            object-position: center;
+            object-fit: cover;
+        }
+    }
+    h6 {
+        color: var(--bs-theme-dark);
+        margin: 1.5rem 0 0.5rem;
+        font-weight: 600;
+    }
+}
+
+.content-wrap {
+    .img-para {
+        img {
+            float: right;
+            width: 50%;
+            height: auto;
+            max-height: 220px;
+            object-fit: cover;
+            object-position: center;
+            margin: 0 0 .5rem .5rem;
+        }
+        .message-img {
+            float: left;
+            width: 15%;
+            margin: 0 1rem .5rem 0;
+        }
+    }
+}
+
+.sidebar-sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.sidebar-tab {
+    padding: 1rem;
+    box-shadow: -1px 1px 20px 6px rgba(204, 204, 204, .5);
+    &__title {
+        padding-left: 0.75rem;
+        border-left: 3px solid var(--bs-theme-green);
+        margin-bottom: 1rem;
+        color: var(--bs-title);
+    }
+    .sidebar-bar {
+        &__item {
+            border-bottom: 1px dotted var(--bs-border);
+            padding: 0.5rem;
+            transition: all 0.4s ease-in-out;
+            &---link {
+                font-size: 14px;
+                color: var(--bs-theme-medium);
+                position: relative;
+                &::after {
+                    position: absolute;
+                    top: 10%;
+                    content: '\f061';
+                    font-family: 'Font Awesome 5 Free';
+                    font-size: inherit;
+                    text-rendering: auto;
+                    font-weight: 900;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    right: -1rem;
+                    opacity: 0;
+                    transition: all 0.4s ease-in-out;
+                }
+                &:hover,
+                &:focus,
+                &:active,
+                &.active {
+                    color: var(--bs-theme-blue);
+                    &::after {
+                        opacity: 1;
+                        right: -2rem;
+                    }
+                }
+            }
+            &:hover,
+            &:focus,
+            &:active,
+            &.active {
+                transform: translateX(-.5rem);
+            }
+        }
+    }
+}
+
+@media(max-width:768px) {
+    .sidebar-tab {
+        margin-top: 1.5rem;
+    }
+}

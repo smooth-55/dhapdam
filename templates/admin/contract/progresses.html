@@ -1,0 +1,161 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %}
+
+ {% block static %}
+<link rel="stylesheet" href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}" />
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}" />
+<link rel="stylesheet" href="{% static 'css/cooltipz.min.css' %}" />
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}" /> {%endblock %}
+<!-- title -->
+{% block title %}Contract{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Contract Progress</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Contract Progress</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                {% include 'admin/fade_call.html' %}
+                <a href="{% url 'contracts:contract-progress-add' %}" class="btn btn-block btn-success btn-theme-admin rounded-0">Add Contract Progress</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-striped table-bordered" style="width: 100%">
+                        <thead>
+                            <tr>
+                                <th width="2%" rowspan="2">SN</th>
+                                <th rowspan="2">Contract</th>
+                                <th rowspan="2">Name of work </th>
+                                <th rowspan="2">Contract ID</th>
+                                <th rowspan="2">Name of Contractor</th>
+                                <th rowspan="2">Contract Amount Rs</th>
+                                <th rowspan="2">Date of Agreement</th>
+                                <th rowspan="2">Date of completion as per Agreement</th>
+                                <th rowspan="2">Revised Date of Completion</th>
+                                <th colspan="3" class="border-bottom text-center">Time</th>
+                                <th colspan="3" class="border-bottom text-center">
+                                    Financial Progress
+                                </th>
+                                {% comment %}
+                                <th rowspan="2">Last Payment Date</th> {% endcomment %}
+                                <th colspan="2" class="border-bottom text-center">Physical Progress</th>
+                                <th rowspan="2">Progress Status</th>
+                                <th rowspan="2">Remarks</th>
+                                <th width="12%" rowspan="2">Action</th>
+                            </tr>
+                            <tr>
+                                <th>Extended based on Original Schedule %</th>
+                                <th>Elapsed based on Revised Schedule </th>
+                                <th>Remaining based on Extended Schedule(Days)</th>
+                                <th>Amount Rs</th>
+                                <th>Percent</th>
+                                <th>Last Payment Date</th>
+                                <th>Percent</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {% for item in contract_progress %}
+                            <tr>
+                                <td class="text-center">{{forloop.counter}}</td>
+                                <td>
+                                    <span class="badge bg-theme-green f-13 font-weight-400 text-white">{{item.contract.project_name}}</span>
+                                </td>
+                                <td>{{item.contract.work_name}}</td>
+                                <td>{{item.contract.contract_id}}</td>
+                                <td>{{item.contract.contractor_detail}}</td>
+                                <td>{{item.contract.amount}}</td>
+                                <td>{{item.contract.date_of_agreement}}</td>
+                                <td>{{item.contract.date_of_completion}}</td>
+                                <td>
+                                    {% if item.contract.date_of_completion_revised %} {{ item.contract.date_of_completion_revised }} {% endif %}
+                                </td>
+                                <!-- <td>{{item.contract.date_of_completion_revised}}</td> -->
+                                {% if item.time_extended_on_original_schedule > 100 %}
+                                    <td style="background-color:#ffc7ce;color:black;">{{item.time_extended_on_original_schedule|floatformat:2 }}</td>
+                                {% elif item.time_extended_on_original_schedule <= 100 %}
+                                    <td style="background-color: #c9ffd5;color: #28a745;">{{item.time_extended_on_original_schedule|floatformat:2 }}</td>
+                                {% endif %}
+                                <!-- <td style="background-color: #c9ffd5;color: #28a745;">{{item.time_extended_on_original_schedule}}</td> -->
+                                <td>{{item.time_elapsed_on_revise_schedule|floatformat:2 }}</td>
+                                <td>{{item.time_remaining_on_extended_schedule|floatformat:0}}</td>
+                                <td>{{item.financial_progress_amount}}</td>
+                                <td>{{item.financial_percent_amount|floatformat:0}}%</td>
+                                <td>{{item.financial_progress_date}}</td>
+                                <td>{{item.physical_percent_amount}}</td>
+                                <td>{{item.physical_progress_date}}</td>
+                                {% if item.physical_percent_amount < item.time_elapsed_on_revise_schedule %}
+                                   <td style="background-color:#ffc7ce;color:#9c0006;">
+                                   Laging behind
+                                   </td>
+
+                                {% else %}    
+                                    <td style="background-color: #c9ffd5;color: #28a745;"">Before Schedule</td> 
+
+
+                                {% endif %}
+                                <td>    
+                                {% if item.remarks %}{{item.remarks}}{% endif %}</td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3"><a href="{% url 'contracts:contract-progress-update' item.pk %}"
+                    data-cooltipz-dir="bottom" aria-label="Edit"><i class="fas fa-edit text-secondary"></i></a></span>
+                                    <span class="action-icon"><a class="contract-progress-delete"
+                    data-id="{% url 'contracts:contract-progress-delete' item.pk%}" data-cooltipz-dir="bottom"
+                    aria-label="Delete">
+                    <i class="fas fa-trash text-danger"></i></a></span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block script%}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+{% include 'admin/django_bootstrap_js.html' %}
+<script>
+    $(document).ready(function() {
+        $("#data-table").DataTable({
+
+            "scrollX": true,
+        });
+    });
+    // delete alert
+    //delete
+    $(".contract-progress-delete").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data("id"),
+        });
+    });
+</script>
+{% endblock %}

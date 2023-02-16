@@ -1,0 +1,59 @@
+.social-link {
+    margin-bottom: 1rem;
+}
+
+.facebook,
+.twitter,
+.google {
+    color: #fff;
+    font-size: 18px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    line-height: 18px;
+    cursor: pointer;
+    align-items: center;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.15);
+}
+
+.facebook:hover,
+.twitter:hover,
+.google:hover {
+    box-shadow: none;
+}
+
+.facebook {
+    background-color: #3b5998;
+}
+
+.twitter {
+    background-color: #1DA1F2;
+}
+
+.google {
+    background-color: #3e3e3e;
+}
+
+.line {
+    height: 1px;
+    width: 45%;
+    background-color: #E0E0E0;
+    margin-top: 10px;
+    margin-bottom: 32px;
+}
+
+.or {
+    width: 10%;
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #878787;
+}
+
+.auth-text {
+    color: var(--bs-theme-light);
+    font-size: 14px;
+    margin-bottom: 1.5rem;
+}

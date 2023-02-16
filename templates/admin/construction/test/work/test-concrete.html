@@ -1,0 +1,267 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link
+  rel="stylesheet"
+  href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}"
+/>
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}" />
+<link rel="stylesheet" href="{% static 'css/cooltipz.min.css' %}" />
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}" />
+{%endblock %}{% load widget_tweaks %}
+<!-- title -->
+{% block title %}Construction{% endblock %}
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'admin/js/modal/jquery.bootstrap.modal.forms.js' %}"></script>
+<script src="{% static 'admin/js/modal/jquery.bootstrap.modal.forms.min.js' %}"></script>
+
+<!-- content -->
+{% block content %}
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h5 class="content-title">Concrete Tests</h5>
+      </div>
+      <!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Concrete Tests</li>
+        </ol>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</div>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row mb-3">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        {% include 'admin/fade_call.html' %}
+        <a
+          href=""
+          data-toggle="modal"
+          data-target="#addtestModal"
+          class="btn btn-block btn-success btn-theme-admin rounded-0"
+          >Add Concrete Tests</a
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-sm-12">
+        <div class="table-responsive">
+          <table
+            id="data-table"
+            class="table table-striped table-bordered"
+            style="width: 100%"
+          >
+            <thead>
+              <tr>
+                <th width="2%">SN</th>
+                <th>Name of Test</th>
+                <th>No. of Test</th>
+                <th>Test Standard</th>
+                <th>Remarks</th>
+                <th width="12%">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for test in tests %}
+              <tr>
+                <td class="text-center">{{forloop.counter}}</td>
+                <td>{{test.name_of_test}}</td>
+                <td>{{test.no_of_test}}</td>
+                <td>{{test.test_standard}}</td>
+                <td>{{test.remarks}}</td>
+                <td class="text-center">
+                  <span class="action-icon mr-3"
+                    ><a
+                      class="test-edit"
+                      data-id="{% url 'concrete-test-update' test.id %}"
+                      data-cooltipz-dir="bottom"
+                      aria-label="Edit"
+                      ><i class="fas fa-edit text-secondary"></i></a
+                  ></span>
+                  <span class="action-icon mr-3"
+                    ><button
+                      data-cooltipz-dir="bottom"
+                      aria-label="Delete"
+                      data-id="{% url 'concrete-test-delete' test.id %}"
+                      class="test-delete btn btn-transparent bg-white p-0"
+                    >
+                      <i class="fas fa-trash text-danger"></i></button
+                  ></span>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-12">
+        <div class="sidebar-tab sidebar-sticky-top mb-3">
+          <h5 class="sidebar-tab__title">Work Tests</h5>
+          <ul class="sidebar-bar">
+            <li class="sidebar-bar__item active">
+              <a
+                href="{% url 'concrete-test-list' %}"
+                class="sidebar-bar__item---link active"
+                >Concrete Tests</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'compaction-test-list' %}"
+                class="sidebar-bar__item---link"
+                >Compaction Tests</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'grouting-test-list' %}"
+                class="sidebar-bar__item---link"
+                >Grouting Tests</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'copper-test-list' %}"
+                class="sidebar-bar__item---link"
+                >Copper Water Stopper Tests</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'permeability-test-list' %}"
+                class="sidebar-bar__item---link"
+                >Permeability Test</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'geophysical-test-list' %}"
+                class="sidebar-bar__item---link"
+                >Geophysical Investigation</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'core-drill-list' %}"
+                class="sidebar-bar__item---link"
+                >Core Drill Test</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- add Modal -->
+<div
+  class="modal fade"
+  id="addtestModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header tractorModal__header">
+        <h5
+          class="modal-title tractorModal__header---title"
+          id="exampleModalLabel"
+        >
+          Add Concrete Tests
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body tractorModal__body">
+        <form
+          method="post"
+          action="/admin/construction/work/concrete-test/add"
+          enctype="multipart/form-data"
+        >
+          {% csrf_token%}
+          <div class="form-group mb-3">
+            <label for="" class="tractor-label">Name of Test</label>
+            <input
+              type="text"
+              class="form-control tractor-input"
+              name="name_of_test"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="" class="tractor-label">Number of Test</label>
+            <input
+              type="number"
+              class="form-control tractor-input"
+              name="no_of_test"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="" class="tractor-label">Test Standard</label>
+            <input
+              type="text"
+              class="form-control tractor-input"
+              name="test_standard"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="" class="tractor-label">Remarks</label>
+            <textarea
+              rows="3"
+              class="form-control tractor-textarea"
+              name="remarks"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-block btn-success btn-theme-admin rounded-0"
+          >
+            Add Concrete Tests
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block script%}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+<script>
+  $(document).ready(function () {
+    $("#data-table").DataTable();
+  });
+  //update
+  $(".test-edit").each(function () {
+    $(this).modalForm({
+      formURL: $(this).data("id"),
+    });
+  });
+  // delete alert
+  $(".test-delete").each(function () {
+    $(this).modalForm({
+      formURL: $(this).data("id"),
+    });
+  });
+</script>
+{% endblock %}

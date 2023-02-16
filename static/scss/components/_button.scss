@@ -1,0 +1,136 @@
+.btn {
+    font-size: 0.8375rem;
+    font-weight: 400;
+    padding: 0.5rem 0.75rem;
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .15);
+    border: 0;
+    transition: all 0.3 ease-in-out;
+    &:focus,
+    &:hover {
+        box-shadow: none;
+        outline: 0;
+    }
+}
+
+.btn-w-3 {
+    width: 300px;
+}
+
+.btn-w-sm {
+    width: 200px;
+}
+
+@media (max-width:575px) {
+    .btn-w-3 {
+        width: auto;
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+    .btn-w-sm {
+        width: auto;
+    }
+}
+
+.btn-sm {
+    padding: 0.25rem 0.75rem;
+}
+
+.btn-theme {
+    color: white;
+    background-color: var(--bs-theme-blue);
+    &:hover,
+    &:focus,
+    &:active {
+        //background-color: darken('var(--bs-theme-blue)', 5%);
+        color: white;
+        cursor: pointer;
+    }
+}
+
+.btn-light-blue {
+    color: white;
+    background-color: var(--bs-theme-light-blue);
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: var(--bs-theme-blue);
+        color: white;
+        cursor: pointer;
+    }
+}
+
+.btn-next-outline {
+    padding: 0.25rem 1rem;
+    color: var(--bs-theme-dark);
+    border: 1px solid var(--bs-border);
+    &:hover,
+    &:active,
+    &:focus {
+        background: #fafafa;
+        box-shadow: 0 0px 3px 0 rgba(0, 0, 0, .1);
+    }
+}
+
+.btn-lg {
+    padding: 0.5rem 0.75rem;
+}
+
+.link {
+    &:hover {
+        text-decoration: underline;
+        color: var(--bs-theme-light-blue);
+    }
+}
+
+.link-white {
+    &:hover {
+        text-decoration: underline;
+        color: white;
+    }
+}
+
+.btn-secondary-theme {
+    background-color: var(--bs-theme-green);
+    color: white;
+    transition: all 0.3s ease-in-out;
+    &:focus,
+    &:hover,
+    &:active {
+        background-color: darken(#109d59, 12%);
+        color: white;
+    }
+}
+
+.btn-outline-secondary-theme {
+    border: 2px solid var(--bs-theme-green);
+    color: var(--bs-theme-green);
+    transition: all 0.3s ease-in-out;
+    &:focus,
+    &:hover,
+    &:active {
+        background-color: var(--bs-theme-green);
+        color: white;
+    }
+}
+
+.btn-outline-white {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    transition: all 0.3s ease-in-out;
+    &:hover,
+    &:active,
+    &:focus {
+        background-color: white;
+        color: --bs-theme-medium;
+    }
+}
+
+.btn-large {
+    padding: .75rem;
+    font-size: 1rem;
+}
+
+.pad-tb-12 {
+    padding: 0.75rem;
+}

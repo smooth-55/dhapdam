@@ -1,0 +1,100 @@
+{% extends '../../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}"> {% endblock %}
+<!-- title -->
+
+{% block title %}Administration{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'news:darta-chalani' %}" class="link text-theme-light-blue">Darta Chalani</a>/ <a
+                    href="{% url 'news:c-upload-file' %}" class="link text-theme-light-blue">Upload File</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="col-lg-12 mx-auto">
+            <h5 class="content-title">File Upload</h5>
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive bsa-responsive-table p-3">
+                        <div class="row mb-3">
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                                {% include 'admin/fade_call.html' %}
+                                <a href="{% url 'news:c-add-file' %}" class="btn btn-secondary-theme btn-block">Add
+                                    File</a>
+                            </div>
+                        </div>
+                        <table id="table_dataframe" class="table table-bordered administration-table" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th width="2%">SN</th>
+                                    <th width="10%">Fiscal Year</th>
+                                    <th width="30%">Title</th>
+                                    <th width="25%">Uploaded File</th>
+                                    <th width="10%">Size</th>
+                                    <th width="16%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in files %}
+                                <tr>
+                                    <td class="text-center">{{forloop.counter}}</td>
+                                    <td>{{item.fiscal_year}}</td>
+                                    <td class="dwn-title">{% if item.title %}{{item.title}}{% else %}--{% endif %}</td>
+                                    <td class="table-image">{% if item.files %}<a href="{{item.files.url}}">{{item.files.name|slice:"41:"}}</a>{% else %}--{% endif %}</td>
+                                    <td>{% if item.files %}{{item.files.size|filesizeformat}}{% endif %}</td>
+                                    <td class="text-center">
+                                        <span class="action-icon mr-3"><a href="{{item.files.url}}" target="_blank"
+                                                data-toggle="tooltip" data-placement="bottom" title="Open"><i
+                                                    class="fas fa-envelope-open-text text-secondary"></i></a></span>
+                                        <span class="action-icon mr-3"><a class="document-edit"
+                                                href="{% url 'news:c-edit-file' item.pk %}"
+                                                data-cooltipz-dir="bottom" aria-label="Edit"><i
+                                                    class="fas fa-edit text-secondary"></i></a></span>
+                                        <span class="action-icon mr-3"><a class="files-delete"
+                                                data-id="{% url 'news:c-delete-file' item.id %}"
+                                                data-cooltipz-dir="bottom" aria-label="Delete"><i
+                                                    class="fas fa-trash text-danger "></i></a></span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+
+<script>
+    $(document).ready(function() {
+        $('#table_dataframe').DataTable({
+            scrollX: true
+        });
+    });
+    // delete alert
+    $(".files-delete").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data("id"),
+        });
+    });
+</script>
+{% endblock %}

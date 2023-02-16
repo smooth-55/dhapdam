@@ -1,0 +1,26 @@
+{
+    "name": "bagmati-sudhar",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "dependencies": {
+        "chart.js": "^2.9.4",
+        "nanogallery2": "^3.0.5",
+        "node-sass": "^6.0.1"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "compile:scss": "node-sass static/scss/main.scss static/css/main.css -w"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://gitlab.com/git.uptechsys/bagmati-sudhar.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://gitlab.com/git.uptechsys/bagmati-sudhar/issues"
+    },
+    "homepage": "https://gitlab.com/git.uptechsys/bagmati-sudhar#readme"
+}

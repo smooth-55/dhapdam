@@ -1,0 +1,305 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link
+  rel="stylesheet"
+  href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}"
+/>
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}" />
+<link rel="stylesheet" href="{% static 'css/cooltipz.min.css' %}" />
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}" />
+{%endblock %}{% load widget_tweaks %}
+<!-- title -->
+{% block title %}Construction{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+        <h5 class="content-title">Face slab bedding material - 2B</h5>
+      </div>
+      <!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">
+            Face slab bedding material - 2B
+          </li>
+        </ol>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</div>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row mb-3">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        {% include 'admin/fade_call.html' %}
+        <a
+          href=""
+          data-toggle="modal"
+          data-target="#addtestModal"
+          class="btn btn-block btn-success btn-theme-admin rounded-0"
+          >Add Face slab - 2B</a
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8 col-sm-12">
+        <div class="table-responsive">
+          <table
+            id="data-table"
+            class="table table-striped table-bordered"
+            style="width: 100%"
+          >
+            <thead>
+              <tr>
+                <th width="2%">SN</th>
+                <th>Name of Test</th>
+                <th>No. of Test</th>
+                <th>Test Standard</th>
+                <th>Remarks</th>
+                <th width="12%">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for test in tests %}
+              <tr>
+                <td class="text-center">{{forloop.counter}}</td>
+                <td>{{test.name_of_test}}</td>
+                <td>{{test.no_of_test}}</td>
+                <td>{{test.test_standard}}</td>
+                <td>{{test.remarks}}</td>
+                <td class="text-center">
+                  <span class="action-icon mr-3"
+                    ><a
+                      class="test-edit"
+                      data-id="{% url 'face-slab-2b-update' test.id %}"
+                      data-cooltipz-dir="bottom"
+                      aria-label="Edit"
+                      ><i class="fas fa-edit text-secondary"></i></a
+                  ></span>
+                  <span class="action-icon mr-3"
+                    ><button
+                      data-cooltipz-dir="bottom"
+                      aria-label="Delete"
+                      data-id="{% url 'face-slab-2b-delete' test.id %}"
+                      class="test-delete btn btn-transparent bg-white p-0"
+                    >
+                      <i class="fas fa-trash text-danger"></i></button
+                  ></span>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-12">
+        <div class="sidebar-tab sidebar-sticky-top mb-3">
+          <h5 class="sidebar-tab__title">Material Tests</h5>
+          <ul class="sidebar-bar">
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'earth-filling-list' %}"
+                class="sidebar-bar__item---link"
+                >Earth Filling Material, Saddle Dam - 1</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'face-slab-2a-list' %}"
+                class="sidebar-bar__item---link"
+                >Face slab bedding material - 2A
+              </a>
+            </li>
+            <li class="sidebar-bar__item active">
+              <a
+                href="{% url 'face-slab-2b-list' %}"
+                class="sidebar-bar__item---link active"
+                >Face slab bedding material - 2B</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'small-size-rock-list' %}"
+                class="sidebar-bar__item---link"
+                >Small size rock fill (max size 300mm)</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'first-class-rock-list' %}"
+                class="sidebar-bar__item---link"
+                >First class rock fill (max size 600mm)</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'second-class-rock-list' %}"
+                class="sidebar-bar__item---link"
+                >Second class rock fill (max size 1000mm)</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'rock-fill-list' %}"
+                class="sidebar-bar__item---link"
+                >Rock fill</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'concrete-aggregate-40mm-list' %}"
+                class="sidebar-bar__item---link"
+                >Concrete Aggregate (40mm)</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'concrete-aggregate-20mm-list' %}"
+                class="sidebar-bar__item---link"
+                >Concrete Aggregate (20mm)</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'concrete-aggregate-10mm-list' %}"
+                class="sidebar-bar__item---link"
+                >Concrete Aggregate (10mm)</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'fine-aggregate-list' %}"
+                class="sidebar-bar__item---link"
+                >Fine Aggregate</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a href="{% url 'cement-list' %}" class="sidebar-bar__item---link"
+                >Cement</a
+              >
+            </li>
+            <li class="sidebar-bar__item">
+              <a
+                href="{% url 'granular-list' %}"
+                class="sidebar-bar__item---link"
+                >Granular Sub-Base</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- add Modal -->
+<div
+  class="modal fade"
+  id="addtestModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header tractorModal__header">
+        <h5
+          class="modal-title tractorModal__header---title"
+          id="exampleModalLabel"
+        >
+          Add Face slab bedding material - 2B
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body tractorModal__body">
+        <form
+          method="post"
+          action="/admin/construction/material/face-slab-2b/add"
+          enctype="multipart/form-data"
+        >
+          {% csrf_token%}
+          <div class="form-group mb-3">
+            <label for="" class="tractor-label">Name of Test</label>
+            <input
+              type="text"
+              class="form-control tractor-input"
+              name="name_of_test"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="" class="tractor-label">Number of Test</label>
+            <input
+              type="number"
+              class="form-control tractor-input"
+              name="no_of_test"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="" class="tractor-label">Test Standard</label>
+            <input
+              type="text"
+              class="form-control tractor-input"
+              name="test_standard"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="" class="tractor-label">Remarks</label>
+            <textarea
+              rows="3"
+              class="form-control tractor-textarea"
+              name="remarks"
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-block btn-success btn-theme-admin rounded-0"
+          >
+            Add Face slab bedding material - 2B
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- edit Modal -->
+
+{% endblock %} {% block script%}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+<script>
+  $(document).ready(function () {
+    $("#data-table").DataTable();
+  });
+  //update
+  $(".test-edit").each(function () {
+    $(this).modalForm({
+      formURL: $(this).data("id"),
+    });
+  });
+  // delete alert
+  $(".test-delete").each(function () {
+    $(this).modalForm({
+      formURL: $(this).data("id"),
+    });
+  });
+</script>
+{% endblock %}

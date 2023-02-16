@@ -1,0 +1,231 @@
+{% load static %}
+<header>
+    <!-- <div class="top-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="top-header__icon">
+                    <a href="https://www.facebook.com/Dhap-Dam-101437965071634"><i class="fab fa-facebook-f"></i></a>
+                    
+                    <a href="https://www.youtube.com/channel/UCBuRMuYNkpaJS3TqVfquV1A"><i class="fab fa-youtube"></i></a>
+                    
+                </div>
+                <div class="top-header__language">
+                    <div>
+                        <div id="google_translate_element"></div> 
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="header-logo">
+        <div class="container">
+            <div class="header-logoBlock">
+                <!-- top header -->
+                <div class="top-header__icon">
+                    <a href="https://www.facebook.com/Dhap-Dam-101437965071634"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.youtube.com/channel/UCBuRMuYNkpaJS3TqVfquV1A"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="top-header__language">
+                    <div>
+                        <div id="google_translate_element"></div>
+                    </div>
+                    <!-- <div>
+                        <input type="text" class="form-control bsa-input py-0" placeholder="Search Here">
+                    </div> -->
+                </div>
+
+                <div class="header-logoBlock__logo">
+                    <div class="header-logoBlock__logo---bsalogo">
+                        <img src="{% static 'images/np.png' %}" class="img-fluid" alt="" />
+                    </div>
+                </div>
+                <div class="header-logoBlock__title">
+                    <h6>Goverment of Nepal</h6>
+                    <h6>Ministry of Energy, Water Resources & Irrigation</h6>
+                    <h5>Department of Water Resources & Irrigation</h5>
+                    <h4>Bagmati Improvement Project</h4>
+                    <h5>Project Implementation (Irrigation Unit)</h5>
+                    <h6>Guheshwori, Gaurighat, Kathmandu</h6>
+                </div>
+                <div class="header-logoBlock__flag">
+                    <div class="header-logoBlock__flag---np">
+                        <img src="{% static 'images/flag.gif' %}" class="img-fluid" alt="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'layout/mobileMenu.html' %}
+    <!-- desktop view -->
+    <nav class="navbar navbar-expand-lg menuNavbar">
+        <div class="container">
+            <button class="navbar-toggler" type="button" onclick="openSideDrawer()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <div class="menuNavbar__logo">
+                    <i class="fas fa-home"></i>
+                </div>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav menuNavbar__navbar-nav">
+                    <li class="nav-item menuNavbar__item dropdown">
+                        <a class="nav-link menuNavbar__item---link dropdown-toggle" href="#">About Us</a> {% comment %} <a class="notranslate nav-link menuNavbar__item---link dropdown-toggle" href="#" class="notranslate"> 207798181</a> {% endcomment %}
+
+                        <ul class="dropdown-menu fade-up">
+                            <li><a class="dropdown-item" href="{% url 'company:about' %}">Introduction</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:structure' %}">Organization
+                                    Structure</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:citizen-charter' %}">Citizen Charter</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'users:employee-detail' %}">Employee Details</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'users:ex-employee' %}">Ex Employees</a></li>
+                            <li><a class="dropdown-item" href="{% url 'users:ex-projecthead' %}">Ex Project Heads</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item menuNavbar__item dropdown">
+                        <a class="nav-link menuNavbar__item---link dropdown-toggle" href="#">Dhap Dam</a>
+                        <ul class="dropdown-menu fade-up">
+                            <li><a class="dropdown-item" href="{% url 'contracts:dhap-dam' %}">Introduction</a></li>
+                            <li><a class="dropdown-item" href="{% url 'contracts:dhap-features' %}">Sailent Features</a></li>
+                            <li><a class="dropdown-item" href="{% url 'contracts:dhap-location' %}">Location &
+                                    Accessibility</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'contracts:dhap-work-components' %}">Work
+                                    Components</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'contracts:dhap-contract' %}">Contract Details</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'contracts:dhap-design' %}">Design & Quality
+                                    Aspects</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'contracts:dhap-environmental' %}">Environmental
+                                    Aspects</a>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'contracts:dhap-maps' %}">Maps of Dam</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item menuNavbar__item">
+                        <a class="nav-link menuNavbar__item---link" href="{% url 'contracts:c-ongoing' %}">Contract</a>
+                    </li>
+                    <li class="nav-item menuNavbar__item">
+                        <a class="nav-link menuNavbar__item---link" href="{% url 'news:news' %}">News/Notice</a>
+                    </li>
+                    <li class="nav-item menuNavbar__item">
+                        <a class="nav-link menuNavbar__item---link" href="{% url 'company:progress' %}">Progress</a>
+                    </li>
+                    <li class="nav-item menuNavbar__item dropdown">
+                        <a class="nav-link menuNavbar__item---link dropdown-toggle" role="button" data-toggle="dropdown" href="#">Construction</a>
+                        <ul class="dropdown-menu">
+                            <li class="has-menu">
+                                <a class="dropdown-item dropdown-toggle has-menu-toggle" role="button" data-toggle="dropdown" href="">Tests & QA/ QC </a>
+                                <ul class="dropdown-has-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'company:earth-filling' %}">Material Tests</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'company:concrete-test' %}">Work Tests</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'company:documentation-test' %}">Documentation</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="has-menu">
+                                <a class="dropdown-item dropdown-toggle has-menu-toggle" role="button" data-toggle="dropdown" href="">Construction Equipments </a>
+                                <ul class="dropdown-has-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'company:earth-equipment' %}">Earth moving
+                                            & Compaction </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'company:concreting-equipment' %}">Concreting Equipments</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'company:grouting-equipment' %}">Grouting Equipments</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'company:brazing-equipment' %}">Brazing Equipments</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'company:survey-equipment' %}">Concreting Equipments</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'company:lab-equipment' %}">Lab Equipments</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'company:geophysical-equipment' %}">Geophysical Investigation Equipments</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:design-drawing' %}">Designs/Drawings</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:mos' %}">Method of Statements &amp; Reports</a>
+                            </li>
+                            <li class="has-menu">
+                                <a class="dropdown-item dropdown-toggle has-menu-toggle" role="button" data-toggle="dropdown" href="">Footages</a>
+                                <ul class="dropdown-has-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'company:work-footage' %}">Work
+                                            Footages</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'company:test-footage' %}">Test
+                                            Footages</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item menuNavbar__item dropdown">
+                        <a class="nav-link menuNavbar__item---link dropdown-toggle" role="button" data-toggle="dropdown" href="#">Policy/Law</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'company:actreg' %}">Act and Regulations</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:spp' %}">Strategy, Plan and Policies</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item menuNavbar__item dropdown">
+                        <a class="nav-link menuNavbar__item---link dropdown-toggle" href="#">Gallery</a>
+                        <ul class="dropdown-menu fade-up">
+                            <li><a class="dropdown-item" href="{% url 'company:photo' %}">Photos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:video' %}">Videos</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item menuNavbar__item">
+                        <a class="nav-link menuNavbar__item---link" href="{% url 'company:contact' %}">Contact Us</a>
+                    </li>
+                    <li class="nav-item menuNavbar__item dropdown">
+                        <a class="nav-link menuNavbar__item---link dropdown-toggle" href="#">Live Data</a>
+                        <ul class="dropdown-menu fade-up">
+                            <li><a class="dropdown-item" target="_blank" href="http://dashboard.wscada.net/dhap/#/">AWS</a></li>
+                            <li><a class="dropdown-item" href="{% url 'company:instrumentation' %}">Instrumentation</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <ul class="navbar-nav sidenav ml-auto">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'users:logout' %}" class="notranslate nav-link sidenav__button btn btn-secondary-theme btn-sm">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="notranslate nav-link sidenav__button btn btn-secondary-theme btn-sm" href="{% url 'users:login' %}">Login</a>
+                </li>
+
+                {% endif %}
+                <li class="nav-item ml-2">
+                    <a class="notranslate nav-link sidenav__link" href="{% url 'company:user-navigate' %}"><i
+                            class="fas fa-user d-inline mr-1"></i>{%if user.is_authenticated %}{{user.username}}{% else %}Admin{% endif %}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

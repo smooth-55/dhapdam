@@ -1,0 +1,36 @@
+<!-- load -->
+{% load widget_tweaks %}
+<div class="#" id="addNewsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog custom-modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header tractorModal__header">
+                <h5 class="modal-title tractorModal__header---title" id="exampleModalLabel">Add {{title}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body tractorModal__body ">
+                <form action="#" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form.visible_fields %}
+                    <p class="text-danger">{{field.errors}}</p>
+                    <div class="form-group">
+                        <label for="{{ field.id_for_label }}" class="tractor-label">{{ field.label }}
+                            <span class="text-danger">{% if field.field.required %}*{% endif %}</span>
+                        </label>
+                        {% render_field field class="form-control" %}
+                        {% if field.errors %}
+                        <span class="text-danger">
+                            {{ field.errors }}
+                        </span>
+                        {% endif %}
+
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-success btn-w-3 btn-theme-admin rounded-0">Add
+                        {{title}}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

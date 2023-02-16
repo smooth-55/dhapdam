@@ -1,0 +1,43 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul {
+    margin-bottom: 0;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+select {
+    /* for Firefox */
+    -moz-appearance: none;
+    /* for Chrome */
+    -webkit-appearance: none;
+}
+
+
+/* For IE10 */
+
+select::-ms-expand {
+    display: none;
+}
+
+input,
+select,
+button,
+textarea,
+.form-select {
+    box-shadow: none;
+    &:active,
+    &:focus {
+        border-color: #ced4da;
+        box-shadow: none;
+        outline: 0;
+    }
+}

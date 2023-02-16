@@ -1,0 +1,124 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% block static %}
+<link rel="stylesheet" href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}" />
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}" />
+<link rel="stylesheet" href="{% static 'css/cooltipz.min.css' %}" />
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}" /> {% endblock %}
+<!-- title -->
+{% block title %}DhapDam{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                {% include 'admin/fade_call.html' %}
+                <h5 class="content-title">Contract Detail</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Contract Detail</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                {% include 'admin/fade_call.html' %}
+                {% if not contract_detail.pk %}<a href="{% url 'dam:dadmin-add-detail' %}" class="btn btn-block btn-success btn-theme-admin rounded-0">Add Contract Detail</a
+        >{% endif %}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table
+            id="data-table"
+            class="table table-striped table-bordered"
+            style="width: 100%"
+          >
+            <thead>
+              <tr>
+                <th width="2%">SN</th>
+                <th>Content</th>
+                <th>Name of Work</th>
+                <th>Client</th>
+                <th>Contract No.</th>
+                <th>Name of Contractor</th>
+                <th>Date of Agreement</th>
+                <th>Initial Date of Completion (DOC)</th>
+                <th>Revised Date of Completion</th>
+                <th>Contract Amount with VAT</th>
+                <th>Physical Progress Till (Jan, 2021)</th>
+                <th>Financial Progress Till (Jan, 2021)</th>
+                <th>Authorized/Responsible Person</th>
+                <th width="12%">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-center">{% if contract_detail.pk %}1{% endif %}</td>
+                <td>{{contract_detail.content}}</td>
+                <td>{{contract_detail.Name_of_work}}</td>
+                <td>{{contract_detail.client}}</td>
+                <td>{{contract_detail.contract_no}}</td>
+                <td>{{contract_detail.name_of_contractor}}</td>
+                <td>{{contract_detail.date_of_agreement}}</td>
+                <td>{{contract_detail.intial_date_of_completion}}</td>
+                <td>{{contract_detail.revised_date_of_completion}}</td>
+                <td>{{contract_detail.contract_amount_with_VAT}}</td>
+                <td>{{contract_detail.physical_progress}}</td>
+                <td>{{contract_detail.financial_progress}}</td>
+                <td>{{contract_detail.responsible_person}}</td>
+                
+                <td class="text-center">
+                  {% if contract_detail.pk %}
+                  <span class="action-icon mr-3"
+                    ><a
+                      href="{% url 'dam:dadmin-edit-detail' contract_detail.pk  %}"
+                      data-cooltipz-dir="bottom"
+                      aria-label="Edit"
+                      ><i class="fas fa-edit text-secondary"></i></a
+                  ></span>
+                  {% endif %}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block script%}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+<script>
+  $(document).ready(function () {
+    $("#data-table").DataTable({
+        "scrollX" : true
+    });
+  });
+  //delete
+  $(".contract-detail-delete").each(function () {
+    $(this).modalForm({
+      formURL: $(this).data("id"),
+    });
+  });
+</script>
+{% endblock %}

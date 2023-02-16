@@ -1,0 +1,28 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Live Data{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'company:aws' %}" class="link text-theme-light-blue">AWS</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="col-lg-12 mx-auto">
+            <h5 class="content-title">AWS</h5>
+            <div class="row">
+                <div class="col-12">
+                    <p>Coming soon</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

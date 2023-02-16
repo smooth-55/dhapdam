@@ -1,0 +1,35 @@
+$modularscale: ( base: 15px, ratio: 1.5);
+$modularscale: ( base: 1em, ratio: 1.3, 20em: ( ratio: 1.055), 60em: ( ratio: 1.15), );
+p {
+    @include ms-respond(font-size, 0);
+}
+
+h1 {
+    @include ms-respond(font-size, 5);
+    line-height: 1;
+}
+
+h2 {
+    @include ms-respond(font-size, 4);
+    line-height: 1;
+}
+
+h3 {
+    @include ms-respond(font-size, 3);
+    line-height: 1;
+}
+
+h4 {
+    @include ms-respond(font-size, 2);
+    line-height: 1;
+}
+
+h5 {
+    @include ms-respond(font-size, 1);
+    line-height: 1;
+}
+
+h6 {
+    @include ms-respond(font-size, 0);
+    line-height: 1;
+}

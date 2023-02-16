@@ -1,0 +1,70 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Act and Regulations{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'company:actreg' %}" class="link text-theme-light-blue">Act and Regulations</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Act and Regulations</h5>
+                <table id="table_dataframe" class="table" style="width:100%">
+                    <thead class="d-none">
+                        <tr>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody class="imp-link">
+                        {% for item in policy %}
+                        <tr>
+                            <td>
+                                {% if item.file %}<a href="{{item.file.url}}" target="_blank">{{item.name}}
+                                </a>{% else %}{{item.name}}{% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>                
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Policy/ Law</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item active"><a href="{% url 'company:actreg' %}"
+                                class="sidebar-bar__item---link active">Act and Regulations</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:spp' %}"
+                                class="sidebar-bar__item---link">Strategy, Plan and Policies</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block script %}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#table_dataframe').DataTable({
+            // "paging": false,
+            "ordering": false,
+            "info": false,
+            "scrollX": true
+        });
+    });
+</script>
+{% endblock %}

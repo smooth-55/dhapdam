@@ -1,0 +1,126 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% block static %}
+<link rel="stylesheet" href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}">
+<link rel="stylesheet" href="{% static 'css/cooltipz.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/bootstrap3-wysihtml5.min.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Nagmati Dam{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Nagmati Dam Sailent Features</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Nagmati Dam Features</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row mb-3">
+            {% if not features.pk %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <a href="{% url 'dam:nadmin-add-features' %}" class="btn btn-block btn-success btn-theme-admin rounded-0">Add Features</a>
+            </div>
+            {% endif %}
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>SN</th>
+                                <th>Content</th>
+                                <th>Dam type</th>
+                                <th>Dam height (D/S toe to crest)</th>
+                                <th>Dam top Length (Crest Length)</th>
+                                <th>Dam crest elevation</th>
+                                <th>Reservoir surface area at FSL</th>
+                                <th>Crest width</th>
+                                <th>Dam volume</th>
+                                <th>Full Supply Level (FSL)</th>
+                                <th>Freeboard (measured from the dam crest)</th>
+                                <th>Design Discharge</th>
+                                <th>Power Production</th>
+                                <th>Cost of project</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td><span class="badge bg-theme-green f-13 font-weight-400 text-white">{% if features.pk %}1{% endif %}</span></td>
+                                <td>{{features.content|safe}}</td>
+                                <td>{{features.dam_type}}</td>
+                                <td>{{features.dam_height}}</td>
+                                <td>{{features.dam_top_length}}</td>
+                                <td>{{features.dam_crest_elevation}}</td>
+                                <td>{{features.reservoir_surface_area_at_fsl}}</td>
+                                <td>{{features.crest_width}}</td>
+                                <td>{{features.dam_volume}}</td>
+                                <td>{{features.full_supply_level}}</td>
+                                <td>{{features.Freeboard}}</td>
+                                <td>{{features.design_discharge}}</td>
+                                <td>{{features.power_of_production}}</td>
+                                <td>{{features.cost_of_project}}</td>
+                                <td class="text-center">
+                                    {% if features.pk %}
+                                        <span class="action-icon mr-3"><a href="{% url 'dam:nadmin-edit-features' features.pk %}" data-cooltipz-dir="bottom" aria-label="Edit" ><i class="fas fa-edit text-secondary"></i></a></span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block script%}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#data-table').DataTable({
+            scrollX: true
+        });
+    });
+    // delete alert
+    $('.delete').click(function() {
+        swal({
+                title: "Are you sure?",
+                text: "It will permanently deleted !",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal(" 'Your file has been deleted.'!", {
+                        icon: "success",
+                    });
+                }
+            });
+    })
+</script>
+{% endblock %}

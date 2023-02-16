@@ -1,0 +1,44 @@
+ {% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Nagmati Dam{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'company:nagmatidam' %}" class="link text-theme-light-blue">Nagmati Dam</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Introduction</h5>
+                <div class="content-wrap">
+                    <div class="about__content">
+                        <p class="about__content---para img-para">
+                            {% if intro.image %}
+                            <img src="{{intro.image.url}}" alt="" class="img-fluid d-none d-sm-none d-md-none d-lg-block" /> {% endif %} {{intro.content|safe}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Nagmati Dam</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item active"><a href="{% url 'company:nagmatidam' %}" class="sidebar-bar__item---link active">Introduction</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:nagmati-location' %}" class="sidebar-bar__item---link">Location and Accessibility</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:nagmati-features' %}" class="sidebar-bar__item---link">Sailent Features</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:nagmati-status' %}" class="sidebar-bar__item---link">Present Status of Project</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:nagmati-maps' %}" class="sidebar-bar__item---link">Maps</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

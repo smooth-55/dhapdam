@@ -1,0 +1,231 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Contract{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'contracts:c-ongoing' %}" class="link text-theme-light-blue">Contract</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="col-lg-12 mx-auto">
+            <h5 class="content-title">Contract</h5>
+            <div class="row">
+                <div class="col-12">
+                    <div class="tabBlock__navContainer">
+                        <ul class="nav nav-tabs customNavtab" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#completed" role="tab">Completed</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#ongoing" role="tab">Ongoing</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#cprogress" role="tab">Progress</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content op-tab-content" id="myTabContent">
+                            <div class="tab-pane" id="completed" role="tabpanel">
+                                <form method="GET" class="contracts-form row row-cols-lg-auto g-3 align-items-center px-3 pt-3" data-year-url="{% url 'contracts:contract' %}">
+                                    <div class="col-12">
+                                        <label for="bsa-label">Select Project </label>
+                                    </div>
+                                    <div class="col-12">
+                                        {% if com_contracts %}
+                                        <select class="contracts-name bsa-custom-select form-select">
+                                        
+                                            {% for item in com_contracts %}
+                                            <option value="{{ item.id }}"
+                                                {% if item.project_name == completed_contract.project_name %}
+                                                selected="selected" {% endif %}>{{ item.project_name }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                        {% endif %}
+                                    </div>
+                                </form>
+                                <div class="contract-table table-height">
+                                    <div class="contract-completed table-responsive bsa-responsive-table mt-0 border-0">
+                                        <!-- completed work  -->
+                                        <table class="table table-bordered bsa-table">
+                                            <tbody>                                                
+                                                <tr>
+                                                    <td colspan="2"
+                                                        style="background-color: #CCC0DA; text-align: center;">
+                                                         {{completed_contract.project_name}}</td>
+                                                </tr>
+                                                <tr style="background-color: #FFC7CE">
+                                                    <td>Contract ID</td>
+                                                    <th style="text-align: left;">{{completed_contract.contract_id}}
+                                                    </th>
+                                                </tr>
+                                                <tr style="background-color: #C6EFCE">
+                                                    <td width="25%">Project Name</td>
+                                                    <th style="text-align: left;">{{completed_contract.project_name}}
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Work Name</td>
+                                                    <th style="text-align: left;">{{completed_contract.work_name}}
+                                                    </th>
+                                                </tr>
+                                                
+                                                <tr>
+                                                    <td>Contract Name and address</td>
+                                                    <th style="text-align: left;">
+                                                        {{completed_contract.contractor_detail}}</th>
+                                                </tr>
+                                                <tr style="background-color: #FFC7CE">
+                                                    <td>Date of agreement</td>
+                                                    <th style="text-align: left;">
+                                                        {{completed_contract.date_of_agreement}}</th>
+                                                </tr>
+                                                <tr style="background-color: #C6EFCE">
+                                                    <td>Date of completion as agreement</td>
+                                                    <th style="text-align: left;">
+                                                        {{completed_contract.date_of_completion}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Date of completion (Revised)</td>
+                                                    <th style="text-align: left;">
+                                                        {% if completed_contract.date_of_completion_revised %}{{completed_contract.date_of_completion_revised}}{% endif %}
+                                                    </th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Amount of Agreement</td>
+                                                    <th style="text-align: left;">{{completed_contract.amount}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Actual Expenditure</td>
+                                                    <th style="text-align: left;">
+                                                        {{completed_contract.actual_expenditure}}</th>
+                                                </tr>
+                                                <tr style="background-color: #C6EFCE">
+                                                    <td>Current Project Status</td>
+                                                    <th style="text-align: left;">
+                                                        {{completed_contract.get_current_status_display}}</th>
+                                                </tr>
+                                                <tr>
+                                                    <td>Contractor Libility Status</td>
+                                                    <th style="text-align: left;">
+                                                        {{completed_contract.get_contractor_liability_status_display}}
+                                                    </th>
+                                                </tr>
+                                                
+                                                <tr style="background-color: #FFC7CE">
+                                                    <td>Major works completed</td>
+                                                    <th style="text-align: left;">{{completed_contract.works_completed}}
+                                                    </th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ongoing project 
+                             -->
+                            {% include 'frontend/contract_ongoing.html' %}
+
+                            <!-- progress project  -->
+                            {% include 'frontend/contract_progress.html' %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+<script>
+    {% comment %} console.log("hellow")
+    $(".contracts-name").change(function () {
+        console.log("this os")
+        var url = $(".contracts-form").attr("data-year-url");
+        var contractId = $(this).val();
+        console.log("contract id", contractId)
+
+        $.ajax({
+            url: url,
+            data: {
+                'contractId': contractId
+            },
+
+            success: function (data) {
+                console.log("data", data)
+                $("#alldata").html(
+                    data);
+            }
+
+        });
+
+    }); {% endcomment %}
+    $(".contracts-name").change(function () {
+      var url = $(".contracts-form").attr("data-year-url");  // get the url of the `load_cities` view
+      var contractId = $(this).val();  // get the selected country ID from the HTML input
+      console.log("year id",contractId)
+      console.log("url",url)
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'contractId': contractId       // add the country id to the GET parameters
+        },
+        success: function(data) {
+             $('.contract-completed').html(jQuery(data).find('.contract-completed').html())
+        }
+      });
+
+    });
+
+    //update data in ongoing
+    $(".contracts-name").change(function () {
+      var url = $(".contracts-form").attr("data-year-url");  // get the url of the `load_cities` view
+      var contractId = $(this).val();  // get the selected country ID from the HTML input
+      console.log("year id",contractId)
+      console.log("url",url)
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'contractId': contractId       // add the country id to the GET parameters
+        },
+        success: function(data) {
+             $('.contract-table-ongoing').html(jQuery(data).find('.contract-table-ongoing').html())
+        }
+      });
+
+    });
+
+
+    //update contract progress
+    $(".contracts-name").change(function () {
+      var url = $(".contracts-form").attr("data-year-url");  // get the url of the `load_cities` view
+      var contractId = $(this).val();  // get the selected country ID from the HTML input
+      console.log("year id",contractId)
+      console.log("url",url)
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'contractId': contractId       // add the country id to the GET parameters
+        },
+        success: function(data) {
+             $('.contract-table-progress').html(jQuery(data).find('.contract-table-progress').html())
+        }
+      });
+
+    });
+
+
+</script>
+
+{% endblock %}

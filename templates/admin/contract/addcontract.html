@@ -1,0 +1,147 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %}
+<!-- title -->
+{% block title %}Contract{% endblock %}
+<!-- content -->
+{% block content %}
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Add Contract</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'company:contract-table' %}">Contract</a></li>
+                    <li class="breadcrumb-item active">Add Contract</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        {{ form.non_field_errors }}
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                    <form action="/contract/add" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="form-title">Contract Information</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Contract ID</label>
+                                    <input type="text" class="form-control tractor-input" name="contract_id" id="contract_id"> {{ form.contract_id.errors }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Project Name</label>
+                                    <input type="text" class="form-control tractor-input" name="project_name" id="project_name"> <p class="text-danger">{{ form.project_name.errors }}</p></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Work Name</label>
+                                    <input type="text" class="form-control tractor-input" name="work_name" id="work_name"> <p class="text-danger">{{ form.work_name.errors }}</p></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Contractor Name and Address</label>
+                                    <input type="text" class="form-control tractor-input" name="contractor_detail" id="contractor_detail"> <p class="text-danger">{{ form.contractor_detail.errors }}</p>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">Contract Date</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Date of Agreement</label>
+                                    <input type="date" class="form-control tractor-input" name="date_of_agreement" id="date_of_agreement"> <p class="text-danger">{{ form.date_of_agreement.errors }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Date of Completion as Agreement</label>
+                                    <input type="date" class="form-control tractor-input" name="date_of_completion" id="date_of_completion"> <p class="text-danger">{{ form.date_of_completion.errors }}</p>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Date of Completion (Revised)</label>
+                                    <input type="date" class="form-control tractor-input" name="date_of_completion" id="date_of_completion"> <p class="text-danger">{{ form.date_of_completion.errors }}</p>
+                                </div>
+                            </div> -->
+                            <div class="col-12">
+                                <h6 class="form-title">Contract Amount</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Amount of agreement</label>
+                                    <input type="number" class="form-control tractor-input" name="amount" id="amount" step="any" > <p class="text-danger" style="color:red">{{ form.amount.errors }}</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Actual expenditure</label>
+                                    <input type="number" class="form-control tractor-input" name="actual_expenditure" id="actual_expenditure"  step="any" > <p class="text-danger">{{ form.actual_expenditure.errors }}</p>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">Contract Detail</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Current Contract Status</label>
+                                    <select name="current_status" class="tractor-select form-control">
+                                        <option value="" selected disabled>-------</option>
+                                        <option value="C">Completed</option>
+                                        <option value="O">Ongoing</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Contractor Liability Status</label>
+                                    <select name="contractor_liability_status" class="tractor-select form-control">
+                                        <option value="" selected disabled>-------</option>
+                                        <option value="C">Completed</option>
+                                        <option value="O">Ongoing</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Works Completed</label>
+                                    <input type="text" class="form-control tractor-input" name="works_completed" id="works_completed"> <p class="text-danger">{{ form.works_completed.errors }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <input class="btn btn-success btn-theme-admin rounded-0" type="submit" value="Add Contract" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

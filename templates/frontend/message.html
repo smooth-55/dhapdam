@@ -1,0 +1,56 @@
+ {% extends '../layout/base.html' %}
+ <!-- load static -->
+ {% load static %}
+ <!-- title -->
+ {% block title %}Message{% endblock %}
+ <!-- content -->
+ {% block content %}
+ <section class="bsa-breadcrumb">
+     <div class="container">
+         <div class="breadcrumb mb-0">
+             <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                     href="#" class="link text-theme-light-blue">Message</a></span>
+         </div>
+     </div>
+ </section>
+ <section class="page about pad-top-bot">
+     <div class="container">
+         <div class="col-lg-12 mx-auto">
+             <h5 class="content-title">Message From Unit Chief</h5>
+             <div class="content-wrap">
+                 <div class="about__content">
+                     <p class="about__content---para img-para">
+                         {% if messages.image %}<img src="{{messages.image.url}}" class="img-fluid message-img" alt="">{% else %}None{% endif %}
+                         {{ messages.content }}
+                     </p>
+                     <!-- <p class="about__content---para">
+                         Lorem ipsum dolor sit amet consectetur, adipisicing elit. A magni error laborum, nemo sint
+                         tenetur ad, amet dolorem odit eum asperiores numquam quam labore ipsa eligendi excepturi
+                         placeat? Et, accusamus? Lorem ipsum dolor sit amet consectetur adipisicing
+                         elit. Eaque eligendi cupiditate odio explicabo unde vel eum itaque quibusdam! Nobis repellat
+                         beatae vitae. Sint, ex! Sit error consequuntur facilis obcaecati magnam.
+                     </p>
+                     <p class="about__content---para">
+                         Lorem ipsum dolor sit amet consectetur, adipisicing elit. A magni error laborum, nemo sint
+                         tenetur ad, amet dolorem odit eum asperiores numquam quam labore ipsa eligendi excepturi
+                         placeat? Et, accusamus? Lorem ipsum dolor sit amet consectetur adipisicing
+                         elit. Eaque eligendi cupiditate odio explicabo unde vel eum itaque quibusdam! Nobis repellat
+                         beatae vitae. Sint, ex! Sit error consequuntur facilis obcaecati magnam.
+                     </p>
+                     <p class="about__content---para">
+                         Lorem ipsum dolor sit amet consectetur, adipisicing elit. A magni error laborum, nemo sint
+                         tenetur ad, amet dolorem odit eum asperiores numquam quam labore ipsa eligendi excepturi
+                         placeat? Et, accusamus? Lorem ipsum dolor sit amet consectetur adipisicing
+                         elit. Eaque eligendi cupiditate odio explicabo unde vel eum itaque quibusdam! Nobis repellat
+                         beatae vitae. Sint, ex! Sit error consequuntur facilis obcaecati magnam.
+                     </p> -->
+                 </div>
+                 <div class="about__regards">
+                     <h6 class="">{{ messages.name }}</h6>
+                     <p>{{ messages.get_designation_display }}</p>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </section>
+ {% endblock %}

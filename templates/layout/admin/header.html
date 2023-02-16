@@ -1,0 +1,636 @@
+{% load static %}
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+        </li>
+    </ul>
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+        <!-- Notifications Dropdown Menu -->
+        <!-- Notifications Dropdown Menu -->
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+                <i class="fas fa-user"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                {% if request.user.is_admin %}<a href="{% url 'users:admin-profile' %}" class="dropdown-item"> Profile </a>{% endif %}
+
+                <a href="{% url 'users:logout' %}" class="dropdown-item"> Logout </a>
+            </div>
+        </li>
+    </ul>
+</nav>
+<!-- /.navbar -->
+
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="{% url 'index' %}" class="brand-link">
+        <img src="/static/images/np.png" alt="BRBIP" class="brand-image img-circle elevation-3" />
+        <span class="brand-text font-weight-bold">BRBIP</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            {% with request.resolver_match.url_name as url_name %}
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                {% if unit_chief or engineer or engineer_geologist or request.user.is_admin %}
+                <li class="nav-item">
+                    <a href="{% url 'company:admin-dashboard' %}" class="nav-link {% if url_name == 'admin-dashboard' %}active{% endif %}">
+                        <i class="t-nav-icon nav-icon fas fa-clipboard"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'news:notice' %}" class="nav-link {% if url_name == 'notice' %}active{% endif %}">
+                        <i class="t-nav-icon nav-icon fas fa-newspaper"></i>
+                        <p>Notice</p>
+                    </a>
+                </li>
+                <!-- Download -->
+                <li class="nav-item">
+                    <a href="{% url 'company:download-table' %}" class="nav-link {% if url_name == 'download-table' %}active{% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-download"></i>
+                        <p>Download</p>
+                    </a>
+                </li>
+                <!-- document -->
+                <li class="nav-item has-treeview {% if 'Documents' in title or 'Document category' in title or 'Documents' in title or url_name == 'document-filter-table'  %} menu-open {% endif %}">
+                    <a href="#" class="nav-link {% if 'Document category' in title or 'Documents' in title or 'Documents' in title or url_name == 'document-filter-table'  %} active {% endif %}">
+                        <i class="nav-icon t-nav-icon far fa-file-alt"></i>
+                        <p>
+                            Document/ Data
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'company:document-category' %}" class="nav-link {% if url_name == 'document-category' or url_name == 'document-filter-table' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-file-alt"></i>
+                                <p>Add Document Category</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{% url 'company:document-table' %}" class="nav-link {% if url_name == 'document-table' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-file-alt"></i>
+                                <p>Document</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- important link -->
+                <li class="nav-item">
+                    <a href="{% url 'company:imp-link-table' %}" class="nav-link {% if url_name == 'imp-link-table' %}active{% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-link"></i>
+                        <p>Important-Link</p>
+                    </a>
+                </li>
+                <!-- Nagmati -->
+                <li class="nav-item has-treeview {% if url_name == 'nadmin-intro' or url_name == 'nadmin-location' or url_name == 'nadmin-project-status' or url_name == 'nadmin-maps' or url_name == 'nadmin-features' or url_name == 'nadmin-add-features' or url_name == 'nadmin-edit-features' or url_name == 'add-nagmati-intro' or url_name == 'nagmati-intro-update' or url_name == 'add-nagmati-location' or url_name == 'nagmati-location-update' %} menu-open {% endif %}">
+                    <a href="#" class="nav-link {% if url_name == 'nadmin-intro' or url_name == 'nadmin-location' or url_name == 'nadmin-project-status' or url_name == 'nadmin-maps' or url_name == 'nadmin-features' or url_name == 'nadmin-add-features' or url_name == 'nadmin-edit-features' or url_name == 'add-nagmati-intro' or url_name == 'nagmati-intro-update' or url_name == 'add-nagmati-location' or url_name == 'nagmati-location-update' %} active {% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-dungeon"></i>
+                        <p>
+                            Nagmati Dam
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'dam:nadmin-intro' %}" class="nav-link {% if url_name == 'nadmin-intro' or url_name == 'nagmati-intro-update' or url_name == 'add-nagmati-intro' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-address-card"></i>
+                                <p>Introduction</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dam:nadmin-features' %}" class="nav-link {% if url_name == 'nadmin-features' or url_name == "nadmin-add-features" or url_name == "nadmin-edit-features" %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon far fa-file-alt"></i>
+                                <p>Sailent Features</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dam:nadmin-location' %}" class="nav-link {% if url_name == 'nadmin-location' or url_name == 'add-nagmati-location' or url_name == 'nagmati-location-update' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-map-marker-alt"></i>
+                                <p>Location & Accessibility</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dam:nadmin-project-status' %}" class="nav-link {% if url_name == 'nadmin-project-status' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-tasks"></i>
+                                <p>Project Status</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dam:nadmin-maps' %}" class="nav-link  {% if url_name == 'nadmin-maps' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-image"></i>
+                                <p>Maps</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- about us -->
+                <li class="nav-item has-treeview {% if 'Introduction' in title or 'Citizen Charter' in title or 'Employee' in title or 'ex_employees' in title or 'Ex-Project' in title or 'Organization Structure' in title  %} menu-open {% endif %}">
+                    <a href="#" class="nav-link {% if 'Introduction' in title or 'Citizen Charter' in title or 'Organization Structure' in title %} active {% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-address-card"></i>
+                        <p>
+                            About Us
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'company:about-intro' %}" class="nav-link {% if url_name == 'about-intro' or url_name == 'about-create' or url_name == 'about-update' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-address-card"></i>
+                                <p>Introduction</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:citizen-table' %}" class="nav-link {% if url_name == 'citizen-table' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-id-card-alt"></i>
+                                <p>Citizen Charter</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:organization-table' %}" class="nav-link {% if url_name == 'organization-table' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-id-card"></i>
+                                <p>Organization Structure</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:employee-list' %}" class="nav-link {% if 'Employee' in title %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-users"></i>
+                                <p>Employee</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:ex-employee-list' %}" class="nav-link  {% if 'ex_employees' in title %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-users"></i>
+                                <p>Ex-Employee</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:ex-project-list' %}" class="nav-link  {% if 'Ex-Project' in title %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-users"></i>
+                                <p>Ex Project Head</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Dhap Dam -->
+                <li class="nav-item has-treeview {% if url_name == 'dadmin-intro' or url_name == 'dadmin-features' or url_name == 'dadmin-add-features' or url_name == 'dadmin-edit-features' or url_name == 'dadmin-work-components' or url_name == 'dadmin-features' or url_name == 'dadmin-location' or url_name == 'dadmin-sub-subwork' or url_name == 'dadmin-contract-detail' or url_name == 'dadmin-sub-design-quality' or url_name == 'dadmin-design-quality' or  url_name == 'dadmin-environmental-aspects' or url_name == 'dadmin-maps' or  url_name == 'add-dhap-intro' or url_name == 'dhap-intro-update' or url_name == 'add-dhap-location' or url_name == 'dhap-location-update' or url_name == 'dadmin-add-detail' or  url_name == "dadmin-edit-detail" or url_name == "dhap-work-components-update" or url_name == "add-dhap-work-components" or url_name == "add-dadmin-design-quality" or url_name == "dadmin-design-quality-update"  %} menu-open {% endif %}">
+                    <a href="#" class="nav-link {% if url_name == 'dadmin-intro' or url_name == 'dadmin-features' or url_name == 'dadmin-add-features' or url_name == 'dadmin-edit-features' or url_name == 'dadmin-work-components' or url_name == 'dadmin-features' or url_name == 'dadmin-location' or url_name == 'dadmin-sub-subwork' or url_name == 'dadmin-contract-detail' or url_name == 'dadmin-sub-design-quality' or url_name == 'dadmin-design-quality' or  url_name == 'dadmin-environmental-aspects' or url_name == 'dadmin-maps' or  url_name == 'add-dhap-intro' or url_name == 'dhap-intro-update' or  url_name == 'add-dhap-location' or url_name == 'dhap-location-update' or url_name == 'dadmin-add-detail' or  url_name == "dadmin-edit-detail" or url_name == "dhap-work-components-update" or url_name == "add-dhap-work-components" or url_name == "add-dadmin-design-quality" or url_name == "dadmin-design-quality-update" %} active {% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-dungeon"></i>
+                        <p>
+                            Dhap Dam
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'dam:dadmin-intro' %}" class="nav-link {% if url_name == 'dadmin-intro' or url_name == 'add-dhap-intro' or url_name == 'dhap-intro-update'  %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-address-card"></i>
+                                <p>Introduction</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dam:dadmin-features' %}" class="nav-link {% if url_name == 'dadmin-features' or url_name == "dadmin-add-features" or url_name == "dadmin-edit-features"  %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon far fa-file-alt"></i>
+                                <p>Sailent Features</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dam:dadmin-location' %}" class="nav-link {% if url_name == 'dadmin-location' or  url_name == 'add-dhap-location' or url_name == 'dhap-location-update' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-map-marker-alt"></i>
+                                <p>Location & Accessibility</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dam:dadmin-work-components' %}" class="nav-link {% if url_name == 'dadmin-work-components' or url_name == "dhap-work-components-update" or url_name == "add-dhap-work-components" %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-briefcase"></i>
+                                <p>Work Components</p>
+                            </a>
+                        </li>
+                        {% comment %} <li class="nav-item">
+                            <a href="{% url 'dam:dadmin-sub-subwork' %}" class="nav-link {% if url_name == 'dadmin-sub-subwork' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-network-wired"></i>
+                                <p>Sub Work Components</p>
+                            </a>
+                        </li> {% endcomment %}
+                        <li class="nav-item">
+                            <a href="{% url 'dam:dadmin-contract-detail' %}" class="nav-link {% if url_name == 'dadmin-contract-detail' or url_name == 'dadmin-add-detail' or url_name == "dadmin-edit-detail" %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-address-card"></i>
+                                <p>Contract Details</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dam:dadmin-design-quality' %}" class="nav-link {% if url_name == 'dadmin-design-quality' or  url_name == "add-dadmin-design-quality" or url_name == "dadmin-design-quality-update" %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-stamp"></i>
+                                <p>Design & Quality</p>
+                            </a>
+                        </li>
+                        {% comment %} <li class="nav-item">
+                            <a href="{% url 'dam:dadmin-sub-design-quality' %}" class="nav-link {% if url_name == 'dadmin-sub-design-quality' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-network-wired"></i>
+                                <p>Sub Design & Quality</p>
+                            </a>
+                        </li> {% endcomment %}
+                        <li class="nav-item">
+                            <a href="{% url 'dam:dadmin-environmental-aspects' %}" class="nav-link {% if url_name == 'dadmin-environmental-aspects' or  url_name == 'dadmin-environmental-aspects' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fab fa-envira"></i>
+                                <p>Environmental Aspects</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dam:dadmin-maps' %}" class="nav-link  {% if url_name == 'dadmin-maps' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-image"></i>
+                                <p>Maps</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- contract -->
+                <li class="nav-item has-treeview {% if url_name == 'contract-list' or url_name == 'contract-detail-list' or url_name == 'contract-progress' or url_name == 'contract-feature' or url_name == 'contract-progress-add' or url_name == "contract-progress-update" or url_name == 'contract-add'  or url_name == 'contract-update'  %} menu-open {% endif %}">
+                    <a href="#" class="nav-link {% if url_name == 'contract-list' or url_name == 'contract-detail-list' or url_name == 'contract-progress' or url_name == 'contract-feature' or url_name == 'contract-progress-add' or url_name == 'contract-add' or url_name == 'contract-update' %} active {% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-file"></i>
+                        <p>
+                            Contract
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'contracts:contract-list' %}" class="nav-link {% if url_name == 'contract-list' or url_name == 'contract-add'  or url_name == 'contract-update' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-file-contract"></i>
+                                <p>Contracts</p>
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a href="{% url 'contracts:contract-detail-list' %}" class="nav-link {% if url_name == 'contract-detail-list' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-calendar-week"></i>
+                                <p>Detail</p>
+                            </a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a href="{% url 'company:contract-progress' %}" class="nav-link {% if url_name == 'contract-progress' or url_name == 'contract-progress-add' or url_name == "contract-progress-update"   %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-file-upload"></i>
+                                <p>Progresses</p>
+                            </a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a href="{% url 'contracts:contract-feature' %}" class="nav-link {% if url_name == 'contract-feature' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon far fa-file-alt"></i>
+                                <p>Features</p>
+                            </a>
+                        </li> -->
+                    </ul>
+                </li>
+                <!-- news/notice -->
+                <li class="nav-item has-treeview {% if 'News' in title or 'Recent Activity' in title or 'Category' in title %} menu-open {% endif %}">
+                    <a href="#" class="nav-link {% if 'News' in title or 'Recent Activity' in title or 'Category' in title   %} active {% endif %}">
+                        <i class="nav-icon t-nav-icon far fa-newspaper"></i>
+                        <p>
+                            News
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'news:category-table' %}" class="nav-link {% if url_name == 'category-table' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-paperclip"></i>
+                                <p>Category</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'news:news-table' %}" class="nav-link {% if url_name == 'news-table' or url_name == 'add-anews' or url_name == 'edit-anews' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon far fa-newspaper"></i>
+                                <p>News/Notice</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'news:recentactivity-table' %}" class="nav-link {% if url_name == "recentactivity-table" or url_name == 'add-arecent-activity' or url_name == 'edit-arecent-activity' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-rss-square"></i>
+                                <p>Recent Activity</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Progress -->
+                <li class="nav-item has-treeview {% if 'Fiscal Year' in title or 'Trimester' in title  or url_name == "trimesters" or url_name == "firsttrimesterperiodic" or url_name == "firsttrimesters-year" or url_name == "secondtrimesters-year" or  url_name == "thirdtrimesters-year"  %} menu-open {% endif %}">
+                    <a href="#" class="nav-link {% if 'Fiscal Year' in title or 'Trimester' in title  or url_name == "trimesters" or url_name == "firsttrimesterperiodic" or url_name == "firsttrimesters-year" or url_name == "secondtrimesters-year" or  url_name == "thirdtrimesters-year" %} active {% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-server"></i>
+                        <p>
+                            Progress
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'company:fiscal-year' %}" class="nav-link {% if url_name == 'fiscal-year' or url_name == 'fiscal-year-create' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-calendar-alt"></i>
+                                <p>Fiscal Years</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:trimesters' %}" class="nav-link {% if url_name == 'trimesters' or url_name == "firsttrimesterperiodic" or  url_name == "secondtrimesterperiodic" or url_name == "thirdtrimesterperiodic" or url_name == "firsttrimesters-year" or url_name == "secondtrimesters-year" or  url_name == "thirdtrimesters-year"%}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-tasks"></i>
+                                <p>Trimesters</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- Construction -->
+                <li class="nav-item has-treeview {% if url_name == 'earth-filling-list' or url_name == 'face-slab-2a-list' or url_name == 'face-slab-2b-list' or url_name == 'small-size-rock-list' or url_name == 'first-class-rock-list' or url_name == 'second-class-rock-list' or url_name == 'rock-fill-list' or url_name == 'concrete-aggregate-40mm-list' or url_name == 'concrete-aggregate-20mm-list' or url_name == 'concrete-aggregate-10mm-list' or url_name == 'fine-aggregate-list' or url_name == 'cement-list' or url_name == 'granular-list' or url_name == 'concrete-test-list' or url_name == 'compaction-test-list' or url_name == 'grouting-test-list' or url_name == 'copper-test-list' or url_name == 'permeability-test-list' or url_name == 'geophysical-test-list' or url_name == 'core-drill-list' or url_name == 'documentation-test-list' or url_name == 'earth-equipment-list' or url_name == 'concreting-equipment-list' or url_name == 'grouting-equipment-list' or url_name == 'brazing-equipment-list' or url_name == 'survey-equipment-list' or url_name == 'lab-equipment-list' or url_name == 'geophysical-equipment-list' or url_name == 'design-drawing-list' or url_name == 'mos-list' or url_name == 'reports-list' or url_name == 'test-footage-list' or url_name == 'work-footage-list' %}
+                 menu-open{% endif %}">
+                    <a href="#" class="nav-link {% if url_name == 'earth-filling-list' or url_name == 'face-slab-2a-list' or url_name == 'face-slab-2b-list' or url_name == 'small-size-rock-list' or url_name == 'first-class-rock-list' or url_name == 'second-class-rock-list' or url_name == 'rock-fill-list' or url_name == 'concrete-aggregate-40mm-list' or url_name == 'concrete-aggregate-20mm-list' or url_name == 'concrete-aggregate-10mm-list' or url_name == 'fine-aggregate-list' or url_name == 'cement-list' or url_name == 'granular-list' or url_name == 'concrete-test-list' or url_name == 'compaction-test-list' or url_name == 'grouting-test-list' or url_name == 'copper-test-list' or url_name == 'permeability-test-list' or url_name == 'geophysical-test-list' or url_name == 'core-drill-list' or url_name == 'documentation-test-list' or url_name == 'earth-equipment-list' or url_name == 'concreting-equipment-list' or url_name == 'grouting-equipment-list' or url_name == 'brazing-equipment-list' or url_name == 'survey-equipment-list' or url_name == 'lab-equipment-list' or url_name == 'geophysical-equipment-list' or url_name == 'design-drawing-list' or url_name == 'mos-list' or url_name == 'reports-list' or url_name == 'test-footage-list' or url_name == 'work-footage-list' %}
+                 active{% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-tools"></i>
+                        <p>
+                            Construction
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'earth-filling-list' %}" class="nav-link 
+                             {% if url_name == 'earth-filling-list' or url_name == 'face-slab-2a-list' or url_name == 'face-slab-2b-list' or url_name == 'small-size-rock-list' or url_name == 'first-class-rock-list' or url_name == 'second-class-rock-list' or url_name == 'rock-fill-list' or url_name == 'concrete-aggregate-40mm-list' or url_name == 'concrete-aggregate-20mm-list' or url_name == 'concrete-aggregate-10mm-list' or url_name == 'fine-aggregate-list' or url_name == 'cement-list' or url_name == 'granular-list' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-toolbox"></i>
+                                <p>Material Tests</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'concrete-test-list' %}" class="nav-link
+                         {% if url_name == 'concrete-test-list' or url_name == 'compaction-test-list' or url_name == 'grouting-test-list' or url_name == 'copper-test-list' or url_name == 'permeability-test-list' or url_name == 'geophysical-test-list' or url_name == 'core-drill-list' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-briefcase"></i>
+                                <p>Works Tests</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'documentation-test-list' %}" class="nav-link {% if url_name == 'documentation-test-list' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-file"></i>
+                                <p>Documentation</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'earth-equipment-list' %}" class="nav-link {% if url_name == 'earth-equipment-list' or url_name == 'concreting-equipment-list' or url_name == 'grouting-equipment-list' or url_name == 'brazing-equipment-list' or url_name == 'survey-equipment-list' or url_name == 'lab-equipment-list' or url_name == 'geophysical-equipment-list' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-tools"></i>
+                                <p>Equipments</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'design-drawing-list' %}" class="nav-link {% if url_name == 'design-drawing-list' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-drafting-compass"></i>
+                                <p>Design/ Drawing</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'mos-list' %}" class="nav-link {% if url_name == 'mos-list' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-file-alt"></i>
+                                <p>Methods of Statement</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'reports-list' %}" class="nav-link {% if url_name == 'reports-list' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon far fa-file-pdf"></i>
+                                <p>Reports</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'test-footage-list' %}" class="nav-link {% if url_name == 'test-footage-list' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-video"></i>
+                                <p>Test Footages</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'work-footage-list' %}" class="nav-link {% if url_name == 'work-footage-list' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-video"></i>
+                                <p>Work Footages</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- policy -->
+                <li class="nav-item">
+                    <a href="{% url 'company:policy' %}" class="nav-link {% if 'Policy/Law' in title %}active{% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-gavel"></i>
+                        <p>Policy / Law</p>
+                    </a>
+                </li>
+                <!-- gallery -->
+                <li class="nav-item has-treeview {% if 'Photos' in title or 'Videos' in title or url_name == 'photo-category' %} menu-open {% endif %}">
+                    <a href="#" class="nav-link {% if 'Photos' in title or 'Videos' in title  or url_name == 'photo-category' %} active {% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-photo-video"></i>
+                        <p>
+                            Gallery
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'company:photo-category' %}" class="nav-link {% if  url_name == 'photo-category' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-image"></i>
+                                <p>Photos Album</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:photo-table' %}" class="nav-link {% if url_name == 'photo-table' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-image"></i>
+                                <p>Photos</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:video-table' %}" class="nav-link {% if url_name == 'video-table' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-video"></i>
+                                <p>Videos</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- users -->
+                <li class="nav-item">
+                    <a href="{% url 'company:users' %}" class="nav-link {% if 'User' in title %} active {% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-users"></i>
+                        <p>Users</p>
+                    </a>
+                </li>
+                <!-- slider -->
+                <li class="nav-item has-treeview {% if 'Home Slider' in title or 'StakeHolders' in title or 'Construction Work' in title or 'Reservoir' in title %} menu-open {% endif %}">
+                    <a href="#" class="nav-link {% if 'Home Slider' in title or 'StakeHolders' in title or 'Construction Work' in title or 'Reservoir' in title %} active {% endif %}">
+                        <i class="nav-icon t-nav-icon far fa-images"></i>
+                        <p>
+                            Slider
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'company:homeslider' %}" class="nav-link {% if url_name == 'homeslider' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon far fa-image"></i>
+                                <p>Home</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:construct-slider' %}" class="nav-link {% if url_name == 'construct-slider' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon far fa-image"></i>
+                                <p>Construction Work</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:reservoir' %}" class="nav-link {% if url_name == 'reservoir' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon far fa-image"></i>
+                                <p>Reservoir</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:stakeholder' %}" class="nav-link {% if url_name == 'stakeholder' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon far fa-image"></i>
+                                <p>Stakeholders</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                 {% endif %} 
+
+                <!-- darta chalani -->
+                {% if unit_chief or engineer or engineer_geologist  or request.user.is_admin or adminstration %}
+                <li class="nav-item has-treeview {% if url_name == 'darta-table' or url_name == 'chalani-table' or url_name == 'administration-file' %}menu-open{% endif %}">
+                    <a href="#" class="nav-link {% if url_name == 'darta-table' or url_name == 'chalani-table' or url_name == 'administration-file' %}active{% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-user"></i>
+                        <p>
+                            Administration
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'company:administration-file' %}" class="nav-link {% if url_name == 'administration-file' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-upload"></i>
+                                <p>Upload File</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:darta-table' %}" class="nav-link {% if url_name == 'darta-table' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-sign-in-alt"></i>
+                                <p>Darta</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:chalani-table' %}" class="nav-link {% if url_name == 'chalani-table' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-sign"></i>
+                                <p>Chalani</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {% endif %} 
+                {% if unit_chief or engineer or engineer_geologist  or request.user.is_admin or request.user.is_admin or accountant %}
+                <li class="nav-item has-treeview {% if url_name == 'capital-budget' or url_name == 'current-budget' or url_name == 'file-budget' %}menu-open{% endif %}">
+                    <a href="#" class="nav-link {% if url_name == 'capital-budget' or url_name == 'current-budget' or url_name == 'file-budget' %}active{% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-user"></i>
+                        <p>
+                            Accountant
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'company:file-budget' %}" class="nav-link {% if url_name == 'file-budget' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-upload"></i>
+                                <p>Upload File</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:current-budget' %}" class="nav-link {% if url_name == 'current-budget' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-coins"></i>
+                                <p>Current Budget</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'company:capital-budget' %}" class="nav-link {% if url_name == 'capital-budget' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-money-bill-wave-alt"></i>
+                                <p>Capital Budget</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {% endif %}
+                <!--  -->
+                {% if unit_chief or engineer or engineer_geologist  or request.user.is_admin or request.user.is_admin or accountant %}
+                <li class="nav-item has-treeview {% if url_name == 'dam-literature-table' or url_name == 'salient-features-table' or url_name == 'salient-features-create' or url_name == 'salient-features-update' or url_name == 'storage-projects-table' or url_name == 'storage-projects-create' or url_name == 'storage-projects-update' or url_name == 'name-of-dam-table' or url_name == 'lakes-table' %}menu-open{% endif %}">
+                    <a href="#" class="nav-link {% if url_name == 'dam-literature-table' or url_name == 'salient-features-table' or url_name == 'salient-features-create' or url_name == 'salient-features-update' or url_name == 'storage-projects-table' or url_name == 'storage-projects-create' or url_name == 'storage-projects-update' or url_name == 'name-of-dam-table' or url_name == 'lakes-table' %}active{% endif %}">
+                        <i class="nav-icon t-nav-icon fas fa-book"></i>
+                        <p>
+                            Dam Knowledge
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{% url 'damknowledge:dam-literature-table' %}" class="nav-link {% if url_name == 'dam-literature-table' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-book-open"></i>
+                                <p>Dam Literature</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'damknowledge:salient-features-table' %}" class="nav-link {% if url_name == 'salient-features-table' or url_name == 'salient-features-create' or url_name == 'salient-features-update' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon far fa-file-alt"></i>
+                                <p>Sailent Features</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'damknowledge:storage-projects-table' %}" class="nav-link {% if  url_name == 'storage-projects-table' or url_name == 'storage-projects-create' or url_name == 'storage-projects-update' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fab fa-pied-piper square"></i>
+                                <p>Storage Projects in pipeline</p>
+                            </a>
+                        </li>
+                        {% comment %} <li class="nav-item">
+                            <a href="{% url 'damknowledge:name-of-dam-table' %}" class="nav-link {% if url_name == 'name-of-dam-table' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-dungeon"></i>
+                                <p>Name of Dam/ Reservoir</p>
+                            </a>
+                        </li> {% endcomment %}
+                        <li class="nav-item">
+                            <a href="{% url 'damknowledge:lakes-table' %}" class="nav-link {% if url_name == 'lakes-table' %}active{% endif %}">
+                                <i class="nav-icon t-nav-icon fas fa-water"></i>
+                                <p>Lakes in Nepal</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {% endif %}
+
+                {% if unit_chief or engineer or engineer_geologist or request.user.is_admin %}
+                <li class="nav-item">
+                    <a href="{% url 'news:admin-message' %}" class="nav-link {% if 'Message' in title %}active{% endif %}">
+                        <i class="t-nav-icon nav-icon far fa-comment "></i>
+                        <p>Message</p>
+                    </a>
+                </li>
+                <!-- contact -->
+                <li class="nav-item ">
+                    <a href="{% url 'company:contact-table' %}" class="nav-link {% if 'Contact' in title %}active{% endif %} ">
+                        <i class="nav-icon t-nav-icon far fa-address-book "></i>
+                        <p>Contact</p>
+                    </a>
+                </li>
+                <!-- company profile -->
+                <li class="nav-item ">
+                    <a href="{% url 'company:company-profile' %}" class="nav-link {% if url_name == 'company-profile' %}active{% endif %} ">
+                        <i class="nav-icon t-nav-icon fas fa-user"></i>
+                        <p>Office Contact Us</p>
+                    </a>
+                </li>
+                {% endif %}
+
+            </ul>
+            {% endwith %}
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

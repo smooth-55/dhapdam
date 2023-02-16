@@ -1,0 +1,71 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" /> {% endblock %}
+<!-- title -->
+{% block title %}Video{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'company:video' %}" class="link text-theme-light-blue">Videos</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Videos</h5>
+                <div class="videoBlock mt-3">
+                    <div class="row g-3">
+                        {% for thumbnail,title,link in videos_all %}
+                        <div class="col-lg-4 col-md-4 col-sm-6 col-12">
+                            <div class="videoSection__inner">
+                                <a href="{{link}}" target="_blank" class="headerVideoLink">
+                                    <div class="videoSection__inner--img">
+                                            <img src="{{thumbnail}}" class="img-fluid" />
+                                            <p>{{title}}</p>                                            
+
+                                    </div>
+                                </a>
+                                {% if video.title %}
+                                <div class="videoSection__content">
+                                    <a href="#" target="_blank" class="popup-modal headerVideoLink">
+                                        <p class="videoSection__content--title">{{video.title}}</p>
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Gallery</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'company:photo' %}" class="sidebar-bar__item---link">Photos</a></li>
+                        <li class="sidebar-bar__item active"><a href="{% url 'company:video' %}" class="sidebar-bar__item---link active">Videos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script src="{% static 'js/magnific-popup.js' %}"></script>
+<script>
+    $(function() {
+        $('.headerVideoLink').magnificPopup({
+            type: 'inline',
+            midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+        });
+    });
+</script>
+{% endblock %}

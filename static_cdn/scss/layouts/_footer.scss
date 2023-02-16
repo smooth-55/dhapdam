@@ -1,0 +1,157 @@
+// footer
+.top-footer {
+    background-color: var(--bs-theme-dark);
+    font-weight: 400;
+    color: var(--bs-theme-light);
+    h4 {
+        color: white;
+        position: relative;
+        padding: 0 0 16px;
+        margin: 0 0 8px;
+        &::before {
+            content: "";
+            height: 4px;
+            width: 55px;
+            background: #fff;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+    }
+    &__contact {
+        padding: 0 0.5rem;
+        border-right: 1px solid var(--bs-border);
+        ul {
+            position: relative;
+            li {
+                padding-top: .5rem;
+                font-size: 0.875rem;
+                padding-left: 1.5rem;
+                &::before {
+                    position: absolute;
+                    left: 0;
+                    font-family: 'Font Awesome 5 Free';
+                    font-size: inherit;
+                    text-rendering: auto;
+                    font-weight: 900;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                }
+            }
+            .address::before {
+                content: '\f3c5';
+            }
+            .contact::before {
+                content: '\f879';
+            }
+            .mail::before {
+                content: '\f0e0';
+            }
+            .web::before {
+                content: '\f57e';
+            }
+        }
+    }
+    &__link {
+        padding: 0 0.5rem;
+        border-right: 1px solid var(--bs-border);
+        ul {
+            position: relative;
+            li {
+                padding-top: .5rem;
+                font-size: 0.875rem;
+                padding-left: 1.5rem;
+                &::before {
+                    position: absolute;
+                    left: 0;
+                    content: '\f101';
+                    font-family: 'Font Awesome 5 Free';
+                    font-size: inherit;
+                    text-rendering: auto;
+                    font-weight: 900;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                }
+                a {
+                    color: #f2f2f2;
+                }
+                &:hover a {
+                    padding-left: 0.25rem;
+                    color: white;
+                    transition: all 0.3s ease-in-out;
+                    -webkit-transition: all 0.3s ease-in-out;
+                    -moz-transition: all 0.3s ease-in-out;
+                    -o-transition: all 0.3s ease-in-out;
+                }
+            }
+        }
+    }
+    &__content {
+        padding: 0 0.5rem;
+    }
+}
+
+@media(max-width:992px) {
+    .top-footer {
+        &__link {
+            border-right: 0;
+        }
+        &__content {
+            padding: 1rem 0.5rem 0;
+        }
+    }
+}
+
+@media(max-width:768px) {
+    .top-footer {
+        &__contact {
+            padding-bottom: 1rem;
+            border-right: 0;
+        }
+        &__link {
+            padding-bottom: 1rem;
+        }
+    }
+}
+
+.bottom-footer {
+    background-color: var(--bs-theme-blue);
+    color: #bbbbbb;
+    font-size: 0.875rem;
+    padding: 0.75rem 0;
+    &__content {
+        text-align: center;
+        position: relative;
+        .visitor {
+            position: absolute;
+            top: 12px;
+            right: 0;
+            transform: translateY(-50%);
+        }
+        .footer-link-btn {
+            color: white;
+            position: relative;
+            &::after {
+                content: '\f105';
+                position: absolute;
+                font-family: 'Font Awesome 5 Free';
+                font-size: inherit;
+                text-rendering: auto;
+                font-weight: 900;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                opacity: 0;
+                transition: all 0.3s ease-in-out;
+                top: 54%;
+                transform: translateY(-50%);
+                right: -.25rem;
+            }
+            &:hover {
+                &::after {
+                    opacity: 1;
+                    right: -1rem;
+                }
+            }
+        }
+    }
+}

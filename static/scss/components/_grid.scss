@@ -1,0 +1,179 @@
+//
+//  RESPOND ABOVE
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+// @include respond-above(sm) {}
+@mixin respond-above($breakpoint) {
+
+    // If the breakpoint exists in the map.
+    @if map-has-key($grid-breakpoints, $breakpoint) {
+  
+      // Get the breakpoint value.
+      $breakpoint-value: map-get($grid-breakpoints, $breakpoint);
+  
+      // Write the media query.
+      @media (min-width: $breakpoint-value) {
+        @content;
+      }
+    
+    // If the breakpoint doesn't exist in the map.
+    } @else {
+  
+      // Log a warning.
+      @warn 'Invalid breakpoint: #{$breakpoint}.';
+    }
+  }
+  
+  
+  //
+  //  RESPOND BELOW
+  //––––––––––––––––––––––––––––––––––––––––––––––––––
+  
+  // @include respond-below(sm) {}
+  @mixin respond-below($breakpoint) {
+  
+    // If the breakpoint exists in the map.
+    @if map-has-key($grid-breakpoints, $breakpoint) {
+  
+      // Get the breakpoint value.
+      $breakpoint-value: map-get($grid-breakpoints, $breakpoint);
+  
+      // Write the media query.
+      @media (max-width: ($breakpoint-value - 1)) {
+        @content;
+      }
+    
+    // If the breakpoint doesn't exist in the map.
+    } @else {
+  
+      // Log a warning.
+      @warn 'Invalid breakpoint: #{$breakpoint}.';
+    }
+  }
+  
+  
+  //
+  //  RESPOND BETWEEN
+  //––––––––––––––––––––––––––––––––––––––––––––––––––
+  
+  // @include respond-between(sm, md) {}
+  @mixin respond-between($lower, $upper) {
+  
+    // If both the lower and upper breakpoints exist in the map.
+    @if map-has-key($grid-breakpoints, $lower) and map-has-key($grid-breakpoints, $upper) {
+  
+      // Get the lower and upper breakpoints.
+      $lower-breakpoint: map-get($grid-breakpoints, $lower);
+      $upper-breakpoint: map-get($grid-breakpoints, $upper);
+  
+      // Write the media query.
+      @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
+        @content;
+      }
+    
+    // If one or both of the breakpoints don't exist.
+    } @else {
+  
+      // If lower breakpoint is invalid.
+      @if (map-has-key($grid-breakpoints, $lower) == false) {
+  
+        // Log a warning.
+        @warn 'Your lower breakpoint was invalid: #{$lower}.';
+      }
+  
+      // If upper breakpoint is invalid.
+      @if (map-has-key($grid-breakpoints, $upper) == false) {
+  
+        // Log a warning.
+        @warn 'Your upper breakpoint was invalid: #{$upper}.';
+      }
+    }
+  }
+
+  @include respond-above(xga) {
+    .d-xga{
+      @include grid;
+    }
+    .container {
+        width: 1530px;
+        max-width: 1530px;
+      }
+
+    .col-xga {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+    
+    @include column;
+    }
+    .order-xga{
+        @include order;
+    }
+
+    .offset-xga{
+    @include offset;
+    }
+    .flex-xga{
+        @include flex;
+    }
+    .align-self-xga{
+        @include  align-self;
+    }
+    .justify-content-xga{
+        @include justify-content;
+    }
+    .align-items-xga{
+        @include align-items;
+    }
+    .align-content-xga{
+        @include align-items;
+    }
+
+  }
+
+  @include respond-above(fhd) {
+    .d-fhd{
+      @include grid;
+    }
+    .container {
+        width: 1830px;
+        max-width: 1830px;
+      }
+      .col-fhd {
+        -ms-flex-preferred-size: 0;
+        flex-basis: 0;
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        max-width: 100%;
+        
+        @include column;
+        }
+        .order-fhd{
+            @include order;
+        }
+    
+        .offset-fhd{
+        @include offset;
+        }
+        .flex-fhd{
+            @include flex;
+        }
+        .align-self-fhd{
+            @include  align-self;
+        }
+        .justify-content-fhd{
+            @include justify-content;
+        }
+        .align-items-fhd{
+            @include align-items;
+        }
+        .align-content-fhd{
+            @include align-items;
+        }
+  }
+  
+

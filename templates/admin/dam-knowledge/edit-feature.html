@@ -1,0 +1,108 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %}
+{% load widget_tweaks %}
+
+<!-- title -->
+{% block title %}Dam Knowledge{% endblock %}
+<!-- content -->
+{% block content %}
+
+
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Edit Sailent Features</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="">Sailent Features</a></li>
+                    <li class="breadcrumb-item active">Edit Sailent Features</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Name of Dam/ Reservior</label><span class="text-danger">*</span>
+                                    {% render_field form.name_of_dam_or_reservoir class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Location</label>
+                                    {% render_field form.location class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Main Purpose</label>
+                                    {% render_field form.main_purpose class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Volume (mm<sup>3</sup>)</label>
+                                    
+                                    {% render_field form.volume class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Height of Dam</label>
+                                    {% render_field form.height_of_dam class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">Type of Dam</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">As per size</label>
+                                    {% render_field form.as_per_size class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="mb-3">
+                                    <label class="tractor-label">As per construction material</label><span class="text-danger">*</span>
+                                    {% render_field form.as_per_construction_material class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Governing ICOLD Criteria For Large Dams</label>
+                                    {% render_field form.governing_icold_criteria_for_large_dams class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <input class="btn btn-success btn-theme-admin rounded-0" type="submit" value="Add Sailent Features" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

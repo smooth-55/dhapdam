@@ -1,0 +1,104 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}"> {% endblock %}
+<!-- title -->
+
+{% block title %}Administration{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'news:darta-chalani' %}" class="link text-theme-light-blue">Darta Chalani</a>/ <a
+                    href="{% url 'news:chalani-list' %}" class="link text-theme-light-blue">Chalani List</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="col-lg-12 mx-auto">
+            <h5 class="content-title">Chalani List</h5>
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-responsive bsa-responsive-table p-3">
+                        <div class="row mb-3">
+                            <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                                {% include 'admin/fade_call.html' %}
+                                <a href="{% url 'news:chalani-form' %}" class="btn btn-secondary-theme btn-block">Add Chalani</a>
+                            </div>
+                        </div>
+                        <table id="table_dataframe" class="notranslate table table-bordered administration-table" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <!-- <th width="2%">SN</th> -->
+                                    <th>चलानी नंं.</th>
+                                    <th width="10%">चलानी मिति</th>
+                                    <th>चलानी हुने पत्रकाे पत्र संख्या</th>
+                                    <th>चलानी हुने पत्रकाे मिति</th>
+                                    <th>पत्र चलान हुने व्यक्ति वा कार्यालयको नाम</th>
+                                    <th>विषय</th>
+                                    <th>कैफियत</th>
+                                    <th>पत्रकाे फाेटाे / संलग्न कागजात</th>
+                                    <th width="12%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in chalani %}
+                                <tr>
+                                    <!-- <td>{{forloop.counter}}</td> -->
+                                    <td>{{item.chalani_no}}</td>
+                                    <td>{{item.date}}</td>
+                                    <td>{{item.patra_no}}</td>
+                                    <td>{% if item.chalani_perform_date %}{{item.chalani_perform_date}}{% endif %}</td>
+                                    <td>{{item.address}}</td>
+                                    <td>{{item.subject}}</td>
+                                    <td>{% if item.remark %}{{item.remark}}{% endif %}</td>
+
+                                    <td class="table-image">
+                                        {% if item.image %}<span class="action-icon mr-3"><a href="{{item.image.url}}" target="_blank"
+                                            data-toggle="tooltip" data-placement="bottom" title="Open">{{item.image.url|slice:"22:"}}</a></span> {% endif %}
+                                    </td>
+                                    <td>
+                                        <!-- <span class="action-icon mr-3"><a href="" data-toggle="tooltip" data-placement="bottom" title="Open"><i class="fas fa-eye text-secondary"></i></a></span> -->
+                                        <span class="action-icon mr-3"><a href="{% url 'news:chalani-update' item.pk %}" data-toggle="tooltip" data-placement="bottom" title="Edit"><i class="fas fa-edit text-secondary"></i></a></span>
+                                        <span class="action-icon mr-3"><button data-id="{% url 'news:chalani-delete' item.id %}" data-toggle="tooltip" data-placement="bottom" title="Delete" class="chalani-delete btn btn-transparent bg-white p-0"><i class="fas fa-trash text-danger"></i></button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+
+<script>
+    $(document).ready(function() {
+        $('#table_dataframe').DataTable({
+            scrollX: true,
+            "ordering": false
+        });
+    });
+    // delete alert
+    $(".chalani-delete").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data("id"),
+        });
+    });
+</script>
+{% endblock %}

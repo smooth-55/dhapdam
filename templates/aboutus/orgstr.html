@@ -1,0 +1,54 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Organization Structure{% endblock %}
+<!-- content -->
+{% block content %}
+
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'company:structure' %}" class="link text-theme-light-blue">Organization
+                    Structure</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Organization Structure</h5>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        {% if structure.file %}
+                            <div class="os-image">
+                                <img src="{{structure.file.url}}" class="img-fluid" alt="">
+                                
+                            </div>
+                        {% else %}
+                            <p>File not uploaded</p>
+                        {% endif %}
+                        
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">About Us</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'company:about' %}" class="sidebar-bar__item---link">Introduction</a></li>
+                        <li class="sidebar-bar__item active"><a href=" {% url 'company:structure' %} " class="sidebar-bar__item---link active ">Organization Structure</a></li>
+                        <li class="sidebar-bar__item "><a href="{% url 'company:citizen-charter' %} " class="sidebar-bar__item---link ">Citizen Charter</a></li>
+                        <li class="sidebar-bar__item "><a href="{% url 'users:employee-detail' %} " class="sidebar-bar__item---link ">Employee Details</a></li>
+                        <li class="sidebar-bar__item "><a href="{% url 'users:ex-employee' %} " class="sidebar-bar__item---link ">Ex Employess</a></li>
+                        <li class="sidebar-bar__item "><a href="{% url 'users:ex-projecthead' %} " class="sidebar-bar__item---link ">Ex Project Heads</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

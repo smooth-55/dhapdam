@@ -1,0 +1,109 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Nagmati Dam{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'company:nagmatidam' %}" class="link text-theme-light-blue">Nagmati Dam / <a href="{% url 'company:nagmati-features' %}" class="link text-theme-light-blue">Sailent Features</a></a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Sailent Features</h5>
+                <div class="about__content">
+                    <p class="about__content---para">
+                        {{features.content|safe}}
+                        <span class="text-dark font-weight-500"></span>
+                    </p>
+                </div>
+                <div class="table-responsive bsa-responsive-table mt-3 border-0">
+                    <table class="table table-bordered bsa-table">
+                        <tbody>
+                            <tr style="background-color: #d5e6ff">
+                                <th style="text-align: left;">Item</th>
+                                <th style="text-align: left;">Description</th>
+                            </tr>
+                            <tr>
+                                <td>Dam type</td>
+                                <td>{{features.dam_type}}</td>
+                            </tr>
+                            <tr>
+                                <td>Dam height (D/S toe to crest)</td>
+                                <td>{{features.dam_height}}</td>
+                            </tr>
+                            <tr>
+                                <td>Dam top Length (Crest Length)</td>
+                                <td>{{features.dam_top_length}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Dam crest elevation</td>
+                                <td>{{features.dam_crest_elevation}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Reservoir surface area at FSL</td>
+                                <td>{{features.reservoir_surface_area_at_fsl}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Crest width</td>
+                                <td>{{features.crest_width}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Dam volume</td>
+                                <td>{{features.dam_volume}}</td>
+                            </tr>
+                            <tr>
+                                <td>Full Supply Level (FSL)</td>
+                                <td>{{features.full_supply_level}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Freeboard (measured from the dam crest)</td>
+                                <td>{{features.Freeboard}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Design Discharge</td>
+                                <td>{{features.design_discharge}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Power Production</td>
+                                <td>{{features.power_of_production}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>Cost of project</td>
+                                <td>{{features.cost_of_project}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Nagmati Dam</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'company:nagmatidam' %}" class="sidebar-bar__item---link">Introduction</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:nagmati-location' %}" class="sidebar-bar__item---link">Location and Accessibility</a></li>
+                        <li class="sidebar-bar__item active"><a href="{% url 'company:nagmati-features' %}" class="sidebar-bar__item---link active">Sailent Features</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:nagmati-status' %}" class="sidebar-bar__item---link">Present Status of Project</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:nagmati-maps' %}" class="sidebar-bar__item---link">Maps</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

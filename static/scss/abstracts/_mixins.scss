@@ -1,0 +1,70 @@
+@mixin lhCrop($line-height) {
+    &::before {
+        content: '';
+        display: block;
+        height: 0;
+        width: 0;
+        margin-top: calc((1 - #{$line-height}) * 0.5em);
+    }
+}
+
+@mixin textOverflow {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+@mixin tabWithgreyLink {
+    border-bottom: 1px solid #f2f2f2;
+    .nav-link {
+        background-color: #f2f2f2;
+        border: 0;
+        border-bottom: 2px solid #fff;
+        border-radius: 0;
+        color: var(--bs-theme-medium);
+        font-weight: 600;
+        text-transform: uppercase;
+        &:hover,
+        &:focus {
+            border-color: #fff;
+            color: var(--bs-theme-blue);
+        }
+        &.active {
+            border-bottom: 2px solid var(--bs-theme-blue);
+            background-color: var(--bs-fade);
+            color: var(--bs-theme-blue);
+        }
+    }
+}
+
+@mixin textOverflow2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: normal;
+}
+
+@mixin owlDots {
+    position: absolute;
+    bottom: .5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    .owl-dot {
+        span {
+            background-color: white;
+            width: 24px;
+            height: 5px;
+            margin: 0px 4px;
+            &:hover {
+                background-color: var(--bs-theme-blue);
+            }
+        }
+        &.active {
+            span {
+                background-color: var(--bs-theme-blue);
+            }
+        }
+    }
+}

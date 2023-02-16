@@ -1,0 +1,138 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %}
+{% load widget_tweaks %}
+
+<!-- title -->
+{% block title %}Dhap Dam{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Add Contract Detail</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'dam:dadmin-contract-detail' %}">Contract Detail</a></li>
+                    <li class="breadcrumb-item active">Add Contract Detail</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="form-title">Contract Information</h6>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Content</label>
+                                    {% render_field form.content class="form-control tractor-input" rows="4" %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Name of Work</label>
+                                    {% render_field form.Name_of_work class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Client</label>
+                                    {% render_field form.client class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Contract No.</label>
+                                    {% render_field form.contract_no class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Name of Contractor</label>
+                                    {% render_field form.name_of_contractor class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">Date Information</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Date of Agreement</label>
+                                    {% render_field form.date_of_agreement class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Initial Date of Completion (DOC)</label>
+                                    {% render_field form.intial_date_of_completion class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Revised Date of Completion</label>
+                                    {% render_field form.revised_date_of_completion class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">Amount/ Progress Information</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Contract Amount with VAT</label>
+                                    {% render_field form.contract_amount_with_VAT class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Physical Progress Till (Jan, 2021)</label>
+                                    {% render_field form.physical_progress class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Financial Progress Till (Jan, 2021)</label>
+                                    {% render_field form.financial_progress class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">Other Information</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Authorized/Responsible Person</label>
+                                    {% render_field form.responsible_person class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <input class="btn btn-success btn-theme-admin rounded-0" type="submit" value="Add Detail" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

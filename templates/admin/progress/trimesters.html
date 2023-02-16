@@ -1,0 +1,514 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% block static %}
+<link rel="stylesheet" href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}">
+<link rel="stylesheet" href="{% static 'css/cooltipz.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Progress{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Overall Progress</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Overall Progress</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row mb-3 align-items-center">
+            <!-- <div class="col-12 col-sm-6 col-md-6 col-lg-3">
+                <a href="{% url 'company:add-trimesters' %}"
+                    class="btn btn-block btn-success btn-theme-admin rounded-0">Add Trimester Progress</a>
+            </div> -->
+            <div class="col-12 col-sm-6 col-md-3 col-lg-2 ml-auto">
+                <form method="GET" id="AdminyearForm" data-year-url="{% url 'company:trimesters' %}" novalidate>
+
+                    <label for="tractor-label">Fiscal Year</label>
+                    <select id="adminyear-name" class="tractor-select form-control">
+                        {% if yrs %}
+                            {% for year in fiscal %}
+                            <option value="{{ year.id }}" {% if year.year == yrs.year %} selected="selected" {% endif %}>
+                                {{ year.year }}</option>
+                            {% endfor %}
+
+                        {% endif %}
+                        <!--current year -->
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th rowspan="3">SN</th>
+                                <th rowspan="3">Periodicity</th>
+                                <th colspan="5" class="text-center border-bottom">Financial Progress</th>
+                                <th colspan="2" class="text-center border-bottom">Physical Progress</th>
+                                <th rowspan="3">Overall</th>
+                                <th rowspan="3">Action</th>
+                            </tr>
+                            <tr>
+                                <th colspan="2" class="text-center border-bottom">Amount (Rs)</th>
+                                <th rowspan="2">Target Rs</th>
+                                <th colspan="2" class="text-center border-bottom">Percentage</th>
+                                <th rowspan="2">Periodic</th>
+                                <th rowspan="2">Cumulative</th>
+                            </tr>
+                            <tr>
+                                <th>Periodic Rs</th>
+                                <th>P. Cumulative Rs</th>
+                                <th>Periodic</th>
+                                <th>Yearly</th>
+                            </tr>
+                        </thead>
+                        <tbody style="background-color: white;" id="update-data">
+
+
+                            <tr>
+                                <td>1.</td>
+                                <td>Shrawn</td>
+                                <td>{% if first_trim.month1_periodic_amount == 0 or first_trim.month1_periodic_amount %}{{first_trim.month1_periodic_amount}}{% endif %}
+                                </td>
+                                <td>{% if first_trim.month1_cumulative_amount == 0 or first_trim.month1_cumulative_amount %}{{first_trim.month1_cumulative_amount}}{% endif %}
+                                </td>
+                                <td rowspan="5" style="vertical-align: bottom;">{{first_trim.periodic_target}}</td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                    {% if periodic_first_trim %}{{periodic_first_trim|floatformat:2}}{% endif %}
+                                </td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                    {% if first_trim_yearly_percentage %}{{first_trim_yearly_percentage|floatformat:2}}{% endif %}
+                                </td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                    {% if first_trim.periodic_physical_progress %}
+                                    {{first_trim.periodic_physical_progress|floatformat:2}}{% endif %}
+                                </td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                    {% if first_trim.periodic_physical_progress %}
+                                    {{first_trim.periodic_physical_progress|floatformat:2}}
+                                    {% endif %}
+
+                                </td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                    {% if first_trim.overrall %} {{first_trim.overrall|floatformat:2}} 
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3">
+                                        {% if first_trim.month1_cumulative_amount == 0 or first_trim.month1_cumulative_amount %}
+                                        <P><b>completed</b></P>
+                                        {% else %}
+                                        <p><a href="{% url 'company:add-trimesters' %}"><i
+                                                    class="fas fa-plus text-secondary"></i></a></p>
+                                        {% endif %}
+                                    </span>
+
+                                </td>
+                            </tr>
+                            <!-- bhada month  -->
+                            <tr>
+                                <td>2.</td>
+                                <td>Bhadra</td>
+                                <td>{% if first_trim.month2_periodic_amount %}{{first_trim.month2_periodic_amount}}{% endif %}
+                                </td>
+                                <td>{% if first_trim.month2_cumulative_amount %}{{first_trim.month2_cumulative_amount}}{% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3">
+                                        {% if first_trim.month2_cumulative_amount or first_trim.month2_cumulative_amount == 0 %}
+                                        <P><b>completed</b></P>
+                                        {% elif first_trim.month1_cumulative_amount or first_trim.month1_cumulative_amount == 0 %}
+                                        <a href="{% url 'company:firsttrimester-update' first_trim.pk %}"><i
+                                                class="fas fa-plus text-secondary"></i></a>
+
+                                        {% endif %}
+                                    </span>
+
+                                </td>
+                            </tr>
+
+                            <!-- ashoj  -->
+                            <tr>
+                                <td>3.</td>
+                                <td>Ashoj</td>
+                                <td>{% if first_trim.month3_periodic_amount %}{{first_trim.month3_periodic_amount}}{% endif %}
+                                </td>
+                                <td>{% if first_trim.month3_cumulative_amount %}{{first_trim.month3_cumulative_amount}}{% else %}{% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3">
+                                        {% if first_trim.month3_cumulative_amount %}
+                                        <P><b>completed</b></P>
+                                        {% elif first_trim.month2_cumulative_amount %}
+                                        <a href="{% url 'company:firsttrimestermonth3-update' first_trim.pk %}"><i
+                                                class="fas fa-plus text-secondary"></i></a>
+                                        {% endif %}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4.</td>
+                                <td>Kartik</td>
+                                <td>{% if first_trim.month4_periodic_amount %}{{first_trim.month4_periodic_amount}}{% endif %}
+                                </td>
+                                <td>{% if first_trim.month4_cumulative_amount %}{{first_trim.month4_cumulative_amount}}{% else %}{% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3">
+                                        {% if first_trim.month4_cumulative_amount %}
+                                        <P><b>completed</b></P>
+                                        {% elif first_trim.month3_cumulative_amount or first_trim.month3_cumulative_amount  %}
+                                        <a href="{% url 'company:firsttrimestermonth4-update' first_trim.pk %}"><i
+                                                class="fas fa-plus text-secondary"></i></a>
+                                        {% endif %}
+                                    </span>
+
+                                </td>
+                            </tr>
+
+                            <tr style="background-color: #87ffc5">
+                                <td></td>
+                                <td><strong>First Trimester</strong></td>
+                                <td></strong>
+                                </td>
+                                <td><strong>{% if first_trim.month4_cumulative_amount %}{{first_trim.month4_cumulative_amount}}{% endif %}</strong>
+                                </td>
+                                <td class="text-center">
+                                    {% if first_trim.month4_cumulative_amount %}
+                                        {% if first_trim.pk %}
+                                        <span class="action-icon mr-3">
+                                            <a href="{% url 'company:firsttrimesterperiodic' first_trim.pk %}"><i
+                                                    class="fas fa-plus text-secondary"></i></a>
+                                        </span>
+                                        {% endif %}
+                                    {% endif %}
+
+                                </td>
+                            </tr>
+
+                            <!-- end of first trimester  -->
+                            <!-- mangsir  -->
+                            <tr>
+                                <td>5.</td>
+                                <td>Mangsir</td>
+                                <td>{% if second_trim.month1_periodic_amount %}{{second_trim.month1_periodic_amount}}{% endif %}
+                                </td>
+                                <td>{% if second_trim.month1_cumulative_amount %}{{second_trim.month1_cumulative_amount}}{% endif %}
+                                </td>
+                                <td rowspan="5" style="vertical-align: bottom;">{{second_trim.periodic_target}}</td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                    {% if second_trim.periodic_percentage_financial %}{{periodic_second_trim|floatformat:2}}{% endif %}
+                                </td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                    {% if second_trim_yearly_percentage %}{{second_trim_yearly_percentage|floatformat:2}}{% endif %}
+                                </td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                    {% if second_trim.periodic_physical_progress %}
+                                    {{second_trim.periodic_physical_progress|floatformat:2}} {% endif %}
+                                </td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                        {% if cumulative_physical_progress.second_trim_physical_progress %}
+                                        {{cumulative_physical_progress.second_trim_physical_progress|floatformat:2}} 
+                                        {% endif %}
+                                    </td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                    {% if second_trim.overrall %} {{second_trim.overrall|floatformat:2}} 
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3">
+                                        {% if second_trim.month1_cumulative_amount %}
+                                        <P><b>completed</b></P>
+                                        {% elif first_trim.month1_cumulative_amount or first_trim.month1_cumulative_amount == 0 %}
+                                        <a href="{% url 'company:add-secondtrimesters' first_trim.pk %}"><i
+                                                class="fas fa-plus text-secondary"></i></a>
+                                        {% endif %}
+                                    </span>
+
+                                </td>
+                            </tr>
+
+                            <!-- poush  -->
+                            <tr>
+                                <td>6.</td>
+                                <td>Poush</td>
+                                <td>{% if second_trim.month2_periodic_amount %}{{second_trim.month2_periodic_amount}}{% endif %}
+                                </td>
+                                <td>{% if second_trim.month2_cumulative_amount %}{{second_trim.month2_cumulative_amount}}{% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3">
+                                        {% if second_trim.month2_periodic_amount %}
+                                        <P><b>completed</b></P>
+                                        {% elif second_trim.month1_cumulative_amount %}
+                                        <a href="{% url 'company:secondtrimestermonth2-update' second_trim.pk %}"><i
+                                                class="fas fa-plus text-secondary"></i></a>
+                                        {% else %}
+                                        <p></p>
+                                        {% endif %}
+                                    </span>
+
+                                </td>
+                            </tr>
+
+                            <!-- magh  -->
+                            <tr>
+                                <td>7.</td>
+                                <td>Magh</td>
+                                <td>{% if second_trim.month3_periodic_amount %}{{second_trim.month3_periodic_amount}}{% endif %}
+                                </td>
+                                <td>{% if second_trim.month3_cumulative_amount %}{{second_trim.month3_cumulative_amount}}{% else %}{% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3">
+                                        {% if second_trim.month3_cumulative_amount %}
+                                        <P><b>completed</b></P>
+                                        {% elif second_trim.month2_cumulative_amount %}
+                                        <a href="{% url 'company:secondtrimestermonth3-update' second_trim.pk %}"><i
+                                                class="fas fa-plus text-secondary"></i></a>
+                                        {% else %}
+                                        <P></P>
+                                        {% endif %}
+                                    </span>
+
+                                </td>
+                            </tr>
+
+                            <!-- falgun  -->
+                            <tr>
+                                <td>6.</td>
+                                <td>Falgun</td>
+                                <td>{% if second_trim.month4_periodic_amount %}{{second_trim.month4_periodic_amount}}{% endif %}
+                                </td>
+                                <td>{% if second_trim.month4_cumulative_amount %}{{second_trim.month4_cumulative_amount}}{% else %}{% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3">
+                                        {% if second_trim.month4_cumulative_amount %}
+                                        <P><b>completed</b></P>
+                                        {% elif second_trim.month3_cumulative_amount %}
+                                        <a href="{% url 'company:secondtrimestermonth4-update' second_trim.pk %}"><i
+                                                class="fas fa-plus text-secondary"></i></a>
+                                        {% else %}
+                                        <P></P>
+                                        {% endif %}
+                                    </span>
+
+                                </td>
+                            </tr>
+
+                            <tr style="background-color: #87ffc5">
+                                <td></td>
+                                <td><strong>Second Trimester</strong></td>
+                                <td><strong></strong>
+                                </td>
+                                <td><strong>{% if second_trim.trimester_cumulative %}{{second_trim.trimester_cumulative}}{% endif %}</strong>
+                                </td>
+                                <td class="text-center">
+                                    {% if second_trim.month4_cumulative_amount %}
+                                        {% if second_trim.pk %}
+                                            <span class="action-icon mr-3">
+                                                <a href="{% url 'company:secondtrimesterperiodic' second_trim.pk %}"><i
+                                                        class="fas fa-plus text-secondary"></i></a>
+                                            </span>
+                                        {% endif %}
+                                    {% endif %}
+
+                                </td>
+                            </tr>
+                            <!-- end of second trimester  -->
+                            <tr>
+                                <td>9.</td>
+                                <td>chaitra</td>
+                                <td>{{third_trim.month1_periodic_amount}}</td>
+                                <td>{{third_trim.month1_cumulative_amount}}</td>
+                                <td rowspan="5" style="vertical-align: bottom;">{{third_trim.periodic_target}}</td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                    {{third_trim.periodic_percentage_financial}}</td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                    {% if third_trim_yearly_percentage %}{{third_trim_yearly_percentage|floatformat:2}}{% endif %}
+                                </td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                    {% if third_trim.periodic_physical_progress %}
+                                        {{third_trim.periodic_physical_progress|floatformat:2}}
+                                    {% endif %}
+                                </td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                        {% if cumulative_physical_progress.third_trim_physical_progress %}
+                                        {{cumulative_physical_progress.third_trim_physical_progress|floatformat:2}}
+                                        {% endif %}
+
+                                </td>
+                                <td rowspan="5" style="vertical-align: bottom;">
+                                    {% if third_trim.overrall %} {{third_trim.overrall|floatformat:2}} 
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3">
+                                        {% if third_trim.month1_cumulative_amount %}
+                                        <P><b>completed</b></P>
+                                        {% elif second_trim.month1_cumulative_amount or second_trim.month1_cumulative_amount == 0 %}
+                                        <a href="{% url 'company:add-thirdtrimesters' second_trim.pk %}"><i
+                                                class="fas fa-plus text-secondary"></i></a>
+                                        {% endif %}
+                                    </span>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10.</td>
+                                <td>Baisakh</td>
+                                <td>{{third_trim.month2_periodic_amount}}</td>
+                                <td>{{third_trim.month2_cumulative_amount}}</td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3">
+                                        {% if third_trim.month2_cumulative_amount %}
+                                        <P><b>completed</b></P>
+                                        {% elif third_trim.month1_cumulative_amount %}
+                                        <a href="{% url 'company:thirdtrimestermonth2-update' third_trim.pk %}"><i
+                                                class="fas fa-plus text-secondary"></i></a>
+                                        {% endif %}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>11.</td>
+                                <td>Jestha</td>
+                                <td>{{third_trim.month3_periodic_amount}}</td>
+                                <td>{{third_trim.month3_cumulative_amount}}</td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3">
+                                        {% if third_trim.month3_cumulative_amount %}
+                                        <P><b>completed</b></P>
+                                        {% elif third_trim.month2_cumulative_amount %}
+                                        <a href="{% url 'company:thirdtrimestermonth3-update' third_trim.pk %}"><i
+                                                class="fas fa-plus text-secondary"></i></a>
+                                        {% endif %}
+                                    </span>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>12.</td>
+                                <td>Asar</td>
+                                <td>{{third_trim.month4_periodic_amount}}</td>
+                                <td>{{third_trim.month4_cumulative_amount}}</td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3">
+                                        {% if third_trim.month4_cumulative_amount %}
+                                        <P><b>completed</b></P>
+                                        {% elif third_trim.month3_cumulative_amount %}
+                                        <a href="{% url 'company:thirdtrimestermonth4-update' third_trim.pk %}"><i
+                                                class="fas fa-plus text-secondary"></i></a>
+                                        {% endif %}
+                                    </span>
+
+                                </td>
+                            </tr>
+                            <tr style="background-color: #87ffc5">
+                                <td></td>
+                                <td><strong>Third Trimester/Yearly</strong></td>
+                                <td></td>
+                                <td><strong>{% if third_trim.trimester_cumulative %}{{third_trim.trimester_cumulative}}{% endif %}</strong></td>
+                                <td class="text-center">
+                                    {% if third_trim.month4_cumulative_amount %}
+                                        {% if third_trim.pk %}
+                                            <a href="{% url 'company:thirdtrimesterperiodic' third_trim.pk %}"><i
+                                                class="fas fa-plus text-secondary"></i></a>
+                                        {% endif %}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr style="background-color: #87ffc5">
+                                <td></td>
+                                <td><strong>Total</strong></td>
+                                <td><strong></strong></td>
+                                <td><strong>{{total.total_cumulative}}</strong></td>
+                                <td><strong>{% if yrs.target %}{{yrs.target}}{% endif %}</strong></td>
+                                <td><strong></strong></td>
+                                <td><strong>{{overall_yearly_percentage|floatformat:2}}</strong></td>
+                                <td><strong></strong></td>
+                                <td><strong></strong></td>
+                                <td><strong>{% if third_trim.overrall %} {{third_trim.overrall|floatformat:2}} 
+                                        {% endif %}</strong></td>
+                            </tr>
+                        </tbody>
+
+                        <!-- <thead>
+                            <tr>
+                                <th width="2%">SN</th>
+                                <th>Year</th>
+                                <th>Name</th>
+                                <th>Yearly Target</th>
+                                <th width="12%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td>2077-78</td>
+                                <td>Nagmati Dam</td>
+                                <td>22222222</td>
+                                
+                            </tr>
+                        </tbody> -->
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block script%}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#data-table').DataTable();
+    });
+    // delete alert
+
+    $("#adminyear-name").change(function () {
+      var url = $("#AdminyearForm").attr("data-year-url");  // get the url of the `load_cities` view
+      var yearId = $(this).val();  // get the selected country ID from the HTML input
+      console.log("year id",yearId)
+      console.log("url",url)
+
+      $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        data: {
+          'yearId': yearId       // add the country id to the GET parameters
+        },
+        success: function(data) {
+             $('#update-data').html(jQuery(data).find('#update-data').html())
+        }
+      });
+
+    });
+
+</script>
+{% endblock %}

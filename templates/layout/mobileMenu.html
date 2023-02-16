@@ -1,0 +1,143 @@
+{% load static %}
+<!-- mobile view -->
+<div id="side-drawer" class="position-fixed">
+    <div class="h-100 bg-white">
+        <!-- Side Drawer Title -->
+        <div class="p-2 bg-light-theme border-bottom">
+            <div class="sidebarBlock">
+                <div class="sidebarBlock__logo">
+                    <a href="{% url 'index' %}">
+                        <img src="{% static 'images/np.png' %}" class="img-fluid" alt="logo">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Side Drawer Links -->
+        <ul id="links" class="mobileMenu navbar-nav" onclick="closeSideDrawer()">
+            <li class="nav-item mobileMenu__item dropdown">
+                <a class="nav-link mobileMenu__item---link dropdown-toggle" role="button" data-toggle="dropdown" href="#">About Us</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'company:about' %}">Introduction</a></li>
+                    <li><a class="dropdown-item" href="{% url 'company:structure' %}">Organization
+                            Structure</a></li>
+                    <li><a class="dropdown-item" href="{% url 'company:citizen-charter' %}">Citizen Charter</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users:employee-detail' %}">Employee Details</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users:ex-employee' %}">Ex Employees</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users:ex-projecthead' %}">Ex Project Heads</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mobileMenu__item dropdown">
+                <a class="nav-link mobileMenu__item---link dropdown-toggle" role="button" data-toggle="dropdown" href="#">Dhap Dam</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'contracts:dhap-dam' %}">Introduction</a></li>
+                    <li><a class="dropdown-item" href="{% url 'contracts:dhap-features' %}">Sailent Features</a></li>
+                    <li><a class="dropdown-item" href="{% url 'contracts:dhap-location' %}">Location & Accessibility</a></li>
+                    <li><a class="dropdown-item" href="{% url 'contracts:dhap-work-components' %}">Work Components</a></li>
+                    <li><a class="dropdown-item" href="{% url 'contracts:dhap-contract' %}">Contract Details</a></li>
+                    <li><a class="dropdown-item" href="{% url 'contracts:dhap-design' %}">Design & Quality Aspects</a></li>
+                    <li><a class="dropdown-item" href="{% url 'contracts:dhap-environmental' %}">Environmental Aspects</a>
+                    </li>
+                    <li><a class="dropdown-item" href="{% url 'contracts:dhap-maps' %}">Maps of Dam</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mobileMenu__item">
+                <a class="nav-link mobileMenu__item---link" href="{% url 'contracts:c-ongoing' %}">Contract</a>
+            </li>
+            <li class="nav-item mobileMenu__item">
+                <a class="nav-link mobileMenu__item---link" href="{% url 'news:news' %}">News/Notice</a>
+            </li>
+            <li class="nav-item mobileMenu__item">
+                <a class="nav-link mobileMenu__item---link" href="{% url 'company:progress' %}">Progress</a>
+            </li>
+            <li class="nav-item mobileMenu__item dropdown">
+                <a class="nav-link mobileMenu__item---link dropdown-toggle" role="button" data-toggle="dropdown" href="#">Construction</a>
+                <ul class="dropdown-menu">
+                    <li class="has-menu">
+                        <a class="dropdown-item dropdown-toggle has-menu-toggle" role="button" data-toggle="dropdown" href="">Tests & QA/ QC </a>
+                        <ul class="dropdown-has-menu">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:earth-filling' %}">Material Tests</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:concrete-test' %}">Work Tests</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:documentation-test' %}">Documentation</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-menu">
+                        <a class="dropdown-item dropdown-toggle has-menu-toggle" role="button" data-toggle="dropdown" href="">Construction Equipments </a>
+                        <ul class="dropdown-has-menu">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:earth-equipment' %}">Earth moving & Compaction </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:concreting-equipment' %}">Concreting Equipments</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:grouting-equipment' %}">Grouting Equipments</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:brazing-equipment' %}">Brazing Equipments</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:survey-equipment' %}">Concreting Equipments</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:lab-equipment' %}">Lab Equipments</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:geophysical-equipment' %}">Geophysical Investigation Equipments</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'company:design-drawing' %}">Designs/Drawings</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{% url 'company:mos' %}">Method of Statements</a>
+                    </li>
+                    <li class="has-menu">
+                        <a class="dropdown-item dropdown-toggle has-menu-toggle" role="button" data-toggle="dropdown" href="">Footages</a>
+                        <ul class="dropdown-has-menu">
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:work-footage' %}">Work Footages</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{% url 'company:test-footage' %}">Test Footages</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item mobileMenu__item dropdown">
+                <a class="nav-link mobileMenu__item---link dropdown-toggle" role="button" data-toggle="dropdown" href="#">Policy/Law</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'company:actreg' %}">Act and Regulations</a></li>
+                    <li><a class="dropdown-item" href="{% url 'company:spp' %}">Strategy, Plan and Policies</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mobileMenu__item dropdown">
+                <a class="nav-link mobileMenu__item---link dropdown-toggle" role="button" data-toggle="dropdown" href="#">Gallery</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'company:photo' %}">Photos</a></li>
+                    <li><a class="dropdown-item" href="{% url 'company:video' %}">Videos</a></li>
+                </ul>
+            </li>
+            <li class="nav-item mobileMenu__item">
+                <a class="nav-link mobileMenu__item---link" href="{% url 'company:contact' %}">Contact Us</a>
+            </li>
+            <li class="nav-item mobileMenu__item dropdown">
+                <a class="nav-link mobileMenu__item---link dropdown-toggle" role="button" data-toggle="dropdown" href="#">Live Data</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" target="_blank" href="http://dashboard.wscada.net/dhap/#/">AWS</a></li>
+                    <li><a class="dropdown-item" href="{% url 'company:instrumentation' %}">Instrumentation
+                            Structure</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="side-drawer-void" class="position-fixed d-none" onclick="closeSideDrawer()"></div>
+<!-- End Side Drawer -->

@@ -1,0 +1,108 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Dhap Dam{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'contracts:dhap-features' %}" class="link text-theme-light-blue">Dhap Dam / Features</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Salient features of Dam</h5>
+                <div class="about__content">
+                    <p class="about__content---para">
+                        {{features.content|safe}}
+                        <span class="text-dark font-weight-500"></span>
+                    </p>
+                </div>
+                <div class="table-responsive bsa-responsive-table mt-3 border-0">
+                    <table class="table table-bordered bsa-table">
+                        <tbody>
+                            <tr style="background-color: #d5e6ff">
+                                <th style="text-align: left;">Item</th>
+                                <th style="text-align: left;">Description</th>
+                            </tr>
+                            <tr>
+                                <td>Dam type</td>
+                                <td>{{features.dam_type}}</td>
+                            </tr>
+                            <tr>
+                                <td>Location of Dam</td>
+                                <td>{{features.location_of_dam}}</td>
+                            </tr>
+                            <tr>
+                                <td>Dam height (D/S toe to crest)</td>
+                                <td>{{features.dam_height}}</td>
+                            </tr>
+                            <tr>
+                                <td>Dam top Length (Crest Length)</td>
+                                <td>{{features.dam_top_length}}</td>    
+                            </tr>
+                            <tr>
+                                <td>Dam crest elevation</td>
+                                <td>{{features.crest_width}}</td>    
+                            </tr>
+                            <tr>
+                                <td>Upstream slope inclination</td>
+                                <td>{{features.upstream_slope_inclination}}</td>    
+                            </tr>
+                            <tr>
+                                <td>Downstream slope inclination</td>
+                                <td>{{features.downstream_slope_inclination}}</td>    
+                            </tr>
+                            <tr>
+                                <td>Crest width</td>
+                                <td>{{features.crest_width}}</td>    
+                            </tr>
+                            <tr>
+                                <td>Concrete face thickness</td>
+                                <td>{{features.Concrete_face_thickness}}</td>    
+                            </tr>
+                            <tr>
+                                <td>Reservoir volume</td>
+                                <td>{{features.reservoir_volume}}</td>    
+                            </tr>
+                            <tr>
+                                <td>Normal Water Level (NWL)</td>
+                                <td>{{features.normal_waterlevel}}</td>    
+                            </tr>
+                            <tr>
+                                <td>Freeboard (measured from the dam crest)</td>
+                                <td>{{features.Freeboard}}</td>    
+                            </tr>
+                            <tr>
+                                <td>Saddle Dam</td>
+                                <td>{{features.saddle_dam}}</td>    
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Dham Dam</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-dam' %}" class="sidebar-bar__item---link">Introduction</a></li>
+                        <li class="sidebar-bar__item active"><a href="{% url 'contracts:dhap-features' %}" class="sidebar-bar__item---link active">Salient features of Dam</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-location' %}" class="sidebar-bar__item---link">Location and Accessibility</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-work-components' %}" class="sidebar-bar__item---link">Major Work Components</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-contract' %}" class="sidebar-bar__item---link">Contract Details</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-design' %}" class="sidebar-bar__item---link">Design and Quality Aspects</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-environmental' %}" class="sidebar-bar__item---link">Environmental Aspects</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-maps' %}" class="sidebar-bar__item---link">Dhap Dam Maps</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

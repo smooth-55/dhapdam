@@ -1,0 +1,47 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Live Data{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'company:instrumentation' %}" class="link text-theme-light-blue">Instrumentation</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Saddle Dam 1</h5>
+                <ul class="about__content---list">
+                    <li class="nested">Saddle Dam 1
+                        <ol class="about__content---list">
+                            <li><a href="{% url 'company:comingsoon' %}" class="link text-theme-blue" target="_blank">Water Level Gauge</a></li>
+                            <li><a href="{% url 'company:comingsoon' %}" class="link text-theme-blue" target="_blank">Standpipe piezometer</a></li>
+                            <li><a href="{% url 'company:comingsoon' %}" class="link text-theme-blue" target="_blank">Surface Settlement Point</a></li>
+                            <li><a href="{% url 'company:comingsoon' %}" class="link text-theme-blue" target="_blank">Accelerogram</a></li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Instrumentation</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'company:instrumentation' %}" class="sidebar-bar__item---link">Main Dam</a></li>
+                        <li class="sidebar-bar__item active"><a href="{% url 'company:sd1' %}" class="sidebar-bar__item---link active">Saddle Dam 1</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:sd2' %}" class="sidebar-bar__item---link">Saddle Dam 2</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:sd3' %}" class="sidebar-bar__item---link">Saddle Dam 3</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:hydro' %}" class="sidebar-bar__item---link">Hydrostation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

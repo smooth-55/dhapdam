@@ -1,0 +1,100 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% load widget_tweaks %}
+
+<!-- title -->
+{% block title %}Users{% endblock %}
+
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Fiscal Year</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="#">Fiscal year</a></li>
+                    <li class="breadcrumb-item active">Add Fiscal Year</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                    <div class="col-md-6">
+                        <form action="#" method="POST" enctype="multipart/form-data">
+                            <h5 class="modal-title tractorModal__header---title mb-3">Add Fiscal year</h5>
+                            {% csrf_token %}
+                            <!-- <p class="text-danger"></p> -->
+                            <div class="mb-3">
+                                <label for="" class="tractor-label">Year<span class="text-danger">*</span></label>
+                                <!-- <p>{{form.email}}</p> -->
+                                {% render_field form.year class="form-control career-file1" %}
+                                <div class="text-danger">{{ form.year.errors }}</div>
+
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="tractor-label">Name</label>
+                                <!-- <p>{{form.password}}</p> -->
+                                {% render_field form.name class="form-control career-file1" %}
+                                <div class="text-danger">{{ form.name.errors }}</div>
+
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="tractor-label">Yearly Target<span class="text-danger">*</span></label>
+                                <!-- <p>{{form.password}}</p> -->
+                                {% render_field form.target class="form-control career-file1" %}
+                                <div class="text-danger">{{ form.target.errors }}</div>
+
+                            </div>
+                            <button type="submit" class="btn btn-block btn-success btn-theme-admin rounded-0">Add Fiscal Year</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Detail Edit  -->
+
+{% endblock %} {% block script %}
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+<script>
+    //update
+    $(".edit-profile").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data('id')
+        });
+    });
+
+    var message_ele = document.getElementById("messages");
+    console.log("message_ele", message_ele);
+    setTimeout(function() {
+        message_ele.style.display = "none";
+    }, 3000);
+
+
+    // function changePword() {
+    //     var x = document.getElementById("change_passwords");
+    //     if (x.style.display === "none") {
+    //         x.style.display = "block";
+    //     } else {
+    //         x.style.display = "none";
+    //     }
+    // }
+</script>
+{% endblock %}

@@ -1,0 +1,169 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+{% load widget_tweaks %}
+{% block static %}
+
+<!-- title -->
+<link rel="stylesheet" href="{% static 'css/nepali.datepicker.v3.7.min.css' %}"> 
+{% endblock %}
+{% block title %}Administration{% endblock %}
+
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'news:darta-chalani' %}" class="link text-theme-light-blue">Darta Chalani</a>/ <a
+                    href="{% url 'news:darta-form' %}" class="link text-theme-light-blue">Darta Update Form</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="notranslate container">
+        <div class="col-lg-12 mx-auto">
+            <div class="row">
+                <div class="col-md-8 col-sm-12">
+                    <!-- {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li class="text-success">{{ message }} </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %} -->
+                    <h5 class="content-title">Darta Update Form</h5>
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row ">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="" class="bsa-label">दर्ता नं.<span class="text-danger">*</span></label>
+                            
+                                    <input type="text" class="form-control bsa-input" name="darta_no" value="{{darta.darta_no}}" required> {{ form.darta_no.errors }}
+
+                                </div>
+                            </div>
+                            <div class=" col-md-6">
+                                <div class="mb-3">
+                                    <label for="" class="bsa-label">दर्ता मिति<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control bsa-input nepali-datepickers" name="date" value="{{darta.date}}" required/>
+
+
+                                    {% comment %} <input type="date" class="form-control bsa-input" name="date" value="{{darta.date| date:'Y-m-d'}}" id="date" required> {{ form.date.errors }} {% endcomment %}
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="" class="bsa-label">प्राप्त पत्र संख्या<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control bsa-input" name="patra_no" value="{{darta.patra_no}}" id="patra_no" required> {{ form.patra_no.errors }}
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="" class="bsa-label">प्राप्त पत्रको च.नं.<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control bsa-input" name="cha_no" value="{{darta.cha_no}}" id="cha_no" required> {{ form.cha_no.errors }}
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="" class="bsa-label">प्राप्त पत्रको मिति<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control bsa-input nepali-datepickers" name="patra_received_date" value="{{darta.patra_received_date}}" required/>
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="" class="bsa-label">पठाउने व्यक्तिको वा कार्यालय<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control bsa-input" name="sender" value="{{darta.sender}}" id="sender" required> {{ form.sender.errors }}
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="" class="bsa-label">ठेगाना<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control bsa-input" name="address" value="{{darta.address}}" id="address" required> {{ form.address.errors }}
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="" class="bsa-label">विषय<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control bsa-input" name="subject" value="{{darta.subject}}" id="subject" required> {{ form.subject.errors }}
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="" class="bsa-label">पठाउने शाखा<span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control bsa-input" name="medium" value="{{darta.medium}}" id="medium" required> {{ form.medium.errors }}
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="" class="bsa-label">कैफियत</label>
+                                    <input type="text" class="form-control bsa-input" name="remark" value="{{darta.remark}}" id="remark"> {{ form.remark.errors }}
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3 file-input-block">
+                                    <label for="" class="bsa-label">पत्रकाे फाेटाे / संलग्न कागजात<span
+                                            class="text-danger">*</span></label>
+                                            <div class="upt-custom-file">
+                                                {% comment %} <div class="bg-white"></div> {% endcomment %}
+                                                <div class="edit-custom">
+                                                    {% render_field form.image class="form-control career-file" %}
+                                                    <input type="text" class="career-text form-control bsa-file" value="{{darta.image}}">
+                                                </div>
+                                            </div>                                            
+                                    {{ form.image.errors }}
+
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-5">
+                                <button class="btn btn-secondary-theme w-25">Update Darta</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <div class="sidebar-tab sidebar-sticky-top">
+                        <h5 class="sidebar-tab__title">Darta</h5>
+                        <ul class="sidebar-bar">
+                            <li class="sidebar-bar__item"><a href="{% url 'news:darta-chalani' %}" class="sidebar-bar__item---link">Back</a></li>
+                            <li class="sidebar-bar__item"><a href="{% url 'news:darta-list' %}" class="sidebar-bar__item---link">Dharta List</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script src="{% static 'js/nepali.datepicker.v3.7.min.js' %}"></script>
+<script type="text/javascript">
+     $('.upt-custom-file input[type="file"]').change(function(e) {
+        $(this).siblings('input[type="text"]').val(e.target.files[0].name);
+        $('.edit-custom a').hide()
+    })
+    
+    window.onload = function() {
+        var mainInput = document.getElementsByClassName("nepali-datepickers");
+        console.log("mainInput",mainInput)
+        mainInput.nepaliDatePicker({
+            dateFormat: "DD/MM/YYYY"
+        });
+    };
+</script>
+{% endblock %}

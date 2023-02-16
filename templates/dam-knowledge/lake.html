@@ -1,0 +1,71 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Dam Knowledge{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'news:damknowledge' %}" class="link text-theme-light-blue">Dam Knowledge</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="col-lg-12 mx-auto">
+            <div class="row ">
+                <div class="col-md-8 col-sm-12 order-md-1 order-sm-2">
+                    <h5 class="content-title">Dam/ Lakes of Nepal</h5>
+                    <table id="table_dataframe" class="table" style="width:100%">
+                        <thead class="d-none">
+                            <tr>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody class="imp-link">
+                            {% for item in lakes %}
+                            <tr>
+                                <td>
+                                    <a target="_blank" href="{{item.link}}">{{item.title}}</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4 col-sm-12 order-md-2 order-sm-1">
+                    <div class="sidebar-tab sidebar-sticky-top">
+                        <h5 class="sidebar-tab__title">Dam Knowledge</h5>
+                        <ul class="sidebar-bar">
+                            <li class="sidebar-bar__item"><a href="{% url 'news:literatures' %}" class="sidebar-bar__item---link">Dam Literatures</a></li>
+                            <li class="sidebar-bar__item"><a href="{% url 'news:damknowledge' %}" class="sidebar-bar__item---link">Salient Features of Major Dams/Lakes</a></li>
+                            <li class="sidebar-bar__item"><a href="{% url 'news:pipeline' %}" class="sidebar-bar__item---link">Storage Projects in pipeline</a></li>
+                            {% comment %} <li class="sidebar-bar__item"><a href="{% url 'news:name-of-dam' %}" class="sidebar-bar__item---link">Name of Dam/ Reservoir</a></li> {% endcomment %}
+                            <li class="sidebar-bar__item active"><a href="{% url 'news:lake' %}" class="sidebar-bar__item---link active">Information of Dams/Lakes of Nepal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block script %}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#table_dataframe').DataTable({
+            // "paging": false,
+            "ordering": false,
+            "info": false,
+            "scrollX": true
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,190 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% load widget_tweaks %}
+
+<!-- title -->
+{% block title %}Users{% endblock %}
+
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Profile</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                {% include 'admin/fade_call.html' %}
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Profile</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                    <div class="row">
+                        <div class="col-12">
+                            <h6 class="form-title">Personal Information</h6>
+                        </div>
+                        <div class="col-12 text-center">
+                            <div class="profile-pic-wrapper mb-3">
+                                <div class="pic-holder">
+                                    <!-- uploaded pic shown here -->
+                                    {% if superusers.image %}
+                                        <img id="profilePic" class="pic" src="{{superusers.image.url}}"> 
+                                    {% else %}
+                                        <img id="profilePic" class="pic" src="/static/images/employee/kpr.jpg"> 
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-8 mx-auto">
+                            <div class="mb-3 text-right">
+                                <button data-id="{% url 'users:admin-profile-edit' superusers.pk %}"" class="btn btn-link edit-profile"><i class="fas fa-edit"></i>Edit</button>
+                            </div>
+                            <table class="table table-border mx-auto">
+                                <tr>
+                                    <th width="30%">Name</th>
+                                    <td width="70%">: {{superusers.full_name}}</td>
+                                </tr>
+                                <tr>
+                                    <th width="30%">Email</th>
+                                    <td width="70%">: {{superusers.email}}</td>
+                                </tr>
+                                <tr>
+                                    <th width="30%">Designation</th>
+                                    <td width="70%">: {{superusers.get_designation_display}}</td>
+                                </tr>
+                                <tr>
+                                    <th width="30%"></th>
+                                    <td width="70%">
+                                        <a href="{% url 'users:change_passwords' %}"><button id="changePassword" class="btn btn-link">Change
+                                            Password</button>
+                                        </a>
+                                    </td>
+                                </tr>
+
+                            </table>
+                            {% if messages %}
+                            <p id="messages">
+                                <span {% if message.tags %} class=" {{ message.tags }} " {% endif %}> {{ message }}
+                                </span>
+                            </p>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Detail Edit  -->
+<div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header tractorModal__header pb-0">
+                <h5 class="modal-title tractorModal__header---title">Profile Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %} {% block script %}
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+<script>
+    $(document).on("change", ".uploadProfileInput", function() {
+        var triggerInput = this;
+        var currentImg = $(this).closest(".pic-holder").find(".pic").attr("src");
+        var holder = $(this).closest(".pic-holder");
+        var wrapper = $(this).closest(".profile-pic-wrapper");
+        $(wrapper).find('[role="alert"]').remove();
+        var files = !!this.files ? this.files : [];
+        if (!files.length || !window.FileReader) {
+            return;
+        }
+        if (/^image/.test(files[0].type)) {
+            // only image file
+            var reader = new FileReader(); // instance of the FileReader
+            reader.readAsDataURL(files[0]); // read the local file
+
+            reader.onloadend = function() {
+                $(holder).addClass("uploadInProgress");
+                $(holder).find(".pic").attr("src", this.result);
+                $(holder).append(
+                    '<div class="upload-loader"><div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div></div>'
+                );
+
+                // Dummy timeout; call API or AJAX below
+                setTimeout(() => {
+                    $(holder).removeClass("uploadInProgress");
+                    $(holder).find(".upload-loader").remove();
+                    // If upload successful
+                    if (Math.random() < 5) {
+                        $(wrapper).append(
+                            '<div class="snackbar show" role="alert"><i class="fa fa-check-circle text-success"></i> Profile image updated successfully</div>'
+                        );
+
+                        // Clear input after upload
+                        $(triggerInput).val("");
+
+                        setTimeout(() => {
+                            $(wrapper).find('[role="alert"]').remove();
+                        }, 3000);
+                    } else {
+                        $(holder).find(".pic").attr("src", currentImg);
+                        $(wrapper).append(
+                            '<div class="snackbar show" role="alert"><i class="fa fa-times-circle text-danger"></i> Please upload image less than 5Mb.</div>'
+                        );
+
+                        // Clear input after upload
+                        $(triggerInput).val("");
+                        setTimeout(() => {
+                            $(wrapper).find('[role="alert"]').remove();
+                        }, 3000);
+                    }
+                }, 1500);
+            };
+        } else {
+            $(wrapper).append(
+                '<div class="alert alert-danger d-inline-block p-2 small" role="alert">Please choose the valid image.</div>'
+            );
+            setTimeout(() => {
+                $(wrapper).find('role="alert"').remove();
+            }, 3000);
+        }
+    });
+
+    //update
+    $(".edit-profile").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data('id')
+        });
+    });
+
+    //success messages
+    // #sucess messages hide
+    var message_ele = document.getElementById("messages");
+    console.log("message_ele", message_ele);
+    setTimeout(function() {
+        message_ele.style.display = "none";
+    }, 3000);
+</script>
+{% endblock %}

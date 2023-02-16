@@ -1,0 +1,103 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Live Data{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'company:instrumentation' %}" class="link text-theme-light-blue">Instrumentation</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Main Dam</h5>
+                <ul class="about__content---list">
+                    <li class="nested">Main Dam
+                        <ol class="about__content---list">
+                            <li>
+                                <a data-toggle="collapse" href="#pj" role="button">Perimetic Joint</a>
+                                <div class="collapse" id="pj">
+                                    <ul class="about__content---list">
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue" target="_blank">PJM1</a></li>
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue" target="_blank">PJM2</a></li>
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue" target="_blank">PJM3</a></li>
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue" target="_blank">PJM4</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a data-toggle="collapse" href="#jm" role="button">Jointmeter</a>
+                                <div class="collapse" id="jm">
+                                    <ul class="about__content---list">
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue" target="_blank">JM1</a></li>
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue" target="_blank">JM2</a></li>
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue" target="_blank">JM3</a></li>
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue" target="_blank">JM4</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a data-toggle="collapse" href="#spm" role="button">Standpipe piezometer Joint</a>
+                                <div class="collapse" id="spm">
+                                    <ul class="about__content---list">
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue" target="_blank">SPM1</a></li>
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue" target="_blank">SPM2</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a data-toggle="collapse" href="#sp" role="button">Settlement Joint</a>
+                                <div class="collapse" id="sp">
+                                    <ul class="about__content---list">
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue" target="_blank">SP1</a></li>
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue" target="_blank">SP2</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                <a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue" target="_blank">Water Level Sensor (Gauge)</a></li>
+                            <li>
+                                <a data-toggle="collapse" href="#ag" role="button">Accelerogram Joint</a>
+                                <div class="collapse" id="ag">
+                                    <ul class="about__content---list">
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue">A1</a></li>
+                                        <li class="sub-nested"><a href="" data-toggle="modal" data-target="#instrumentation-modal" class="link text-theme-blue">A2</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Instrumentation</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item active"><a href="{% url 'company:instrumentation' %}" class="sidebar-bar__item---link active">Main Dam</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:sd1' %}" class="sidebar-bar__item---link">Saddle Dam 1</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:sd2' %}" class="sidebar-bar__item---link">Saddle Dam 2</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:sd3' %}" class="sidebar-bar__item---link">Saddle Dam 3</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:hydro' %}" class="sidebar-bar__item---link">Hydrostation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include 'live-data/instrumentation-modal.html' %} {% endblock %} {% block script %}
+<script>
+    $(function() {
+        // modal close
+        $(".btn-close").click(function() {
+            $(".instrumentation-modal").modal("hide");
+        });
+    })
+</script>
+{% endblock %}

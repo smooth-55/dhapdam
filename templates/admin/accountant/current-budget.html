@@ -1,0 +1,128 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% block static %}
+<link rel="stylesheet" href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}" />
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}" />
+<link rel="stylesheet" href="{% static 'css/cooltipz.min.css' %}" />
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}" /> {% endblock %}
+<!-- title -->
+{% block title %}Budget{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Current Budget</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Current Budget</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 col-md-3 col-lg-3">
+                {% include 'admin/fade_call.html' %}
+                <a class="current-budget-create btn btn-block btn-success btn-theme-admin rounded-0" data-id="{% url 'company:current-budget-create' %}">Add Current Budget</a>
+            </div>
+        </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table
+            id="data-table"
+            class="table table-striped table-bordered"
+            style="width: 100%"
+          >
+            <thead>
+              <tr>
+                <th width="2%">SN</th>
+                <th>Fiscal Year</th>
+                <th>Annual Budget</th>
+                <th>Expenditure</th>
+                <th>Remaining</th>                
+                <th width="12%">Action</th>
+              </tr>
+            </thead>
+            <tbody>        
+              {% for item in current_budget %}
+              <tr>
+                <td class="text-center">{{forloop.counter}}</td>                
+                <td>{{item.fiscal_year}}</td>
+                <td>{{item.annual_budget}}</td>
+                <td>{{item.expenditure}}</td>
+                <td>{{item.remaining}}</td>
+                <td class="text-center">
+                  <span class="action-icon mr-3">
+                  <a class="current-budget-update" data-id="{% url 'company:current-budget-update' item.pk %}"
+                      data-cooltipz-dir="bottom"
+                      aria-label="Edit"><i class="fas fa-edit text-secondary"></i></a></span>
+                  <span class="action-icon mr-3">
+                    <a class="current-budget-delete"
+                      data-id="{% url 'company:current-budget-delete' item.pk %}"
+                      data-cooltipz-dir="bottom"
+                      aria-label="Edit"
+                      ><i class="fas fa-trash text-danger"></i>
+                      </a>
+                  </span>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %} {% block script%}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+<script>
+  $(document).ready(function () {
+    $("#data-table").DataTable({
+      "scrollX":true
+    });
+  });
+
+  $ 
+  //create
+    $(".current-budget-create").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data('id')
+        });
+    });
+
+    //delete
+    $(".current-budget-update").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data('id')
+        });
+    });
+
+    //delete
+    $(".current-budget-delete").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data('id')
+        });
+    });
+
+</script>
+{% endblock %}

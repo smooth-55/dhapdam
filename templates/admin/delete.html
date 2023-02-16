@@ -1,0 +1,22 @@
+{% load widget_tweaks %}
+<form method="post" action="#">
+    {% csrf_token %}
+    <div class="modal-header tractorModal__header">
+        <h5 class="modal-title tractorModal__header---title">Delete</h5>
+        <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+
+    <div class="modal-body tractorModal__body">
+        <div class="text-center">
+            <i class="fas fa-trash-alt text-danger fa-4x mb-3"></i>
+            <p class="delete-text mb-4">Are you sure you want to delete?</p>
+            <button type="button" class="btn btn-trasparent mr-3" data-dismiss="modal">Cancel
+            <button type="submit" class="delete-btn btn btn-success">Delete</button>
+        </div>
+
+    </div>
+
+
+</form>

@@ -1,0 +1,38 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Administration{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="notranslate link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'news:darta-chalani' %}" class="notranslate link text-theme-light-blue">Darta Chalani</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="col-lg-12 mx-auto">
+            <h5 class="content-title">Administration</h5>
+            <div class="row">
+                <div class="col-12">
+                    <ul class="imp-link">
+                        <li>
+                            <a traget="_blank" href="{% url 'news:darta-list' %}" class="notranslate">Darta</a>
+                        </li>
+                        <li>
+                            <a traget="_blank" href="{% url 'news:chalani-list' %}" class="notranslate">Chalani</a>
+                        </li>
+                        <li>
+                            <a traget="_blank" href="{% url 'news:c-upload-file' %}" class="notranslate">Upload File</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

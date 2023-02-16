@@ -1,0 +1,97 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}News{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'news:news' %}" class="link text-theme-light-blue">News</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="col-lg-12 mx-auto">
+            <h5 class="content-title">News/ Notice</h5>
+            <div class="newsblock">
+                <div class="row mt-3">
+                    <div class="col-lg-8">
+                        <div class="table-responsive bsa-responsive-table p-3">
+                            <table id="table_dataframe" class="table content-table">
+                                <thead>
+                                    <tr>
+                                        <th width="2%">S.No</th>
+                                        <th width="15%">Title</th>
+                                        <th width="32%">Content</th>
+                                        <th width="12%">Image</th>
+                                        <th width="12%">Category</th>
+                                        <th width="8%">Published Date</th>
+                                        <th width="8%">Task</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for news in news %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td class="content-table-title"><a href="{% url 'news:news-detail' news.id %}" class="dlink">{{news.title}}</a></td>
+                                        <td class="content-line"><a href="{% url 'news:news-detail' news.id %}" class="dlink">{{news.content|safe}}</a></td>
+                                        <td class="content-table-title">{% if news.image %}<a href="{{news.image.url}}" data-toggle="tooltip" data-placement="bottom" title="Open" target="_blank">{{news.image.url|slice:"36:"}}</a>{% else %} {% endif %}</td>
+                                        <td class="content-line">{{news.category}}</td>
+                                        <td><span class="badge bg-secondary f-13 font-weight-400">{{news.created_at|date:"d N Y"}}</span>
+                                        </td>
+                                        <td><a href="{% url 'news:news-detail' news.id %}" class="btn btn-secondary-theme btn-sm">View</a></td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="sidebarNews">
+                            <div class="sidebarNews__heading">
+                                <h6> Recent News</h6>
+                            </div>
+                            <div class="sidebarNews__content">
+                                <ul class="newsCard__body---content">
+                                    {% for recent in news|slice:"8" %}
+                                    <li>
+                                        <div class="short-news">
+                                            <a href="{% url 'news:news-detail' recent.pk %}">{{recent.title}}</a>
+                                            <span class="d-block date">{{recent.created_at|date:"d N Y"}}</span>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="text-center mt-2">
+                                    <a href="{% url 'news:news-all' %}" class="btn btn-secondary-theme w-50">View all</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#table_dataframe').DataTable({
+            "autoWidth": false,
+            "scrollX": true,
+        });
+    });
+</script>
+{% endblock %}

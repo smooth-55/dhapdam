@@ -1,0 +1,86 @@
+{% extends '../../../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link rel="stylesheet" href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}First class rock fill (max size 600mm) | Material Tests{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'company:first-class-rock' %}" class="link text-theme-light-blue">First class rock fill (max size 600mm)</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">First class rock fill (max size 600mm)</h5>
+                <div class="bsa-border rounded bsa-custom-table">
+                    <div class="table-responsive">
+                        <table id="data-table" class="table table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th width="2%">SN</th>
+                                    <th>Name of Test</th>
+                                    <th>No. of Test</th>
+                                    <th>Test Standard</th>
+                                    <th>Remarks</th>
+    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in object_list %}
+                                <tr>
+                                    <td class="text-center">{{forloop.counter}}</td>
+                                    <td>{{item.name_of_test}}</td>
+                                    <td>{{item.no_of_test}}</td>
+                                    <td>{{item.test_standard}}</td>
+                                    <td>{{item.remarks}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Material Tests</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'company:earth-filling' %}" class="sidebar-bar__item---link">Earth Filling Material, Saddle Dam - 1</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:face-slab-2a' %}" class="sidebar-bar__item---link">Face slab bedding material - 2A </a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:face-slab-2b' %}" class="sidebar-bar__item---link">Face slab bedding material - 2B</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:small-size-rock' %}" class="sidebar-bar__item---link">Small size rock fill (max size 300mm)</a></li>
+                        <li class="sidebar-bar__item active"><a href="{% url 'company:first-class-rock' %}" class="sidebar-bar__item---link active">First class rock fill (max size 600mm)</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:second-class-rock' %}" class="sidebar-bar__item---link">Second class rock fill (max size 1000mm)</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:rock-fill' %}" class="sidebar-bar__item---link">Rock fill</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:concrete-aggregate-40mm' %}" class="sidebar-bar__item---link">Concrete Aggregate (40mm)</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:concrete-aggregate-20mm' %}" class="sidebar-bar__item---link">Concrete Aggregate (20mm)</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:concrete-aggregate-10mm' %}" class="sidebar-bar__item---link">Concrete Aggregate (10mm)</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:fine-aggregate' %}" class="sidebar-bar__item---link">Fine Aggregate</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:cement' %}" class="sidebar-bar__item---link">Cement</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:granular' %}" class="sidebar-bar__item---link">Granular Sub-Base</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+<!-- script -->
+{% block script%}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#data-table').DataTable();
+    });
+</script>
+{% endblock %}

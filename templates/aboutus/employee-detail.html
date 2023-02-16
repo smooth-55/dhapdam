@@ -1,0 +1,102 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Employee Detail{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'users:employee-detail' %}" class="link text-theme-light-blue">Employee
+                    Detail</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Employee Details</h5>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="p-3 table-responsive bsa-responsive-table">
+                            <table id="table_dataframe" class="table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th width="2%">SN</th>
+                                        <th>Photo</th>
+                                        <th>Name</th>
+                                        <th>Designation</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Temporary Address</th>
+                                        <th>Permanent Address</th>
+                                        <th>Join Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in employees %}
+                                    <tr>
+                                        <td class="text-center">{{forloop.counter}}</td>
+                                        <td class="table-image">
+                                            {% if item.image %}<img src="{{item.image.url}}" alt="" />{% else %}None{% endif %}
+                                        </td>
+                                        <td>{{item.full_name}}</td>
+                                        <td>
+                                            <span class="badge bg-info f-13 font-weight-400">{{item.designation}}</span
+                                        >
+                                      </td>
+                                      <td>
+                                        <span
+                                          class="badge bg-theme-green f-13 font-weight-400 text-white"
+                                          >{{item.phone}}</span
+                                        >
+                                      </td>
+                                      <td>{% if item.email %}{{item.email}}{% else %}--{% endif %}</td>
+                                      <td>{% if item.temporary_address %}{{item.temporary_address}}{% else %}--{% endif %}</td>
+                                      <td>{% if item.permanent_address %}{{item.permanent_address}}{% else %}--{% endif %}</td>
+                                      <td>
+                                        {% if item.date_joined %}{{item.date_joined}}{% endif %}
+                                      </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                  </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">About Us</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'company:about' %}" class="sidebar-bar__item---link">Introduction</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:structure' %}" class="sidebar-bar__item---link">Organization Structure</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:citizen-charter' %}" class="sidebar-bar__item---link">Citizen Charter</a></li>
+                        <li class="sidebar-bar__item active"><a href="{% url 'users:employee-detail' %}" class="sidebar-bar__item---link active">Employee Details</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'users:ex-employee' %}" class="sidebar-bar__item---link">Ex Employess</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'users:ex-projecthead' %}" class="sidebar-bar__item---link">Ex Project Heads</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+      $('#table_dataframe').DataTable({
+            "scrollX": true
+        });
+    });
+</script>
+{% endblock %}

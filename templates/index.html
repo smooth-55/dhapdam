@@ -1,0 +1,425 @@
+{% extends 'layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- static -->
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/nanogallery2.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/nanogallery2.woff.min.css' %}"> {% endblock %}
+
+<!-- title -->
+{% block title %} Home{% endblock %}
+<!-- content -->
+{% block content %}
+<!-- recent News -->
+<section class="recent-news-block">
+    <div class="container">
+        <div class="recentnews">
+            <div class="notranslate recentnews__title">
+                <p>Recent News</p>
+            </div>
+            <div class="recentnews__content">
+                <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
+                    {% for news in news|slice:":4" %}
+                    <a href="" class="news_link">{{news.title}}</a> {% endfor %}
+                    <!-- <a href="" class="news_link">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a> -->
+                    <!-- <a href="" class="news_link">Lorem ipsum dolor sit amet consectetur adipisicing elit.</a> -->
+                </marquee>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- banner -->
+<section class="banner pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 order-md-2 order-lg-1 order-2">
+                <div class="link-group">
+                    <div class="link-group__button">
+                        <a class="btn btn-light-blue btn-block text-left" href="{% url 'company:nagmatidam' %}"><i
+                                class="fas fa-chalkboard"></i>NAGMATI DAM</a>
+                    </div>
+                    <div class="link-group__button">
+                        <a class="btn btn-light-blue btn-block text-left" href="{% url 'company:download' %}"><i
+                                class="fas fa-download"></i>DOwnloads</a>
+                    </div>
+                    <div class="link-group__button">
+                        <a class="btn btn-light-blue btn-block text-left" href="{% url 'company:projectmap' %}"><i
+                                class="fas fa-map-marker-alt"></i>project map</a>
+                    </div>
+                    <div class="link-group__button">
+                        <a class="btn btn-light-blue btn-block text-left" href="{% url 'news:literatures' %}"><i
+                                class="fas fa-info"></i>dam knowledge</a>
+                    </div>
+                    <div class="link-group__button">
+                        <a class="btn btn-light-blue btn-block text-left" href="{% url 'news:darta-chalani' %}"><i
+                                class="fas fa-user"></i>administration</a>
+                    </div>
+                    <div class="link-group__button">
+                        <a class="btn btn-light-blue btn-block text-left" href="{% url 'company:document' %}"><i
+                                class="far fa-file-alt"></i>documents/ Data</a>
+                    </div>
+                    <div class="link-group__button">
+                        <a class="btn btn-light-blue btn-block text-left" href="{% url 'company:imp-link' %}"><i
+                                class="fas fa-link"></i>important links</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 order-md-1 order-lg-2 order-1">
+                <div class="slider">
+                    <div class="owl-carousel owl-theme banner-carousel">
+                        {% for slides in homeslider|slice:":10" %}
+                        <div class="item">
+                            {% if slides.image %}<img src="{{slides.image.url}}" alt="" class="img-fluid" />{% endif %}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 order-md-3 order-3">
+                <div class="board-member">
+                    {% if chief %} {% for item in chief %}
+                    <div class="boardmemberCard">
+                        <div class="boardmemberCard__image">
+                            <div class="image-container">
+                                {% if item.image %}<img src="{{item.image.url}}" class="img-fluid" alt="" />{% endif %}
+                            </div>
+                        </div>
+                        <div class="boardmemberCard__content">
+                            <h6>{{ item.name }}</h6>
+                            <p>{{ item.get_designation_display }}</p>
+                            {% if item.slug %}
+                            <a href="{% url 'message' item.slug %}">Message
+                                        <span class="message">
+                                            <h6>Message From {{ item.get_designation_display }}</h6>
+                                            <p>
+                                                {{ item.content }}
+                                            </p>
+                                        </span>
+                            </a> {% endif %}
+                        </div>
+
+                    </div>
+                    {% endfor %} {% endif %} {% for item in info_officer%}
+                    <div class="boardmemberCard">
+                        <div class="boardmemberCard__image">
+                            <div class="image-container">
+                                {% if item.image %}<img src="{{item.image.url}}" class="img-fluid" alt="" />{% endif %}
+                            </div>
+                        </div>
+                        <div class="boardmemberCard__content">
+                            <h6>{{ item.name }}</h6>
+                            <p>{{ item.get_designation_display }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- news /intro/ recent activities -->
+<section class="pad-top-bot backgroundGrey">
+    <div class="container">
+        <div class="row g-3">
+            <div class="col-md-12 col-lg-4">
+                <div class="newsCard">
+                    <div class="newsCard__header">
+                        <h5 class="newsCard__header---title">news/ notice</h5>
+                    </div>
+                    <div class="newsCard__body">
+                        <div class="newsCard__body---content">
+                            <div class="swiper-container newsSwiper">
+                                <div class="swiper-wrapper">
+                                    {% for news in news|slice:":7" %}
+                                    <li class="swiper-slide">
+                                        <div class="short-news">
+                                            <a href="{% url 'news:news-detail' news.id %}">{{news.title}}</a>
+                                            <p>{{news.content|safe}}</p>
+                                            <span class="d-block date">{{news.created_at|date:'M d,Y'}}</span>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center mt-2">
+                            <a href="{% url 'news:news' %}" class="btn btn-secondary-theme w-50">View all</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <div class="intro">
+                    <div class="intro__header">
+                        <h5 class="intro__header---title">introduction</h5>
+                    </div>
+                    <div class="intro__body">
+                        <p>
+                            {{ intro.content_upload|safe|truncatechars:500 }}
+                            <a href="{% url 'company:about' %}" class="link text-theme-light-blue">Read More</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-lg-4">
+                <div class="newsCard">
+                    <div class="newsCard__header">
+                        <h5 class="newsCard__header---title">recent activities</h5>
+                    </div>
+                    <div class="newsCard__body">
+                        <ul class="newsCard__body---recent">
+                            <div class="swiper-container newsSwiper">
+                                <div class="swiper-wrapper">
+                                    {% for activity in recent|slice:":7" %}
+                                    <li class="swiper-slide d-flex">
+                                        <div class="image">
+                                            {% if activity.thumnail %}<img src="{{activity.thumnail.url}}" alt="" />{% endif %}
+                                        </div>
+                                        <div class="short-news">
+                                            <a href="{% url 'news:recentactivity-detail' activity.id %}">{{activity.title}}</a>
+                                            <span class="d-block date">{{activity.created_at|date:'M d,Y '}}</span>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </ul>
+                        <div class="text-center mt-2">
+                            <a href="{% url 'news:recent-activity' %}" class="btn btn-secondary-theme w-50">View all</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section class="blogBlock pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-md-6 order-md-2 order-lg-1">
+                <div class="maps">
+                    <div class="owl-carousel owl-theme map-carousel">
+                        <div class="item">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1635.1865331983886!2d85.35382264017493!3d27.711168652418905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb197e1a26539d%3A0x9537062e755fef1d!2sBRBIP%20Office!5e0!3m2!1sen!2snp!4v1630899685706!5m2!1sen!2snp"
+                                width="100%" height="275" frameborder="0" style="border: 0" allowfullscreen="" aria-hidden="false" tabindex="0"> </iframe>
+                            <p class="maps__title">Office Location</p>
+                        </div>
+                        <div class="item">
+                            <a class="" target="_blank" href="https://earth.google.com/web/@27.78508028,85.4464179,1928.14496967a,2745.23085788d,30.00000896y,0h,0t,0r"><img src="{% static 'images/lobd.jpg' %}" class="img-fluid map-img" alt=""></a>
+                            <p class="maps__title">Location of Nagmati and Dhap Dam</p>
+                        </div>
+                    </div>
+                    <div class="owl-theme">
+                        <div class="owl-controls">
+                            <div class="custom-nav owl-nav"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 order-md-2 order-lg-2">
+                <div class="newsCard__header">
+                    <h5 class="newsCard__header---title">Our Concerned Stakeholders</h5>
+                </div>
+                <div class="swiper-container stakeSwiper">
+                    <div class="swiper-wrapper">
+                        {% for element in stakeholders|slice:":6" %}
+                        <div class="swiper-slide">
+                            <a target="_blank" class="partner__logo" {% if element.link %}href="{{element.link}}" {% endif %}>
+                                <div class="logoCard__image">
+                                    {% if element.image %}
+                                    <img src="{{element.image.url}}" alt="" class="img-fluid" /> {% endif %}
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 order-md-3 order-lg-3">
+                <div class="calendar">
+                    <iframe src="https://www.hamropatro.com/widgets/calender-small.php" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" style="border: none; overflow: hidden; width: 260px; height: 290px" allowtransparency="true"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="partner pad-top-bot backgroundGrey">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-12">
+                <div class="">
+                    <iframe width="100%" height="276px" src="https://www.youtube.com/embed/UFs2_4qQLNk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="newsCard__header">
+                    <h5 class="newsCard__header---title">Reservoir in Nepal</h5>
+                </div>
+                <div class="picture">
+                    <div class="owl-carousel owl-theme picture-carousel">
+                        {% if reservoir.image1 %}
+                        <div class="item">
+                            <img src="{{reservoir.image1.url}}" alt="" class="img-fluid" />
+                            <!-- <p class="picture__title">Site Location</p> -->
+                        </div>
+                        {% endif %} {% if reservoir.image2 %}
+                        <div class="item">
+                            <img src="{{reservoir.image2.url}}" alt="" class="img-fluid" />
+                            <!-- <p class="picture__title">Site Location</p> -->
+                        </div>
+                        {% endif %} {% if reservoir.image3 %}
+                        <div class="item">
+                            <img src="{{reservoir.image3.url}}" alt="" class="img-fluid" />
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <div class="newsCard__header">
+                    <h5 class="newsCard__header---title">Construction Work</h5>
+                </div>
+                <div class="picture">
+                    <div class="owl-carousel owl-theme picture-carousel">
+                        {% if constructions.image1 %}
+                        <div class="item">
+                            <img src="{{constructions.image1.url}}" alt="" class="img-fluid" />
+                            <p class="picture__title">Site Location</p>
+                        </div>
+                        {% endif %} {% if constructions.image2 %}
+                        <div class="item">
+                            <img src="{{constructions.image2.url}}" alt="" class="img-fluid" />
+                            <!-- <p class="picture__title">Site Location</p> -->
+                        </div>
+                        {% endif %} {% if constructions.imag3 %}
+                        <div class="item">
+                            <img src="{{constructions.image3.url}}" alt="" class="img-fluid" />{
+
+                        </div>
+                        {% endif %}
+                        <!-- <div class="item">
+                            <img src="{% static 'images/construct/penny.jpg' %}" alt="" class="img-fluid">
+                            <p class="picture__title">Site Location</p>
+                        </div>
+                        <div class="item">
+                            <img src="{% static 'images/construct/skyscrapers.jpg' %}" alt="" class="img-fluid">
+                            <p class="picture__title">Site Location</p>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="photo pad-top-bot">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="galleryBlock">
+                    <h5 class="newsCard__header---title">photos</h5>
+                    <div id="nanogallery2" class="mt-3" data-nanogallery2='{
+                    "thumbnailHeight":  150,
+                    "thumbnailWidth":   auto}'>
+                        {% if photos_catgeory %} {% for item in photos_catgeory %} {% for element in item.photos_set.all|slice:":1" %}
+                        <a href="" data-ngkind="album" data-ngid="{{item.id}}" data-ngthumb="{{element.image.url}}">{{item.name}}</a> {% endfor %} {% for element in item.photos_set.all %}
+                        <a href="{{element.image.url}}" data-ngid="{{element.id}}" data-ngalbumid="{{item.id}}" data-ngthumb="{{element.image.url}}">{{element.category}}</a> {% comment %} <a href="{{photo.image.url}}" data-ngthumb="{{photo.image.url}}">{% if element.name %}ram{% endif %}</a>                        {% endcomment %} {% endfor %} {% endfor %} {% endif %} {% for photo in photos %}
+                        <a href="{{photo.image.url}}" data-ngthumb="{{photo.image.url}}">
+                        {% if photo.title %}{{photo.title}}{% endif %}
+                        </a> {% endfor %}
+                    </div>
+                    <div class="text-center mt-3">
+                        <a href="{% url 'company:photo' %}" class="btn btn-secondary-theme w-25">View all</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                {% comment %} <iframe width="1350" height="480" src="https://www.youtube.com/embed/QoFfHpimDMs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe> {% endcomment %}
+                <div class="videoBlock">
+                    <h5 class="newsCard__header---title">videos</h5>
+                    <div class="owl-carousel owl-theme video-carousel">
+                        {% for thumbnail,title,link in videos_all %}
+                        <div class="item">
+                            <div class="videoSection__inner">
+                                <a href="{{link}}" target="_blank" class="headerVideoLink">
+                                    <div class="videoSection__inner--img">
+                                        <img src="{{thumbnail}}" class="img-fluid" />
+                                        <p>{{title}}</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="{% url 'company:video' %}" class="btn btn-secondary-theme w-25">View all</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--notice MODAL -->
+{% if notice.display == True %}
+<div class="modal bsaModal fade bsa-wlc" id="notice-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered bsa-modal-dialog">
+        <div class="modal-content bsa-modal-content">
+            <!-- if notice -->
+            <div class="modal-header bsaModal__header">
+                <h2 class="bsaModal__header---title">
+                    Notice
+                </h2>
+                <button type="button" class="btn btn-close" id="close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body bsaModal__body">
+                <h4 class="text-danger mb-3">Welcome to Bagmati Sudhar Aayojana</h4>
+                  {% if notice.content %}
+                <ul class="bsaModal__body---list">                  
+                    <li>{{notice.content}}</li>                    
+                </ul>
+                {% endif %}
+                {% if notice.image %}<img src="{{notice.image.url}}" style="width:100%;object-fit:cover;object-position:top center;" alt="" class="img-fluid">{% else %}None{% endif %} {% if notice.files %}
+
+                <embed src="{{ notice.files.url }}" type="application/pdf" height="400px" style="width: 100%;"> {% endif %}
+            </div>
+            {% comment %}
+            <div class="modal-body bsaModal__wlc">
+                <button type="button" class="btn btn-close" id="close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                <div class="bsaModal__wlc---image">
+                    <img src="{% static 'images/welcome.gif' %}" alt="" />
+                </div>
+            </div> {% endcomment %}
+
+        </div>
+    </div>
+</div>
+{% endif %} {% endblock %}
+
+<!--script -->
+{% block script %}
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/jquery.nanogallery2.min.js' %}"></script>
+<script src="{% static 'js/slider.min.js' %}"></script>
+<script src="{% static 'js/swiper.js' %}"></script>
+<script src="/static/js/swiper-slider.js"></script>
+<script>    
+    $(function() {
+        // modal close
+        $("#close").click(function() {
+            $("#notice-modal").modal("hide");
+        });
+        if (sessionStorage.getItem('#notice-modal') !== 'true') {
+            $("#notice-modal").modal("show");
+            sessionStorage.setItem('#notice-modal', 'true');
+        }
+    })
+</script>
+{% endblock %}

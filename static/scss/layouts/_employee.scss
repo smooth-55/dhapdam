@@ -1,0 +1,88 @@
+.bsa-table {
+    margin-bottom: 0;
+    th,
+    td {
+        vertical-align: middle;
+    }
+    th {
+        color: var(--bs-theme-dark);
+        border-color: var(--bs-theme-blue) !important;
+    }
+    td {
+        color: var(--bs-theme-medium);
+        font-size: 0.8125rem;
+    }
+}
+
+.bsa-responsive-table {
+    border: 1px solid var(--bs-theme-blue);
+    border-radius: 6px;
+    margin-top: 0.75rem;
+}
+
+.table-bordered {
+    border: 1px solid #595959;
+    border-collapse: collapse;
+}
+
+.table-height {
+    height: 480px;
+    overflow-y: scroll;
+    margin: 1rem 0 1rem 1rem;
+    .bsa-table {
+        th {
+            color: var(--bs-theme-dark);
+            border-color: var(--bs-theme-blue) !important;
+            font-size: 0.75rem;
+            padding: 0.5rem 0.25rem;
+            text-align: center;
+        }
+    }
+}
+
+.bsa-custom-table {
+    padding: 1rem;
+    .bsa-table {
+        th {
+            color: var(--bs-theme-dark);
+            border-color: var(--bs-theme-blue) !important;
+            font-size: 0.75rem;
+            padding: 0.5rem 0.25rem;
+            text-align: center;
+        }
+    }
+}
+
+.icon-pdf {
+    font-size: 1rem;
+    color: var(--bs-theme-medium);
+    text-align: center;
+    &:hover {
+        color: var(--bs-theme-blue);
+        transform: translateY(-2px);
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+.dwn-title {
+    @include textOverflow;
+    max-width: 500px;
+}
+
+@media(max-width:992px) {
+    .dwn-title {
+        max-width: 250px;
+    }
+}
+
+.administration-table {
+    border-color: #c5c5c5;
+}
+
+table.table-bordered.dataTable {
+    border-color: var(--bs-border);
+}
+
+table.table-bordered.dataTable tbody td {
+    border-bottom: 1px solid var(--bs-border);
+}

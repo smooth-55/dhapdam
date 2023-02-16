@@ -1,0 +1,196 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %}
+<!-- title -->
+{% block title %}Progress{% endblock %}
+<!-- content -->
+{% block content %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5 class="content-title">Add Third Trimester</h5>
+
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'company:trimesters' %}">Progress Trimester</a></li>
+                        <li class="breadcrumb-item active">Add Third Trimester</li>
+                    </ol>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-block">
+                        <form id="my_form" action="" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <h6 class="form-title">Trimester Information</h6>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="tractor-label">Select Year</label><br> {% if first_form_year %}
+                                        <select name="third-trim" class="form-control tractor-select" id="month4" style="width: 321px;">
+                                                <option value="{{first_form_year}}">{{first_form_year}}</option>
+                                            </select> {% else %}
+                                        <span>{{form.year}}</span> {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="tractor-label">Select Trimester</label>
+                                        <br> {% if chaitra or baisakh or jestha %}
+                                        <span>{{form.name}}</span> {% else %}
+                                        <span>{{form.trimester_name}}</span> {% endif %}
+
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <h6 class="form-title">Month 1 Detail</h6>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="tractor-label">Month 1</label><br>
+                                        <p class="fieldscontrol">{{form.month1}}</p>
+                                    </div>
+                                    {% if messages %} {% for message in messages %} {% if "chaitra" in message.tags %}
+                                    <li class="text-danger">{{ message }}</li>
+                                    {% endif %} {% endfor %} {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="tractor-label">Month1: Monthly Exependiture</label><br>
+                                        <p class="fieldscontrol">{{form.month1_periodic_amount}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="tractor-label">Periodic Target</label><br>
+                                        <p class="fieldscontrol">{{form.periodic_target}}</p>
+                                    </div>
+                                </div>
+                                <!-- poush  -->
+                                {% if baisakh %}
+                                <div class="col-12">
+                                    <h6 class="form-title">Month 2 Detail</h6>
+                                </div>
+                                <!-- month second  -->
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="tractor-label">Month 2</label><br>
+                                        <span class="fieldscontrol">{{ form.month2 }}</span>
+
+                                    </div>
+                                    {% if messages %} {% for message in messages %} {% if "baisakh" in message.tags %}
+                                    <li class="text-danger">{{ message }}</li>
+                                    {% endif %} {% endfor %} {% endif %}
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label class="tractor-label">Month2: Monthly Exependiture</label><br>
+                                        <span class="fieldscontrol">{{ form.month2_periodic_amount }}</span>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <!-- magh  -->
+                                {% if baisakh and jestha %}
+                                    <div class="col-12">
+                                        <h6 class="form-title">Month 3 Detail</h6>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label class="tractor-label">Month 3</label><br>
+                                            <span class="fieldscontrol">{{ form.month3 }}</span>
+                                            <!-- <input type="text" value="" class="form-control tractor-input" name="" id=""> -->
+                                        </div>
+
+                                        {% if messages %} {%for message in messages %} {% if "jestha" in message.tags %}
+                                        <li class="text-danger">{{ message }}</li>
+                                        {% endif %} {% endfor %} {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label class="tractor-label">Month3: Monthly Exependiture</label><br>
+                                            <span class="fieldscontrol">{{ form.month3_periodic_amount }}</span>
+
+                                        </div>
+                                    </div>
+                                {% endif %} 
+                                {% if baisakh and jestha and asar %}
+                                <!-- asar  -->
+                                    <div class="col-12">
+                                        <h6 class="form-title">Month 3 Detail</h6>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label class="tractor-label">Month 4</label><br>
+                                            <span class="fieldscontrol">{{ form.month4 }}</span>
+                                            <!-- <input type="text" value="" class="form-control tractor-input" name="" id=""> -->
+                                        </div>
+
+                                        {% if messages %} {%for message in messages %} {% if "asar" in message.tags %}
+                                        <li class="text-danger">{{ message }}</li>
+                                        {% endif %} {% endfor %} {% endif %}
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="mb-3">
+                                            <label class="tractor-label">Month4: Monthly Exependiture</label><br>
+                                            <span class="fieldscontrol">{{ form.month4_periodic_amount }}</span>
+
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-success btn-theme-admin rounded-0">Add Progress
+                                            Trimester</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+<script>
+    //
+    $('#my_form').submit(function() {
+        $("#my_form :disabled").removeAttr('disabled');
+    });
+    // var $trimester = $("#trimester");
+    // var $month1 = $("#month1");
+    // var $month2 = $("#month2");
+    // var $month3 = $("#month3");
+    // var $month4 = $("#month4");
+    // $trimester.data('options', $month1.html())
+    // $trimester.change(function () {
+    //     var val = $trimester.val();
+    //     var options = $($trimester.data('options')).filter('[value="' + val + '"]');
+    //     $('#month1').prop('disabled', false);
+    //     $('#month2').prop('disabled', false);
+    //     $('#month3').prop('disabled', false);
+    //     $('#month4').prop('disabled', false);
+    //     $month1.html(options);
+    //     $month2.html(options.clone());
+    //     $month3.html(options.clone());
+    //     $month4.html(options.clone());
+    // });
+</script>
+{% endblock %}

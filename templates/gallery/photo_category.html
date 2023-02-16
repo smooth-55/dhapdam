@@ -1,0 +1,70 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/venobox.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/nanogallery2.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/nanogallery2.woff.min.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Photos{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'company:photo' %}" class="link text-theme-light-blue">Photos</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Photos Category</h5>
+                {% comment %} album {% endcomment %} {% for item in photos %}
+                <div class="gallery-item">
+                    <a href="" class="venobox" data-gall="gallery-item">
+                            {% if item.image %}<img src="{{item.image.url}}" alt=""
+                                class="img-fluid" />
+                            {% endif %}
+                        </a>
+                </div>
+                {% endfor %} {% comment %} {% for photo in photos %}
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <div class="gallery-item">
+                        <a href="{{photo.image.url}}" class="venobox" data-gall="gallery-item">
+                                {% if photo.image %}<img src="{{photo.image.url}}" alt=""
+                                    class="img-fluid" />{% endif %}
+                                {% if photo.title %}
+                                <div class="gallery-item__title">
+                                    <p>{{photo.title}}</p>
+                                </div>
+                                {% endif %}
+                            </a>
+                    </div>
+                </div>
+                {% endfor %} {% endcomment %}
+
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Gallery</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item active"><a href="{% url 'company:photo' %}" class="sidebar-bar__item---link active">Photos</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:video' %}" class="sidebar-bar__item---link">Videos</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script src="{% static 'js/jquery.nanogallery2.min.js' %}"></script>
+<script src="{% static 'js/venobox.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('.venobox').venobox();
+    });
+</script>
+{% endblock %}

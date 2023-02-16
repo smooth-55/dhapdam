@@ -1,0 +1,93 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Dam Knowledge{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'news:pipeline' %}" class="link text-theme-light-blue">Storage Pipeline</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="col-lg-12 mx-auto">
+            <div class="row ">
+                <div class="col-md-8 col-sm-12 order-md-1 order-sm-2">
+                    <h5 class="content-title">Storage Projects in Pipeline</h5>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="p-3 table-responsive bsa-responsive-table">
+                                <table id="table_dataframe" class="table table-bordered bsa-table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" width="2%">S.No</th>
+                                            <th rowspan="2">Name of Dam/Reservoir</th>
+                                            <th rowspan="2">Location</th>
+                                            <th rowspan="2">Main Purpose</th>
+                                            <th rowspan="2">Volume(mm<sup>3</sup>) Gross</th>
+                                            <th rowspan="2">Height of Dam</th>
+                                            <th colspan="2" class="border-bottom">Type of Dam</th>
+                                            <th rowspan="2">Governing ICOLD Criteria For Large Dams
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>As per size</th>
+                                            <th>As per construction Material</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in storage_project_pipeline %}
+                                        <tr>
+                                            <td class="text-center">{{forloop.counter}}</td>
+                                            <td><a target="_blank" href="{{ item.link }}" class="link text-theme-light-blue">{{item.name_of_dam_or_reservoir}}</a></td>
+                                            <td>{{item.location}}</td>
+                                            <td>{{item.main_purpose}}</td>
+                                            <td>{{item.volume_gross}}</td>
+                                            <td>{{item.height_of_dam}}</td>
+                                            <td>{{item.as_per_size}}</td>
+                                            <td>{{item.as_per_construction_material}}</td>
+                                            <td>{{item.governing_icold_criteria_for_large_dams}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 order-md-2 order-sm-1">
+                    <div class="sidebar-tab sidebar-sticky-top">
+                        <h5 class="sidebar-tab__title">Dam Knowledge</h5>
+                        <ul class="sidebar-bar">
+                            <li class="sidebar-bar__item"><a href="{% url 'news:literatures' %}" class="sidebar-bar__item---link">Dam Literatures</a></li>
+                            <li class="sidebar-bar__item"><a href="{% url 'news:damknowledge' %}" class="sidebar-bar__item---link">Salient Features of Major Dams/Lakes</a></li>
+                            <li class="sidebar-bar__item active"><a href="{% url 'news:pipeline' %}" class="sidebar-bar__item---link active">Storage Projects in pipeline</a></li>
+                            {% comment %}
+                            <li class="sidebar-bar__item"><a href="{% url 'news:name-of-dam' %}" class="sidebar-bar__item---link">Name of Dam/ Reservoir</a></li> {% endcomment %}
+                            <li class="sidebar-bar__item"><a href="{% url 'news:lake' %}" class="sidebar-bar__item---link">Information of Dams/Lakes of Nepal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#table_dataframe').DataTable({
+            "scrollX": true
+        });
+    });
+</script>
+{% endblock %}

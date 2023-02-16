@@ -1,0 +1,202 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% block static %}
+<link rel="stylesheet" href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}">
+<link rel="stylesheet" href="{% static 'css/cooltipz.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Download{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Download</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Download</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                {% include 'admin/fade_call.html' %}
+                <a class="downloadfile-create btn btn-block btn-success btn-theme-admin rounded-0" data-id="{% url 'company:downloadfile-create' %}">
+                    Add Download File</a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                {% include 'admin/fade_call.html' %}
+                <a class="downloadlink-create btn btn-block btn-success btn-theme-admin rounded-0" data-id="{% url 'company:downloadlink-create' %}">
+                    Add Link File</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th width="2%">SN</th>
+                                <th>Title</th>
+                                <th>Uploaded File</th>
+                                <th width="10%">Size</th>
+                                <th width="13%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in downloads %}
+                            <tr>
+                                <td class="text-center">{{forloop.counter}}</td>
+                                <td class="dwn-title">{{item.name}}</td>
+                                <td class="table-image">{% if item.file %}<a href="{{item.file.url}}" data-toggle="tooltip" data-placement="bottom" title="Open">{{item.file.name|slice:"10:"}}</a>{% else %}
+                                    <a class="downloadfile-edit"
+                                            href="{{item.url}}"
+                                            target="_blank" data-toggle="tooltip" data-placement="bottom"
+                                            title="Open"><i
+                                                class="fas fa-envelope-open-text text-secondary"></i></a>
+                                    {% endif %}</td>
+                                <td>{% if item.file %}{{item.file.size|filesizeformat}}{% else %}None{% endif %}</td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3"><a class="downloadfile-edit"
+                                            href="{% if item.file %}{{item.file.url}}{% elif item.url %}{{item.url}}{% endif %}"
+                                            target="_blank" data-toggle="tooltip" data-placement="bottom"
+                                            title="Open"><i
+                                                class="fas fa-envelope-open-text text-secondary"></i></a></span>
+                                        <!-- edit section for two different conditions -->
+                                    <span class="action-icon mr-3"><a class="downloadlink-edit"
+                                            data-id={% if item.file %} "{% url 'company:downloadfile-update' item.pk %}"
+                                            {% elif item.url %} "{% url 'company:downloadlink-update' item.pk %}"
+                                            {% endif %} data-cooltipz-dir="bottom" aria-label="Edit"><i
+                                                class="fas fa-edit text-secondary"></i></a></span>
+                                    <span class="action-icon mr-3"><a class="download-delete" data-id="{% url 'company:download-delete' item.pk %}"
+                                            data-cooltipz-dir="bottom" aria-label="Delete"><i
+                                                class="fas fa-trash text-danger "></i></a></span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- add Modal -->
+<div class="modal fade" id="addlinkModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header tractorModal__header">
+                <h5 class="modal-title tractorModal__header---title" id=>Add Link File</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body tractorModal__body ">
+                <form action="">
+                    <div class="form-group mb-3">
+                        <label for="" class="tractor-label">Title</label>
+                        <input type="text" class="form-control tractor-input" name="">
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="" class="tractor-label">Add url</label>
+                        <input type="text" class="form-control tractor-input" name="">
+                    </div>
+                    <button type="submit" class="btn btn-block btn-success btn-theme-admin rounded-0">Add Link</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- edit Modal -->
+<div class="modal fade" id="editurlModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header tractorModal__header">
+                <h5 class="modal-title tractorModal__header---title">Edit Link</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body tractorModal__body ">
+                <form action="">
+                    <div class="form-group mb-3">
+                        <label for="" class="tractor-label">Title</label>
+                        <input type="text" class="form-control tractor-input" name="">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="" class="tractor-label">Add Url</label>
+                        <input type="text" class="form-control tractor-input" name="">
+                    </div>
+                    <button type="submit" class="btn btn-block btn-success btn-theme-admin rounded-0">Update
+                        Url</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block script%}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+
+<script>
+    $(document).ready(function () {
+        $('#data-table').DataTable();
+    });
+
+    //create
+    $(".downloadfile-create").each(function () {
+      $(this).modalForm({
+        formURL: $(this).data('id')
+      });
+    });
+    
+    $(".downloadlink-create").each(function () {
+      $(this).modalForm({
+        formURL: $(this).data('id')
+      });
+    });
+
+    //update
+    $(".downloadfile-edit").each(function () {
+      $(this).modalForm({
+        formURL: $(this).data('id')
+      });
+    });
+
+    $(".downloadlink-edit").each(function () {
+      $(this).modalForm({
+        formURL: $(this).data('id')
+      });
+    });
+
+    //delete
+    $(".download-delete").each(function () {
+      $(this).modalForm({
+        formURL: $(this).data('id')
+      });
+    });
+    
+
+
+</script>
+{% endblock %}

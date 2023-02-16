@@ -1,0 +1,66 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+
+{% load static %} {% load widget_tweaks %}
+
+<!-- title -->
+{% block title %}Users{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Edit {{ title }}</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'company:trimesters' %}">{{ title }}</a></li>
+                    <li class="breadcrumb-item active">Edit {{ title }}</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="form-title">{{ title }} Information</h6>
+                            </div>
+                            {% for field in form %}
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">{{ field.label }}</label> {% render_field field class="form-control" %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" href="" class="btn btn-success btn-theme-admin rounded-0">Update
+                                    </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

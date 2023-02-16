@@ -1,0 +1,159 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Contract{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'contracts:c-ongoing' %}" class="link text-theme-light-blue">Contract</a>/
+                    <a class="link text-theme-light-blue">Progress</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Progress Contract</h5>
+                <form method="GET" class="row row-cols-lg-auto g-3 align-items-center p-3" class="contracts-form" data-year-url="{% url 'contracts:contract' %}">
+                    <div class="col-12">
+                       {% if pro_contracts %}
+                                <label for="bsa-label">Select Project </label>
+                        {% endif %}
+                    </div>
+                    <div class="col-12">
+                        {% if pro_contracts %}
+                        <select class="bsa-custom-select form-select contracts-name">
+                            {% for item in pro_contracts %}
+                            <p>{{ item.contract.id }}</p>
+                            <option value="{{ item.contract.id }}"
+                                {% if item.contract.project_name == contract_progress.contract.project_name %} selected="selected"
+                                {% endif %}>{{ completed_contract.contract.project_name }}{{ item.contract.project_name }}</option>
+                            {% endfor %}
+                        </select> {% endif %}
+                    </div>
+                </form>
+                <div class="contract-table-progress table-responsive bsa-responsive-table mt-0 border-0 p-3 pt-0">
+                    <table class="table notranslate table-bordered bsa-table">
+                        <tbody>
+                            <tr style="background-color: #CCC0DA;">
+                                <td rowspan="2">S.N</td>
+                                <td rowspan="2">Name of work </td>
+                                <td rowspan="2">Contract ID</td>
+                                <td rowspan="2">Name of Contractor</td>
+                                <td rowspan="2">Contract Amount Rs</td>
+                                <td rowspan="2">Date of Agreement</td>
+                                <td rowspan="2">Date of completion as per Agreement</td>
+                                <td rowspan="2">Revised Date of Completion</td>
+                                <td rowspan="2">Time Extended based on Original schedule</td>
+                                <td rowspan="2">Time Elapsed based on revised schedule %</td>
+                                <td rowspan="2">Time Remaining based on extended schedule(Days)</td>
+                                <td colspan="3">Financial Progress Rs</td>
+                                <td colspan="2">Physical Progress</td>
+                                <td rowspan="2">Progress Status</td>
+                                <td rowspan="2">Remarks</td>
+                            </tr>
+                            <tr style="background-color: #CCC0DA">
+                                <td>Amount</td>
+                                <td>Percent</td>
+                                <td>Last Payment Date</td>
+                                <td>Percent</td>
+                                <td>Date</td>
+                            </tr>
+                            {% if contract_progress %}
+                            <tr>
+                                <td>1</td>
+                                <td>{{contract_progress.contract.work_name}}</td>
+                                <td>{{contract_progress.contract.contract_id}} </td>
+                                <td>{{contract_progress.contract.contractor_detail}} </td>
+                                <td>{{contract_progress.contract.amount}} </td>
+            
+                                <td>{{contract_progress.contract.date_of_agreement}} </td>
+                                <td>{{contract_progress.contract.date_of_completion}} </td>
+                                <td>{% if contract_progress.contract.date_of_completion_revised %} {{contract_progress.contract.date_of_completion_revised}} {% endif %}
+            
+                                </td>
+            
+                                <!-- {% for key,value in contract_progress.date_of_completion_revised.items %}
+                                        {% if value %}
+                                            <td style="color: black;">{{value|last }}ram</td>
+                                        {% else %}
+                                            <td style="color: black;">None</td>
+                                        {% endif %}
+            
+                                {% endfor %} -->
+                                {% if contract_progress.time_extended_on_original_schedule > 100 %}
+                                    <td style="background-color:#ffc7ce;color:black;">{{contract_progress.time_extended_on_original_schedule|floatformat:2 }}</td>
+                                {% elif contract_progress.time_extended_on_original_schedule <= 100 %}
+                                    <td style="background-color: #c9ffd5;color: #28a745;">{{contract_progress.time_extended_on_original_schedule|floatformat:2 }}</td>
+                                {% endif %}
+                                <!-- <td style="background-color: #c9ffd5;color: #28a745;">{{contract_progress.time_extended_on_original_schedule}}</td> -->
+                                <td>{{contract_progress.time_elapsed_on_revise_schedule|floatformat:2}} </td>
+                                <td>{{contract_progress.time_remaining_on_extended_schedule|floatformat:0}} </td>
+                                <td>{{contract_progress.financial_progress_amount}}</td>
+                                <td>{{contract_progress.financial_percent_amount|floatformat:0}}%</td>
+                                <td>{{contract_progress.financial_progress_date}} </td>
+                                <td>{{contract_progress.physical_percent_amount}}</td>
+                                <td>{{contract_progress.physical_progress_date}}</td>
+                                {% if contract_progress.physical_percent_amount < contract_progress.time_elapsed_on_revise_schedule %}
+                                    <td style="background-color:#ffc7ce;color:#9c0006;">
+                                    Laging behind
+                                    </td>
+            
+                                {% else %}    
+                                    <td style="background-color: #c9ffd5;color: #28a745;">Before Schedule</td> 
+            
+            
+                                {% endif %}
+                                <!-- <td style="background-color: #c9ffd5;color: #28a745;">{{contract_progress.progress_status}}</td> -->
+                                <td>{{contract_progress.remarks}}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="18" style="text-align: center;">None</td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Contract</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:c-ongoing' %}" class="sidebar-bar__item---link">Ongoing</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:c-completed' %}" class="sidebar-bar__item---link">Completed</a></li>
+                        <li class="sidebar-bar__item active"><a href="{% url 'contracts:c-progress' %}" class="sidebar-bar__item---link active">Progress</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script>
+    //update contract progress
+    $(".contracts-name").change(function() {
+        var url = $(".contracts-form").attr("data-year-url"); // get the url of the `load_cities` view
+        var contractId = $(this).val(); // get the selected country ID from the HTML input
+        console.log("year id", contractId)
+        console.log("url", url)
+
+        $.ajax({ // initialize an AJAX request
+            url: url, // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'contractId': contractId // add the country id to the GET parameters
+            },
+            success: function(data) {
+                $('.contract-table-progress').html(jQuery(data).find('.contract-table-progress').html())
+            }
+        });
+
+    });
+</script>
+
+{% endblock %}

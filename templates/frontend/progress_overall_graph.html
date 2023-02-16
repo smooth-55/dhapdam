@@ -1,0 +1,127 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Overall financial Progress{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'company:progress' %}" class="link text-theme-light-blue">Progress</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Overall physical progress</h5>
+                <div id="id_year" class="rounded bsa-custom-table">
+                   
+                    <div class="position-relative mb-4">
+                        <canvas id="myChart" height="200"></canvas>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Overall Progress</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'company:progress' %}" class="sidebar-bar__item---link">Table</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:graph' %}"
+                            class="sidebar-bar__item---link">Annual financial progress</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'company:overall-graph' %}"
+                            class="sidebar-bar__item---link active">Overall physical progress</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script src="{% static 'admin/js/Chart.min.js' %}"></script>
+<script src="{% static 'js/progress-chart.js' %}"></script>
+<script>
+        $(function() {
+            'use strict'
+
+            var ticksStyle = {
+                fontColor: '#495057',
+                fontStyle: 'bold'
+            }
+
+            var mode = 'index'
+            var intersect = true
+            var $visitorsChart = $('#myChart')
+            var visitorsChart = new Chart($visitorsChart, {
+                data: {
+                    labels: [{% for data in yrs_data %}'{{data}}',{% endfor %}],
+                    datasets: [{
+                        type: 'line',
+                        data: [{% for data in overall %}{{data}},{% endfor %}],
+                        backgroundColor: 'transparent',
+                        borderColor: '#007bff',
+                        pointBorderColor: '#007bff',
+                        pointBackgroundColor: '#007bff',
+                        fill: false
+                    }, ],
+                    options: options
+
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+
+                    //percentage calcualtion
+                    hover: {
+                        mode: mode,
+                        intersect: intersect
+                    },
+                    legend: {
+                        display: false
+                    },
+
+                    scales: {
+                        yAxes: [{
+                            // display: false,
+                            gridLines: {
+                                display: true,
+                                lineWidth: '4px',
+                                color: 'rgba(0, 0, 0, .2)',
+                                zeroLineColor: 'transparent'
+                            },
+                            ticks: {
+                                min: 0,
+                                max: 100, // Your absolute max value
+                                
+                            },
+                            
+                        }],
+                        xAxes: [{
+                            display: true,
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: ticksStyle
+                        }]
+                    }
+                }
+            })
+            
+            
+
+    });
+
+</script>
+
+
+
+
+</script>
+{% endblock %}

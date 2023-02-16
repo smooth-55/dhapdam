@@ -1,0 +1,154 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% load %} {% load widget_tweaks %}
+<!-- title -->
+{% block title %}Contract{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Edit Contract</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'contracts:contract-list' %}">Contract</a></li>
+                    <li class="breadcrumb-item active">Edit Contract</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                    <form action="{%url 'contracts:contract-update' contract.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="form-title">Contract Information</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Contract ID</label> {% render_field form.contract_id class="form-control tractor-input" %} {% comment %} <input type="text" class="form-control tractor-input" value={{contract.contract_id}}
+                                        name="contract_id" id="contract_id"> {% endcomment %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Project Name</label> {% render_field form.project_name class="form-control tractor-input" %} {% comment %} <input type="text" class="form-control tractor-input" value={{contract.project_name}}
+                                        name="project_name" id="project_name"> {% endcomment %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Work Name</label> {% render_field form.work_name class="form-control tractor-input" %} {% comment %} <input type="text" class="form-control tractor-input" value={{contract.work_name}} name="work_name"
+                                        id="work_name"> {% endcomment %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Contractor Name and Address</label> {% render_field form.contractor_detail class="form-control tractor-input" %} {% comment %} <input type="text" class="form-control tractor-input" value={{contract.contractor_detail}}
+                                        name="contractor_detail" id="contractor_detail"> {% endcomment %}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">Contract Date</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Date of Agreement</label> {% render_field form.date_of_agreement class="form-control tractor-input" %} {% comment %} <input type="date" class="form-control tractor-input" value={{contract.date_of_agreement
+                                        | date: 'Y-m-d'}} name="date_of_agreement" id="date_of_agreement"> {% endcomment %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Date of Completion as Agreement</label> {% render_field form.date_of_completion class="form-control tractor-input" %} {% comment %} <input type="date" class="form-control tractor-input"
+                                        value={{contract.date_of_completion| date: 'Y-m-d'}} name="date_of_completion" id="date_of_completion"> {% endcomment %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Date of Completion (Revised)</label> {% render_field form.date_of_completion_revised class="form-control tractor-input" %} {% comment %} <input type="date" class="form-control tractor-input"
+                                        value={{contract.complete_revised_date| date: 'Y-m-d'}} name="complete_revised_date" id="complete_revised_date"> {% endcomment %}
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-12">
+                                <h6 class="form-title">Contract Amount</h6>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Amount of agreement</label> {% render_field form.amount class="form-control tractor-input" %} {% comment %} <input type="number" class="form-control tractor-input" value={{contract.amount}}
+                                        name="amount" id="amount"> {% endcomment %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Actual expenditure</label> {% render_field form.actual_expenditure class="form-control tractor-input" %} {% comment %} <input type="number" class="form-control tractor-input" value={{contract.actual_expenditure}}
+                                        name="actual_expenditure" id="actual_expenditure"> {% endcomment %}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">Contract Detail</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Current Contract Status</label> {% render_field form.current_status class="form-control tractor-input" %} {% comment %} <select name="current_status" class="tractor-select form-control">
+                                        <option value="C" {% if contract.current_status == "C" %}selected{%endif%} >Completed</option>
+                                        <option value="O" {% if contract.current_status == "O" %}selected{%endif%}>Ongoing</option>
+                                    </select> {% endcomment %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Contractor Liability Status</label> {% render_field form.contractor_liability_status class="form-control tractor-input" %} {% comment %} <select name="contractor_liability_status" class="tractor-select form-control">
+                                        
+                                        <option value="C" {% if contract.contractor_liability_status == "C" %}selected{%endif%}>Completed</option>
+                                        <option value="O" {% if contract.contractor_liability_status == "O" %}selected{%endif%}>Ongoing</option>
+                                    </select> {% endcomment %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Works Completed</label> {% render_field form.works_completed class="form-control tractor-input" %} {% comment %} <input type="text" class="form-control tractor-input" value={{contract.works_completed}}
+                                        name="works_completed" id="works_completed"> {% endcomment %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <input class="btn btn-success btn-theme-admin rounded-0" type="submit" value="Update Contract" />
+                            </div>
+                        </div>
+                    </form>
+                    {% if form.errors %} {% for field in form %} {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                    {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                    {% endfor %} {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

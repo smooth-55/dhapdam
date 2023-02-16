@@ -1,0 +1,47 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Dhap Dam{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'contracts:dhap-environmental' %}" class="link text-theme-light-blue">Dhap Dam / Environmental Aspects</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+
+            {% if environmental_aspects %}
+                <h5 class="content-title">Environmental Aspects</h5>
+            {% endif  %}
+                <div class="about__content">
+                    <p class="about__content---para">
+                        {{environmental_aspects.content}}
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Dham Dam</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-dam' %}" class="sidebar-bar__item---link">Introduction</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-features' %}" class="sidebar-bar__item---link">Salient features of Dam</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-location' %}" class="sidebar-bar__item---link">Location and Accessibility</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-work-components' %}" class="sidebar-bar__item---link">Major Work Components</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-contract' %}" class="sidebar-bar__item---link">Contract Details</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-design' %}" class="sidebar-bar__item---link">Design and Quality Aspects</a></li>
+                        <li class="sidebar-bar__item active"><a href="{% url 'contracts:dhap-environmental' %}" class="sidebar-bar__item---link active">Environmental Aspects</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-maps' %}" class="sidebar-bar__item---link">Dhap Dam Maps</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

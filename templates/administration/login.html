@@ -1,0 +1,61 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Administration{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'users:login' %}" class="link text-theme-light-blue">Login</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="col-12 col-md-6 mx-auto">
+            <div class="#">
+                <form action="#" method="POST" class="sign-in-form">
+                    {% csrf_token %}
+                    <h5 class="bsaModal__header---title mb-2">
+                        Login with
+                    </h5>
+                    <p class="auth-text">Log in to get in the moment updates on the things that interest you.</p>
+                    {% if error %}
+                    <p id="error-message" class="text-danger f-14 mb-2">{{error}}</p>
+                    {% endif %}
+                    <div class="mb-3">
+                        <label for="" class="bsa-label">Email</label>
+                        <!-- <p>{{form.email}}</p> -->
+                        <input name="email" id="email" placeholder="Email" type="text" class="form-control bsa-input"
+                            required="true" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="bsa-label">Password</label>
+                        <!-- <p>{{form.password}}</p> -->
+                        <input name="password" name="password" placeholder="*********" type="password"
+                            class="form-control bsa-input" required="true" />
+                    </div>
+
+                    <div class="mb-3 text-right">
+                        <a href="{% url 'users:password_reset' %}"
+                            class="f-12 link text-theme-light-blue font-weight-500">Forgot Password ?</a>
+                    </div>
+                    <button type="submit" class="btn btn-secondary-theme btn-block btn-lg">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script type="text/javascript">
+    $(document).ready(function () {
+        // messages timeout for 10 sec 
+        setTimeout(function () {
+            $('#error-message').fadeOut('slow');
+        }, 4000); // <-- time in milliseconds, 1000 =  1 sec
+    });
+</script>
+{% endblock %}

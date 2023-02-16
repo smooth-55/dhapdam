@@ -1,0 +1,30 @@
+.imp-link {
+    position: relative;
+    li {
+        padding: .75rem 1.5rem;
+        font-size: 0.9375rem;
+        border-bottom: 1px dotted var(--bs-border);
+        &::before {
+            position: absolute;
+            left: 0;
+            content: '\f105';
+            font-family: 'Font Awesome 5 Free';
+            font-size: inherit;
+            text-rendering: auto;
+            font-weight: 900;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        a {
+            color: var(--bs-theme-light-blue);
+        }
+        &:hover a {
+            padding-left: 0.25rem;
+            color: var(--bs-theme-blue);
+            transition: all 0.3s ease-in-out;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+        }
+    }
+}

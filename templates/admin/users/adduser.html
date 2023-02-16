@@ -1,0 +1,144 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% load widget_tweaks %}
+
+<!-- title -->
+{% block title %}Users{% endblock %}
+
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Add User</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'company:users' %}">User</a></li>
+                    <li class="breadcrumb-item active">Add User</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                    
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="form-title">Personal Information</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Name<span class="text-danger">*</span></label> {% render_field form.full_name class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.full_name.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Phone<span class="text-danger">*</span></label> {% render_field form.phone class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.phone.errors }}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Date of Birth<span class="text-danger">*</span></label> {% render_field form.dob class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.dob.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Identification Type<span class="text-danger">*</span></label> {% render_field form.identification class="form-control tractor-input" %}
+                                    <div style="color: red;">{{ form.identification.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Identification No.</label> {% render_field form.id_number class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.id_number.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Designation<span class="text-danger">*</span></label> {% render_field form.designation class="form-control tractor-input" %}
+                                    <div style="color: red;">{{ form.designation.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">User Information</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Username<span class="text-danger">*</span></label> {% render_field form.username class="form-control tractor-input" %}
+                                    <div style="color: red;">{{ form.username.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Email<span class="text-danger">*</span></label> {% render_field form.email class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.email.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Password<span class="text-danger">*</span></label> {% render_field form.password1 class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.password1.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Confirm Password<span class="text-danger">*</span></label> {% render_field form.password2 class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.password2.errors }}</div>
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-md-6">
+                                <h6 class="form-title">Employee</h6>
+                                <div class="mb-3">
+                                    <div class="form-group">
+                                        <label class="mr-3">
+                                            <input type="radio" name="r3" value="is_staff" class="flat-red" checked>
+                                            Is Staff
+                                        </label>
+                                        <label class="mr-3">
+                                            <input type="radio" name="r3" value="is_transferred" class="flat-red">
+                                            Is Ex-employee
+                                        </label>
+                                        <label>
+                                            <input type="radio" name="r3" value="is_projecthead" class="flat-red">
+                                            Is Ex-project Head
+                                        </label>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" href="" class="btn btn-success btn-theme-admin rounded-0">Add
+                                    User</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

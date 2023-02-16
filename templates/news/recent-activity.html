@@ -1,0 +1,93 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- css -->
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap5.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Recent Activities{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a
+                    href="{% url 'news:recent-activity' %}" class="link text-theme-light-blue">Recent Activities</a></span>
+        </div>
+    </div>
+</section>
+
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="col-lg-12 mx-auto">
+            <h5 class="content-title">Recent Acitivities</h5>
+            <div class="newsblock">
+                <div class="row mt-3">
+                    <div class="col-lg-8">
+                        <div class="table-responsive bsa-responsive-table p-3">
+                            <table id="table_dataframe" class="table content-table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th width="2%">SN</th>
+                                        <th>Title</th>
+                                        <th>Thumbnail</th>
+                                        <th>Content</th>
+                                        <th>Category</th>
+                                        <th>Task</th>
+                                </thead>
+                                <tbody>
+                                    {% for activity in activities %}
+                                    <tr>
+                                        <td class="text-center">{{forloop.counter}}</td>
+                                        <td class="content-table-title"><a href="{% url 'news:recentactivity-detail' activity.id %}" class="dlink">{{activity.title}}</a></td>
+                                        <td class="content-table-title">{% if activity.thumnail %}<a href="{{activity.thumnail.url}}" data-toggle="tooltip" data-placement="bottom" title="Open" target="_blank">{{activity.thumnail.url|slice:"49:"}}</a>{% else %} {% endif %}</td>
+                                        <td class="content-line">{{activity.content|safe}}</td>
+                                        <td class="content-table-title"><a href="{% url 'news:recentactivity-detail' activity.id %}" class="dlink">{{activity.category}}</a></td>
+                                        <td class="text-center"><a href="{% url 'news:recentactivity-detail' activity.id %}" class="btn btn-secondary-theme btn-sm">View</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="sidebarNews">
+                            <div class="sidebarNews__heading">
+                                <h6> Recent Activities</h6>
+                            </div>
+                            <div class="sidebarNews__content">
+                                {% for activity in activities|slice:"8" %}
+                                <div class="popularPosts__Block">
+                                    <div class="popularPosts__ImgBlock">
+                                        <a href="{% url 'news:recentactivity-detail' activity.id %}">
+                                            {% if activity.thumnail %}<img src="{{activity.thumnail.url}}" class="img-fluid"></a>{% endif %}
+                                    </div>
+                                    <div class="popularPosts__contentBlock">
+                                        <p class="popularPosts__Title"><a href="{% url 'news:recentactivity-detail' activity.id %}">{{activity.title}}</a></p>
+                                        <p class="popularPosts__contentDate"><i class="fa fa-clock-o"></i> {{activity.created_at|date:"d N Y"}}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="text-center mt-2">
+                                <a href="{% url 'news:all-recent-activity' %}" class="btn btn-secondary-theme w-50">View all</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %} {% block script %}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/dataTables.bootstrap5.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('#table_dataframe').DataTable();
+    });
+</script>
+{% endblock %}

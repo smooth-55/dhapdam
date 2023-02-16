@@ -1,0 +1,50 @@
+<footer>
+    <div class="top-footer pad-top-bot">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-4">
+                    <div class="top-footer__contact">
+                        <h4>Contact Us</h4>
+                        <ul>
+                            <li class="address">{{profile.address}}</li>
+                            <li class="contact">{% if profile.phone1 %}{{profile.phone1}}{% endif %}{% if profile.phone2 %},{{profile.phone2}}{% endif %}</li>
+                            <li class="mail">{{profile.email}}</li>
+                            {% if profile.url %}
+                            <li class="web">{{profile.url}}</li>{% endif %}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="top-footer__link">
+                        <h4>Important Links</h4>
+                        {% for link in links|slice:":4" %}
+                        <ul>
+                            <li><a traget="_blank" href="http://www.dwri.gov.np/">{{link.title}}</a></li>
+                        </ul>
+                        {% endfor %}
+                        <div class="col-12 pl-4 mt-3">
+                            <a href="{% url 'company:imp-link' %}" class="btn btn-secondary-theme btn-sm">View all</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="top-footer__content">
+                        <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FDhap-Dam-101437965071634&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340"
+                            height="250" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-footer">
+        <div class="container">
+            <div class="bottom-footer__content">
+                <p>
+                    <script>
+                        new Date().getFullYear() > 2020 && document.write(new Date().getFullYear());
+                    </script> All Right Reserved. Bagmati Improvement Project <span class="ml-3">Powered By: <a href="https://uptechsys.com/" class="footer-link-btn" target="_blank">Uptechsys</a></span></p>
+                <span class="visitor">Visitor: {{count}}</span>
+            </div>
+        </div>
+    </div>
+</footer>

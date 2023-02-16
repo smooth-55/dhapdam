@@ -1,0 +1,131 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% block static %}
+<link rel="stylesheet" href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}">
+<link rel="stylesheet" href="{% static 'css/cooltipz.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Dam Knowledge{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Dam Literature</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dam Literature</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                {% include 'admin/fade_call.html' %}
+                <a class="dam-literaturelink-create btn btn-block btn-success btn-theme-admin rounded-0" data-id="{% url 'damknowledge:dam-literaturelink-create' %}">Add Link</a>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                {% include 'admin/fade_call.html' %}
+                <a class="dam-literaturefile-create btn btn-block btn-success btn-theme-admin rounded-0" data-id="{% url 'damknowledge:dam-literaturefile-create' %}">Add File</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th width="2%">SN</th>
+                                <th>Title</th>
+                                <th>File</th>
+                                <th width="12%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in dam_literatures %}
+                            <tr>
+                                <td class="text-center">{{ forloop.counter }}</td>
+                                <td>{% if item.link %}<a href="{{item.link}}" target="_blank">{{item.title}}</a>{% else %}{{item.title}}{% endif %}</td>
+                                <td>{% if item.files %}<a href="{{item.files.url}}" target="_blank">{{item.files.url|slice:"28:"}}</a>{% endif %}</td>
+                                <td class="text-center">
+                                    {% comment %} <span class="action-icon mr-3"><a href="{% if item.link %}{{ item.files.url }}{% else %}{{ item.link }}{% endif %}" target="_blank"
+                                            data-toggle="tooltip" data-placement="bottom" title="Open"><i
+                                                class="fas fa-envelope-open-text text-secondary"></i></a></span> {% endcomment %}
+                                    {% comment %} <span class="action-icon mr-3"><p target="_blank"
+                                            data-toggle="tooltip" data-placement="bottom" title="Open"><i
+                                                class="fas fa-envelope-open-text text-secondary"></i></p></span> {% endcomment %}
+                                    <span class="action-icon mr-3"><a class="dam-literature-edit"
+                                            data-id="{% url 'damknowledge:dam-literature-update' item.pk %}"
+                                            data-cooltipz-dir="bottom" aria-label="Edit"><i
+                                                class="fas fa-edit text-secondary"></i></a></span>
+                                    <span class="action-icon mr-3"><a class="dam-literature-delete"
+                                            data-id="{% url 'damknowledge:dam-literature-delete' item.pk %}"
+                                            data-cooltipz-dir="bottom" aria-label="Delete"><i
+                                                class="fas fa-trash text-danger "></i></a></span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- add Modal -->
+
+{% endblock %} {% block script%}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+
+<script>
+    $(document).ready(function() {
+        $('#data-table').DataTable();
+    });
+    //create
+    $(".dam-literaturelink-create").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data('id')
+        });
+    });
+
+    $(".dam-literaturefile-create").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data('id')
+        });
+    });
+
+
+    //update
+    $(".dam-literature-edit").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data('id')
+        });
+    });
+
+    //delete
+    $(".dam-literature-delete").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data('id')
+        });
+    });
+</script>
+{% endblock %}

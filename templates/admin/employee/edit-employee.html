@@ -1,0 +1,234 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %}
+{% load widget_tweaks %}
+{% block static %}
+<link rel="stylesheet" href="{% static 'css/nepali.datepicker.v3.7.min.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Employee{% endblock %}
+
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Edit Employee</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'company:employee-list' %}">Employee</a></li>
+                    <li class="breadcrumb-item active">Edit Employee</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="form-title">Personal Information</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Name<span class="text-danger">*</span></label> {% render_field form.full_name class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.full_name.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Phone<span class="text-danger">*</span></label> {% render_field form.phone class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.phone.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 file-input-block">
+                                <label class="tractor-label d-block">Images<span class="text-danger">*</span></label>
+                                <div class="upt-custom-file">
+                                    <div class="bg-white"></div>
+                                    <div class="edit-custom"> {% render_field form.image class="form-control career-file" %}
+                                        <input type="text" class="career-text form-control bsa-file">
+                                    </div>
+                                </div>
+                                <div class="text-danger">{{ form.image.errors }}</div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Temporary Address</label> {% render_field form.temporary_address class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.temporary_address.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Permanent Address<span class="text-danger">*</span></label> {% render_field form.permanent_address class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.permanent_address.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Joined Date<span class="text-danger">*</span></label> {% render_field form.date_joined class="form-control bsa-input nepali-datepicker" %}
+                                    <div class="text-danger">{{ form.date_joined.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">User Information</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Designation<span class="text-danger">*</span></label> {% render_field form.designation class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.designation.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Email</label> {% render_field form.email class="form-control tractor-input" %}
+                                    <div class="text-danger">{{ form.email.errors }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6 class="form-title">Employee</h6>
+                                <div id="checkboxes">
+                                    <span class="custom-radio" id="none_of_these">
+                                        {% if form.none == True %}
+                                            {{form.none}}
+                                                <label for="id_is_projecthead">
+                                                    None of these
+                                                </label>
+                                            {% else %}
+                                                {{form.none}}
+                                                <label for="id_is_projecthead">
+                                                    None of these
+                                                </label>
+                                                </label>
+                                        {% endif %}
+                                    </span>
+
+                                    <span class="custom-radio" id="ex_employee">
+                                    {% if form.is_transferred == True %}
+                                        {{ form.is_transferred }}
+                                            <label for="id_is_transferred">
+                                                Is Ex-employee
+                                            </label>
+                                        {% else %}
+                                            {{form.is_transferred}}
+                                            <label for="id_is_transferred">
+                                                Is Ex-employee
+                                            </label>
+                                    {% endif %}
+                                    </span>
+                                    <span class="custom-radio" id="ex_projecthead">
+                                    {% if form.is_projecthead == True %}
+                                        {{form.is_projecthead}}
+                                            <label for="id_is_projecthead">
+                                                Is Ex-Project Head
+                                            </label>
+                                        {% else %}
+                                            {{form.is_projecthead}}
+                                            <label for="id_is_projecthead">
+                                                Is Ex-Project Head
+                                            </label>
+                                    {% endif %}
+
+                                    </span>
+
+                                </div>
+                                {% if form.non_field_errors %}
+                                <div class="text-danger leave-date-error">{{ form.non_field_errors }}</div>{% endif %}
+                                <div class="col-md-6 mt-3">
+                                    <div class="mb-3" id="leave_date">
+                                        <label class="tractor-label">Leave Date<span class="text-danger">*</span></label> {% render_field form.leave_date class="form-control bsa-input nepali-datepicker" %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" href="" class="btn btn-success btn-theme-admin rounded-0">Update
+                                Employee</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} {% block script %}
+<script src="{% static 'js/nepali.datepicker.v3.7.min.js' %}"></script>
+
+<script>
+    $("#leave_date").hide();
+    // $("#none_of_these").click(function() {
+    //     console.log("hhhh")
+    //     if($(this).is(":checked")) {
+    //         $("#leave_date").hide();
+    //     }
+    // }),
+    // leave-date-error
+    $(".leave-date-error").show();
+
+    $('#checkboxes').on('click', ':checkbox', function(e) {
+        $('#checkboxes :checkbox').each(function() {
+            if (this != e.target)
+                $(this).prop('checked', false);
+            else
+                $(this).prop('checked', true);
+
+            //display only after checked button is clicked
+            $.each($("input[name='none']:checked"), function() {
+                $('#leave_date').hide();
+            });
+            $.each($("input[name='is_transferred']:checked"), function() {
+                $('#leave_date').show();
+            });
+            $.each($("input[name='is_projecthead']:checked"), function() {
+                $('#leave_date').show();
+            });
+            // var value = $(this).val();
+            // console.log("value", value)
+            // if (value) {
+            //     console.log("test", value)
+            //     $('#leave_date').show();
+            // }
+
+        });
+    });
+    // leave date display none during page load
+    // document.getElementById("leave_date").style.display = "none";
+
+    // input-file-image
+
+    $('.upt-custom-file input[type="file"]').change(function(e) {
+        $(this).siblings('input[type="text"]').val(e.target.files[0].name);
+        $('.edit-custom a').hide()
+    })
+    //for nepali date
+    $('.upt-custom-file input[type="file"]').change(function(e) {
+        $(this).siblings('input[type="text"]').val(e.target.files[0].name);
+        $('.career-upload').hide()
+    });
+    window.onload = function() {
+        var mainInput = document.getElementsByClassName("nepali-datepicker");
+        mainInput.nepaliDatePicker({
+            dateFormat: "DD/MM/YYYY"
+        });
+    };
+</script>
+
+
+
+
+{% endblock %}

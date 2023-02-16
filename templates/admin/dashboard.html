@@ -1,0 +1,250 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %}
+<!-- title -->
+{% block title %}Dashboard{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Dashboard</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Info boxes -->
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-tractor"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Darta</span>
+                                <span class="info-box-number">
+                                    {{ darta.count }}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-tools"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Chalani</span>
+                                <span class="info-box-number">
+                                    {{ chalani.count }}
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- /.col -->
+
+                    <!-- fix for small devices only -->
+                    <div class="clearfix hidden-md-up"></div>
+
+                    <div class="col-12 col-sm-6 col-md-4">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-clipboard"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Projects</span>
+                                <span class="info-box-number">
+                                    {{ projects.count }}
+
+                                </span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+
+                </div>
+                <!-- progress graph -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Progress Graph</h5>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="d-flex">
+                                    <p class="d-flex flex-column">
+                                        <span class="text-bold text-lg">820</span>
+                                        <span>Visitors Over Time</span>
+                                    </p>
+                                    <p class="ml-auto d-flex flex-column text-right">
+                                        <span class="text-success">
+                                            <i class="fa fa-arrow-up"></i> {{ year.year }}
+                                        </span>
+                                        <span class="text-muted">Fiscal year</span>
+                                    </p>
+                                </div>
+                                <!-- /.d-flex -->
+
+                                    <div class="position-relative mb-4">
+                                        <canvas id="visitors-chart" height="200"></canvas>
+                                    </div>
+
+                                <div class="d-flex flex-row justify-content-end">
+                                    <span class="mr-2">
+                                        <i class="fa fa-square text-primary"></i> This Week
+                                    </span>
+
+                                    <span>
+                                        <i class="fa fa-square text-gray"></i> Last Week
+                                    </span>
+                                </div>
+                            </div>
+                            <!-- ./card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card employeeCard">
+                    <div class="card-header">
+                        <h3 class="card-title">List of Employees</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0 employee-body">
+                        <ul class="employee-list">
+                            {% for user in users %}
+                            <li>
+                                {% if user.image %}<img src="{{user.image.url}}" alt="" class="employee-image">{% else %}{% endif %}
+                                <span class="employee-name">{{ user.full_name }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <!-- /.users-list -->
+                    </div>
+                    <!-- /.card-footer -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %} {% block script %}
+<script src="{% static 'admin/js/Chart.min.js' %}"></script>
+
+<script>
+    $(function() {
+        'use strict'
+
+        var ticksStyle = {
+            fontColor: '#495057',
+            fontStyle: 'bold'
+        }
+
+        var mode = 'index'
+        var intersect = true
+
+
+        var $visitorsChart = $('#visitors-chart')
+        var visitorsChart = new Chart($visitorsChart, {
+            data: {
+                labels: ['First Trimester', 'Second Trimester', 'Third Trimester', ],
+                datasets: [{
+                    type: 'line',
+                    data: [{ %
+                        for overall in overall %
+                    } {
+                        {
+                            overall
+                        }
+                    }, { % endfor %
+                    }],
+                    backgroundColor: 'transparent',
+                    borderColor: '#007bff',
+                    pointBorderColor: '#007bff',
+                    pointBackgroundColor: '#007bff',
+                    fill: false
+                        // pointHoverBackgroundColor: '#007bff',
+                        // pointHoverBorderColor    : '#007bff'
+                }, {
+                    type: 'line',
+                    data: [{ %
+                        for overall in overall %} {
+                        {
+                            overall
+                        }
+                    }, { % endfor %
+                    }],
+                    backgroundColor: 'tansparent',
+                    borderColor: '#ced4da',
+                    pointBorderColor: '#ced4da',
+                    pointBackgroundColor: '#ced4da',
+                    fill: false
+                        // pointHoverBackgroundColor: '#ced4da',
+                        // pointHoverBorderColor    : '#ced4da'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    mode: mode,
+                    intersect: intersect
+                },
+                hover: {
+                    mode: mode,
+                    intersect: intersect
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                    yAxes: [{
+                        // display: false,
+                        gridLines: {
+                            display: true,
+                            lineWidth: '4px',
+                            color: 'rgba(0, 0, 0, .2)',
+                            zeroLineColor: 'transparent'
+                        },
+                        ticks: $.extend({
+                            beginAtZero: true,
+                            suggestedMax: 100
+                        }, ticksStyle)
+                    }],
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: ticksStyle
+                    }]
+                }
+            }
+        })
+    })
+</script>
+{% endblock %}

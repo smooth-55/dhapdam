@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+</head>
+<body>
+    <div class="position-relative mb-4">
+        <canvas id="progress-chart" height="200"></canvas>
+    </div>
+</body>
+</html>
+
+
+
+
+<script>
+
+$(function() {
+        'use strict'
+
+        var ticksStyle = {
+            fontColor: '#495057',
+            fontStyle: 'bold'
+        }
+
+        var mode = 'index'
+        var intersect = true
+
+
+        var $visitorsChart = $('#progress-chart')
+        var visitorsChart = new Chart($visitorsChart, {
+            data: {
+                labels: ['Shrawn', 'Bhadra', 'Ashoj', 'Kartik', 'Mangisr', 'Poush', 'Magh', 'Falgun', 'Chaitra', 'Baisakh', 'Jestha', 'Asar'],
+                datasets: [{
+                    type: 'line',
+                    data: [{% for overall in total_cost %}{{ overall }}, {% endfor %}],
+                    backgroundColor: 'transparent',
+                    borderColor: '#007bff',
+                    pointBorderColor: '#007bff',
+                    pointBackgroundColor: '#007bff',
+                    fill: false
+                        // pointHoverBackgroundColor: '#007bff',
+                        // pointHoverBorderColor    : '#007bff'
+                }, {
+                    type: 'line',
+                    data: [{% for overall in total_cost %} {{ overall }}, {% endfor % }],
+                    backgroundColor: 'tansparent',
+                    borderColor: '#ced4da',
+                    pointBorderColor: '#ced4da',
+                    pointBackgroundColor: '#ced4da',
+                    fill: false
+                        // pointHoverBackgroundColor: '#ced4da',
+                        // pointHoverBorderColor    : '#ced4da'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    mode: mode,
+                    intersect: intersect
+                },
+
+                //percentage calcualtion
+                hover: {
+                    mode: mode,
+                    intersect: intersect
+                },
+                legend: {
+                    display: false
+                },
+
+                scales: {
+                    yAxes: [{
+                        // display: false,
+                        gridLines: {
+                            display: true,
+                            lineWidth: '4px',
+                            color: 'rgba(0, 0, 0, .2)',
+                            zeroLineColor: 'transparent'
+                        },
+                        ticks: {
+                            min: 0,
+                            max: 100, // Your absolute max value
+                            
+                        },
+
+                    }],
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: false
+                        },
+                        ticks: ticksStyle
+                    }]
+                }
+            }
+        })
+
+    })
+
+</script>

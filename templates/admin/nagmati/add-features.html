@@ -1,0 +1,138 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %}{% load widget_tweaks %}
+<!-- title -->
+{% block title %} Nagmati Dam{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Add Features</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'dam:nadmin-features' %}">Features</a></li>
+                    <li class="breadcrumb-item active">Add Features</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="form-title">Dam Information</h6>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Content</label> {% render_field form.content class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Dam Type</label> {% render_field form.dam_type class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Dam height (D/S toe to crest)</label> {% render_field form.dam_height class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Dam top Length (Crest Length)</label> {% render_field form.dam_top_length class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Dam crest elevation</label> {% render_field form.dam_crest_elevation class="form-control tractor-input" %}
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Crest width</label> {% render_field form.crest_width class="form-control tractor-input" %}
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">Volume/ Level Information</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Full Supply Level (FSL)</label> {% render_field form.full_supply_level class="form-control tractor-input" %}
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Dam Volume</label> {% render_field form.dam_volume class="form-control tractor-input" %}
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Reservoir surface area at FSL</label> {% render_field form.reservoir_surface_area_at_fsl class="form-control tractor-input" %}
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Freeboard (measured from the dam crest)</label> {% render_field form.Freeboard class="form-control tractor-input" %}
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <h6 class="form-title">Other Information</h6>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Design Discharge</label> {% render_field form.design_discharge class="form-control tractor-input" %}
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Power Production</label> {% render_field form.power_of_production class="form-control tractor-input" %}
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Cost of project</label> {% render_field form.cost_of_project class="form-control tractor-input" %}
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <input class="btn btn-success btn-theme-admin rounded-0" type="submit" value="Add Features" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} {% block script %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+{% endblock %}

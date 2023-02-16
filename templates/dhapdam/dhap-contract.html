@@ -1,0 +1,115 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Dhap Dam{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'contracts:dhap-contract' %}" class="link text-theme-light-blue">Dhap Dam / Contract Details</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-12">
+                <h5 class="content-title">Contract Details</h5>
+                <div class="about__content">
+                    <p class="about__content---para">
+                        {{contract_details.content}}
+                    </p>
+                </div>
+                <div class="table-responsive bsa-responsive-table mt-3 border-0">
+                    <table class="table table-bordered bsa-table">
+                        <tbody>
+                            <tr style="background-color: #d5e6ff">
+                                <th style="text-align: left;">S.N.</th>
+                                <th style="text-align: left;">Item</th>
+                                <th style="text-align: left;">Detail</th>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Name of Work</td>
+                                <td>{{contract_details.Name_of_work}}</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Client</td>
+                                <td>{{contract_details.client}}</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Contract No.</td>
+                                <td>{{contract_details.contract_no}}</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Name of Contractor</td>
+                                <td>{{contract_details.name_of_contractor}}</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Date of Agreement </td>
+                                <td>{{contract_details.date_of_agreement}}</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Initial Date of Completion (DOC)</td>
+                                <td>{{contract_details.intial_date_of_completion}}</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>Revised Date of Completion</td>
+                                <td>{{contract_details.revised_date_of_completion}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>Contract Amount with VAT</td>
+                                <td>{{contract_details.contract_amount_with_VAT}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>Physical Progress Till</td>
+                                <td>{{contract_details.physical_progress}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>Financial Progress Till</td>
+                                <td>{{contract_details.financial_progress}}</td>
+
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>Authorized/Responsible Person</td>
+                                <td>{{contract_details.responsible_person}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="sidebar-tab sidebar-sticky-top">
+                    <h5 class="sidebar-tab__title">Dham Dam</h5>
+                    <ul class="sidebar-bar">
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-dam' %}" class="sidebar-bar__item---link">Introduction</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-features' %}" class="sidebar-bar__item---link">Salient features of Dam</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-location' %}" class="sidebar-bar__item---link">Location and Accessibility</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-work-components' %}" class="sidebar-bar__item---link">Major Work Components</a></li>
+                        <li class="sidebar-bar__item active"><a href="{% url 'contracts:dhap-contract' %}" class="sidebar-bar__item---link active">Contract Details</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-design' %}" class="sidebar-bar__item---link">Design and Quality Aspects</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-environmental' %}" class="sidebar-bar__item---link">Environmental Aspects</a></li>
+                        <li class="sidebar-bar__item"><a href="{% url 'contracts:dhap-maps' %}" class="sidebar-bar__item---link">Dhap Dam Maps</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

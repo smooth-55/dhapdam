@@ -1,0 +1,164 @@
+<div class="tab-pane fade show active" id="ongoing" role="tabpanel">
+    <form method="GET" class="row row-cols-lg-auto g-3 align-items-center px-3 pt-3" class="contracts-form" data-year-url="{% url 'contracts:contract' %}">
+        <div class="col-12">
+            <label for="bsa-label">Select Project </label>
+        </div>
+        <div class="col-12">
+            {% if on_contracts %}
+            <select class="bsa-custom-select form-select contracts-name">
+                    {% for item in on_contracts %}
+                    <option value="{{ item.id }}" {% if item.project_name == completed_contract.project_name %}
+                        selected="selected" {% endif %}>{{ item.project_name }}</option>
+                    {% endfor %}
+                </select> {% endif %}
+        </div>
+    </form>
+
+    <div class="table-height">
+        <div class="contract-table-ongoing table-responsive bsa-responsive-table mt-0 border-0">
+            <table class="table table-bordered bsa-table">
+                <tbody>
+                    <tr>
+                        <td colspan="2" style="background-color: #CCC0DA; text-align: center;">
+                            {{ongoing_contract.project_name}}</td>
+                    </tr>
+                    <tr style="background-color: #FFC7CE">
+                        <td>Contract ID</td>
+                        <th style="text-align: left;">{{ongoing_contract.contract_id}}
+                        </th>
+                    </tr>
+                    <tr style="background-color: #C6EFCE">
+                        <td width="25%">Project Name</td>
+                        <th style="text-align: left;">{{ongoing_contract.project_name}}
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Work Name</td>
+                        <th style="text-align: left;">{{ongoing_contract.work_name}}
+                        </th>
+                    </tr>
+
+                    <tr>
+                        <td>Contract Name and address</td>
+                        <th style="text-align: left;">
+                            {{ongoing_contract.contractor_detail}}</th>
+                    </tr>
+                    <tr style="background-color: #FFC7CE">
+                        <td>Date of agreement</td>
+                        <th style="text-align: left;">
+                            {{ongoing_contract.date_of_agreement}}</th>
+                    </tr>
+                    <tr style="background-color: #C6EFCE">
+                        <td>Date of completion as agreement</td>
+                        <th style="text-align: left;">
+                            {{ongoing_contract.date_of_completion}}</th>
+                    </tr>
+                    <tr>
+                        <td>Date of completion (Revised)</td>
+                        <th style="text-align: left;">
+                            {% if ongoing_contract.date_of_completion_revised %}{{ongoing_contract.date_of_completion_revised}}{% endif %}
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Amount of Agreement</td>
+                        <th style="text-align: left;">{{ongoing_contract.amount}}</th>
+                    </tr>
+                    <tr>
+                        <td>Actual Expenditure</td>
+                        <th style="text-align: left;">
+                            {{ongoing_contract.actual_expenditure}}</th>
+                    </tr>
+                    <tr style="background-color: #C6EFCE">
+                        <td>Current Contract status</td>
+                        <th style="text-align: left;">
+                            {{ongoing_contract.get_current_status_display}}</th>
+                    </tr>
+                    <tr>
+                        <td>Contractor libility status</td>
+                        <th style="text-align: left;">
+                            {{ongoing_contract.get_contractor_liability_status_display}}
+                        </th>
+                    </tr>
+
+                    <tr style="background-color: #FFC7CE">
+                        <td>Major works completed</td>
+                        <th style="text-align: left;">{{ongoing_contract.works_completed}}
+                        </th>
+                    </tr>
+                </tbody>
+                <!-- <tbody>
+                    <tr>
+                        <td colspan="2" style="background-color: #CCC0DA; text-align: center;">
+                            {{ongoing_contract.project_name}}</td>
+
+                    </tr>
+                    <tr style="background-color: #C6EFCE">
+                        <td>Name of project</td>
+                        <td colspan="2" style="background-color: #CCC0DA; text-align: center;">
+                            {{ongoing_contract.project_name}}</td>
+                    </tr>
+                    <tr style="background-color: #FFC7CE">
+                        <td>Contract identification number</td>
+                        <th style="text-align: left;">{{ongoing_contract.contract_id}}</th>
+                    </tr>
+                    <tr>
+                        <td>Name of the work</td>
+                        <th style="text-align: left;">{{ongoing_contract.work_name}}</th>
+                    </tr>
+                    <tr>
+                        <td>Name and address of contractor</td>
+                        <th style="text-align: left;">{{ongoing_contract.contractor_detail}}</th>
+                    </tr>
+                    <tr style="background-color: #C6EFCE">
+                        <td>Date of agreement</td>
+                        <th style="text-align: left;">{{ongoing_contract.date_of_agreement}}</th>
+                    </tr>
+                    <tr>
+                        <td>Amount of Agreement (Inc VAT)</td>
+                        <th style="text-align: left;">{{ongoing_contract.amount}}</th>
+                    </tr>
+                    <tr style="background-color: #FFC7CE">
+                        <td>Date of completion as per agreement</td>
+                        <th style="text-align: left;">{{ongoing_contract.date_of_completion}}</th>
+                    </tr>
+                    <tr>
+                        <td>Number of time extensions</td>
+                        <th style="text-align: left;">2</th>
+                    </tr>
+                    <tr style="background-color: #C6EFCE">
+                        <td>Total duration of time extension (Months)</td>
+                        <th style="text-align: left;"> 30</th>
+                    </tr>
+                    <tr style="background-color: #C6EFCE">
+                        <td>Date of completion (revised)</td>
+                        <th style="text-align: left;"></th>
+                        
+                       
+                    </tr>
+                    <tr>
+                        <td>Current status</td>
+                        <th style="text-align: left;">{{ongoing_contract.get_current_status_display}}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="2"><strong> Updated Progress</strong></th>
+                    </tr>
+                    <tr>
+                        <td>Financial</td>
+                        <th style="text-align: left;">Amount NRs: 350000000, Progress: 72%,
+                            As per Date: 2021/01/30</th>
+                    </tr>
+                    <tr>
+                        <td>Physical</td>
+                        <th style="text-align: left;">Progress: 75% As per Date: 2021/01/30
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>Responsible/Authorized person</td>
+                        <th style="text-align: left;">Mr. Raman Mahato, Raman Construction
+                            Pvt. Ltd.</th>
+                    </tr>
+                </tbody> -->
+            </table>
+        </div>
+    </div>
+</div>

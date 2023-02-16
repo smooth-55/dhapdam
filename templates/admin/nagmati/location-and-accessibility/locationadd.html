@@ -1,0 +1,102 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% load widget_tweaks %}
+
+<!-- title -->
+{% block title %}Location{% endblock %}
+
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Add Location and Accessibility</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'dam:nadmin-location' %}">Location</a></li>
+                    <li class="breadcrumb-item active">Add Location and Accessibility</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                    <div class="col-md-6">
+                        <form action="#" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- <p class="text-danger"></p> -->
+                            <div class="mb-3">
+                                <!-- <p>{{form.email}}</p> -->
+                                <label class="tractor-label">Location content</label> {{ form.content}}
+                            </div>
+                            <div class="mb-3">
+                                <label class="tractor-label">Location Image<span class="text-danger">*</span></label>
+                                <div class="upt-custom-file">
+                                    {% render_field form.image class="form-control career-file" %}
+                                    <!-- <input type="file" class="career-file form-control" required> -->
+                                    <input type="text" class="career-text form-control bsa-file">
+                                    <label class="career-upload">Choose file</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="tractor-label">Accessibility Content</label> {{ form.accessibility_content}}
+                            </div>
+                            <div class="mb-3">
+                                <label class="tractor-label">Accessibility Image</label>
+                                <div class="upt-custom-file1">
+                                    {% render_field form.accessibility_image class="form-control career-file1" %}
+                                    <!-- <input type="file" class="career-file form-control" required> -->
+                                    <input type="text" class="career-text1 form-control bsa-file">
+                                    <label class="career-upload1">Choose file</label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-block btn-success btn-theme-admin rounded-0">
+                                    Add Location and Accessibility</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Detail Edit  -->
+
+{% endblock %} {% block script %}
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %} {% load static %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<script>
+    //update
+
+    var message_ele = document.getElementById("messages");
+    console.log("message_ele", message_ele);
+    setTimeout(function() {
+        message_ele.style.display = "none";
+    }, 3000);
+
+
+    $('.upt-custom-file input[type="file"]').change(function(e) {
+        $(this).siblings('input[type="text"]').val(e.target.files[0].name);
+        $('.career-upload').hide()
+    });
+    // accessibility input pic
+    $('.upt-custom-file1 input[type="file"]').change(function(e) {
+        $(this).siblings('input[type="text"]').val(e.target.files[0].name);
+        $('.career-upload1').hide()
+    });
+</script>
+{% endblock %}

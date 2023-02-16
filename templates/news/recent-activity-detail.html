@@ -1,0 +1,86 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Recent Activity Detail{% endblock %}
+<!-- You can use Open Graph tags to customize link previews.
+Learn more: https://developers.facebook.com/docs/sharing/webmasters -->
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="{{ news.title }}"/>
+<meta property="og:description" content="{% if object.meta_description %}{{ object.meta_description }}{% else %}{{ news.content|safe|striptags|truncatewords:"20" }}{% endif %}"/>
+<meta property="og:url" content="https://{{ request.get_host }}{% url 'detail_post_page' slug=object.slug %}"/>
+{% if news.image %}
+<meta property="og:image" content="https://dhapdam.gov.np/media/news/%25%20Y/%25%20m/%25%20d/notice.JPG"/>
+{% endif %}
+
+{% block script %}
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0&appId=351136563294840&autoLogAppEvents=1" nonce="J8K8kivt"></script>
+{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'news:recent-activity' %}" class="link text-theme-light-blue">Recent Activity</a> / <a href="{% url 'news:recentactivity-detail' activities.id %}" class="link text-theme-light-blue">Recent Activity Detail</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="col-lg-12 mx-auto">
+            <div class="newsblock">
+                <div class="row mt-3">
+                    <div class="col-lg-8">
+                        <div class="contentBlock__detail">
+                            <h5 class="content-title">{{activities.title}}</h5>
+                            <div class="entry__meta">
+                                <span class="entry__meta--author f-bold">{{activities.created_at|date:"d N Y"}}</span>
+                            </div>
+                            <div class="blog-container my-2">
+                                <img src="{{ activities.thumnail.url }}" class="img-fluid">
+                            </div>
+                            <div class="singleProduct-socialMediaNews">
+                                <ul>
+                                    <li><div class="fb-share-button" data-href="{{ request.get_full_path }}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A8000%2Fnews-detail%2F1%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div></li>
+                                    {% comment %} <li><a href="" class="twi" target="_blank"><i class="fab fa-twitter"></i> <span>Twitter</span></a></li> {% endcomment %}
+                                    {% comment %} <li><a href="" class="linkedin" target="_blank"><i class="fab fa-linkedin-in"></i> <span>Linkedin</span></a></li> {% endcomment %}
+                                </ul>
+                            </div>
+                            <div class="entry__summary">
+                                <p class="entry__summary---desc">{{activities.content|safe}}</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="sidebarNews">
+                            <div class="sidebarNews__heading">
+                                <h6> Recent Activities</h6>
+                            </div>
+                            <div class="sidebarNews__content">
+                                {% for activity in recents|slice:"8" %}
+                                <div class="popularPosts__Block">
+                                    <div class="popularPosts__ImgBlock">
+                                        <a href="{% url 'news:recentactivity-detail' activity.pk %}">
+                                            {% if activity.thumnail %}<img src="{{activity.thumnail.url}}" class="img-fluid"></a>{% endif %}
+                                    </div>
+                                    <div class="popularPosts__contentBlock">
+                                        <p class="popularPosts__Title"><a href="{% url 'news:recentactivity-detail' activity.pk %}">{{activity.title}}</a></p>
+                                        <p class="popularPosts__contentDate"><i class="fa fa-clock-o"></i> {{activity.created_at|date:"d N Y"}}</p>
+                                    </div>
+                                </div>
+                                {% endfor %}                                
+                            </div>
+                            <div class="text-center mt-2">
+                                <a href="{% url 'news:all-recent-activity' %}" class="btn btn-secondary-theme w-50">View all</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

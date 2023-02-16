@@ -1,0 +1,38 @@
+<h2>url:{{ request.get_full_path }}</h2>
+{% if request.get_full_path == "/firsttrimestermonth1/add/" %}
+<form method="POST">
+    {%csrf_token%}
+    <p>Name:{{form.name}}</p>
+    <p>year:{{form.year}}</p>
+    <p>month:{{form.month1}}</p>
+    <p>periodic amount{{form.month1_periodic_amount}}</p>
+
+    <button class="btn btn-success" type="submit" name="month1">Submit</button>
+
+</form>
+{% elif request.get_full_path == "/firsttrimestermonth2/add/" %}
+<hr>
+<form method="POST" {{form2.id}}>
+    {%csrf_token%}
+    {{form2.as_p}}
+    <button class="btn btn-success" type="submit" name="month2">Submit</button>
+
+</form>
+{% elif  request.get_full_path == "/firsttrimestermonth3/add/" %}
+<hr>
+<form method="POST">
+    {%csrf_token%}
+    {{form3.as_p}}
+    <button class="btn btn-success" type="submit" name="month3">Submit</button>
+
+</form>
+{% elif request.get_full_path == "/firsttrimestermonth4/add/"  %}
+<hr>
+<h4>form 4</h4>
+<form method="POST">
+    {%csrf_token%}
+    {{form4.as_table}}
+    <button class="btn btn-success" type="submit" name="month4">Submit</button>
+
+</form>
+{% endif %}

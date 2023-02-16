@@ -1,0 +1,104 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% load widget_tweaks %}
+
+<!-- title -->
+{% block title %}DhapDam{% endblock %}
+
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Update Work Components</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'dam:dadmin-intro' %}">DhapDam</a></li>
+                    <li class="breadcrumb-item active">Update Work Components</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                    <div class="col-md-6">
+                        <form action="#" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <!-- <p class="text-danger"></p> -->
+                            <div class="mb-3">
+                                <!-- <p>{{form.email}}</p> -->
+                                <label class="tractor-label">Select Dam Type<span class="text-danger">*<span></label> 
+                                {% render_field form.sub_dam class="form-control career-file" %}
+                            </div>
+                            <div class="mb-3">
+                                <!-- <p>{{form.email}}</p> -->
+                                <label class="tractor-label">title<span class="text-danger">*<span></label> 
+                                {% render_field form.title class="form-control career-file" %}
+                            </div>
+                            <div class="mb-3">
+                                <!-- <p>{{form.email}}</p> -->
+                                <label class="tractor-label">Description<span class="text-danger">*<span></label> 
+                                {% render_field form.description class="form-control career-file" %}
+                            </div>
+                            <div class="mb-3">
+                                <div class="mb-3 file-input-block">
+                                    <label class="tractor-label">Image<span class="text-danger">*<span></label>                              
+                                    <div class="upt-custom-file">
+                                        <div class="bg-white"></div>
+                                        <div class="edit-custom"> {% render_field form.image class="form-control career-file" %}
+                                            <input type="text" class="career-text form-control bsa-file">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+
+                            </div>
+                            <button type="submit" class="btn btn-block btn-success btn-theme-admin rounded-0">
+                                    Update Work Components</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Detail Edit  -->
+
+{% endblock %} {% block script %}
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<script>
+    //update
+
+    var message_ele = document.getElementById("messages");
+    console.log("message_ele", message_ele);
+    setTimeout(function() {
+        message_ele.style.display = "none";
+    }, 3000);
+
+    $('.upt-custom-file input[type="file"]').change(function(e) {
+            $(this).siblings('input[type="text"]').val(e.target.files[0].name);
+            $('.edit-custom a').hide()
+        })
+        // input-file-image
+    $('.upt-custom-file1 input[type="file"]').change(function(e) {
+        $(this).siblings('input[type="text"]').val(e.target.files[0].name);
+        $('.career-upload').hide()
+    });
+</script>
+{% endblock %}

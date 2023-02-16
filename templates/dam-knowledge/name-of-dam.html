@@ -1,0 +1,47 @@
+{% extends '../layout/base.html' %}
+<!-- load static -->
+{% load static %}
+<!-- title -->
+{% block title %}Dam Knowledge{% endblock %}
+<!-- content -->
+{% block content %}
+<section class="bsa-breadcrumb">
+    <div class="container">
+        <div class="breadcrumb mb-0">
+            <span class="f-13"><a href="{% url 'index' %}" class="link text-theme-light-blue">Home</a> // <a href="{% url 'news:name-of-dam' %}" class="link text-theme-light-blue">Name of Dam</a></span>
+        </div>
+    </div>
+</section>
+<section class="page about pad-top-bot">
+    <div class="container">
+        <div class="col-lg-12 mx-auto">
+            <div class="row">
+                <div class="col-md-8 col-sm-12 order-md-1 order-sm-2">
+                    <h5 class="content-title">Name of Dam / Reservoir</h5>
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="imp-link">
+                            {% for item in name_of_dam %}
+                                <li><a target="_blank" href="{{item.link}}">{{ item.title }}</a></li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-12 order-md-2 order-sm-1">
+                    <div class="sidebar-tab sidebar-sticky-top">
+                        <h5 class="sidebar-tab__title">Dam Knowledge</h5>
+                        <ul class="sidebar-bar">
+                            <li class="sidebar-bar__item"><a href="{% url 'news:literatures' %}" class="sidebar-bar__item---link">Dam Literatures</a></li>
+                            <li class="sidebar-bar__item"><a href="{% url 'news:damknowledge' %}" class="sidebar-bar__item---link">Salient Features</a></li>
+                            <li class="sidebar-bar__item"><a href="{% url 'news:pipeline' %}" class="sidebar-bar__item---link">Storage Projects in pipeline</a></li>
+                            {% comment %} <li class="sidebar-bar__item active"><a href="{% url 'news:name-of-dam' %}" class="sidebar-bar__item---link active">Name of Dam/ Reservoir</a></li> {% endcomment %}
+                            <li class="sidebar-bar__item"><a href="{% url 'news:lake' %}" class="sidebar-bar__item---link">Information of Dams/Lakes of Nepal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

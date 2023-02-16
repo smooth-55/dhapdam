@@ -1,0 +1,101 @@
+<div class="tab-pane fade" id="cprogress" role="tabpanel">
+    <form method="GET" class="row row-cols-lg-auto g-3 align-items-center p-3" class="contracts-form" data-year-url="{% url 'contracts:contract' %}">
+        <div class="col-12">
+            <label for="bsa-label">Select Project </label>
+        </div>
+        <div class="col-12">
+            {% if pro_contracts %}
+            <select class="bsa-custom-select form-select contracts-name">
+                {% for item in pro_contracts %}
+                <p>{{ item.contract.id }}</p>
+                <option value="{{ item.contract.id }}"
+                    {% if item.contract.project_name == contract_progress.contract.project_name %} selected="selected"
+                    {% endif %}>{{ completed_contract.contract.project_name }}{{ item.contract.project_name }}</option>
+                {% endfor %}
+            </select> {% endif %}
+        </div>
+    </form>
+    <div class="contract-table-progress table-responsive bsa-responsive-table mt-0 border-0 p-3 pt-0">
+        <table class="table table-bordered bsa-table">
+            <tbody>
+                <tr style="background-color: #CCC0DA;">
+                    <td rowspan="2">S.N</td>
+                    <td rowspan="2">Name of work </td>
+                    <td rowspan="2">Contract ID</td>
+                    <td rowspan="2">Name of Contractor</td>
+                    <td rowspan="2">Contract Amount Rs</td>
+                    <td rowspan="2">Date of Agreement</td>
+                    <td rowspan="2">Date of completion as per Agreement</td>
+                    <td rowspan="2">Revised Date of Completion</td>
+                    <td rowspan="2">Time Extended based on Original schedule</td>
+                    <td rowspan="2">Time Elapsed based on revised schedule %</td>
+                    <td rowspan="2">Time Remaining based on extended schedule(Months)</td>
+                    <td colspan="3">Financial Progress Rs</td>
+                    <td colspan="2">Physical Progress</td>
+                    <td rowspan="2">Progress Status</td>
+                    <td rowspan="2">Remarks</td>
+                </tr>
+                <tr style="background-color: #CCC0DA">
+                    <td>Amount</td>
+                    <td>Percent</td>
+                    <td>Last Payment Date</td>
+                    <td>Percent</td>
+                    <td>Date</td>
+                </tr>
+                {% if contract_progress %}
+                <tr>
+                    <td>1</td>
+                    <td>{{contract_progress.contract.work_name}}</td>
+                    <td>{{contract_progress.contract.contract_id}} </td>
+                    <td>{{contract_progress.contract.contractor_detail}} </td>
+                    <td>{{contract_progress.contract.amount}} </td>
+
+                    <td>{{contract_progress.contract.date_of_agreement}} </td>
+                    <td>{{contract_progress.contract.date_of_completion}} </td>
+                    <td>{% if contract_progress.contract.date_of_completion_revised %} {{contract_progress.contract.date_of_completion_revised}} {% endif %}
+
+                    </td>
+
+                    <!-- {% for key,value in contract_progress.date_of_completion_revised.items %}
+                            {% if value %}
+                                <td style="color: black;">{{value|last }}ram</td>
+                            {% else %}
+                                <td style="color: black;">None</td>
+                            {% endif %}
+
+                    {% endfor %} -->
+                    {% if contract_progress.time_extended_on_original_schedule > 100 %}
+                        <td style="background-color:#ffc7ce;color:black;">{{contract_progress.time_extended_on_original_schedule|floatformat:2 }}</td>
+                    {% elif contract_progress.time_extended_on_original_schedule <= 100 %}
+                        <td style="background-color: #c9ffd5;color: #28a745;">{{contract_progress.time_extended_on_original_schedule|floatformat:2 }}</td>
+                    {% endif %}
+                    <!-- <td style="background-color: #c9ffd5;color: #28a745;">{{contract_progress.time_extended_on_original_schedule}}</td> -->
+                    <td>{{contract_progress.time_elapsed_on_revise_schedule}} </td>
+                    <td>{{contract_progress.time_remaining_on_extended_schedule|floatformat:1}} </td>
+                    <td>{{contract_progress.financial_progress_amount}}</td>
+                    <td>{{contract_progress.financial_percent_amount|floatformat:0}}%</td>
+                    <td>{{contract_progress.financial_progress_date}} </td>
+                    <td>{{contract_progress.physical_percent_amount}}</td>
+                    <td>{{contract_progress.physical_progress_date}}</td>
+                    {% if contract_progress.physical_percent_amount < contract_progress..time_elapsed_on_revise_schedule %}
+                        <td style="background-color:#ffc7ce;color:#9c0006;">
+                        Laging behind
+                        </td>
+
+                    {% else %}    
+                        <td style="background-color: #c9ffd5;color: #28a745;">Before Schedule</td> 
+
+
+                    {% endif %}
+                    <!-- <td style="background-color: #c9ffd5;color: #28a745;">{{contract_progress.progress_status}}</td> -->
+                    <td>{{contract_progress.remarks}}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="18" style="text-align: center;">None</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>

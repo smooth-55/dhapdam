@@ -1,0 +1,181 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+
+{% load static %} {% load widget_tweaks %}
+
+<!-- title -->
+{% block title %}edit first trimester{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Edit Second Trimester</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'company:trimesters' %}">Second Trimester Information</a></li>
+                    <li class="breadcrumb-item active">Edit Second Trimester Information</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="form-block">
+                
+                    <form method="POST" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 class="form-title">Second Trimester Information</h6>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Trimester Name</label> {% render_field form.name class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Year</label> {% render_field form.year class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Month1</label> {% render_field form.month1 class="form-control tractor-input" %}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Month1 : Monthly Exependiture</label> {% render_field form.month1_periodic_amount class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Month1 cumulative Amount</label> {% render_field form.month1_cumulative_amount class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Month 2</label> {% render_field form.month2 class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Month2 : Monthly Exependiture</label> {% render_field form.month2_periodic_amount class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Month2 cumulative Amount</label> {% render_field form.month2_cumulative_amount class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Month 3</label> {% render_field form.month3 class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Month3 : Monthly Exependiture</label> {% render_field form.month3_periodic_amount class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Month3 Cumulative Amount</label> {% render_field form.month3_cumulative_amount class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Month 4</label> {% render_field form.month4 class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Month4 : Monthly Exependiture</label> {% render_field form.month4_periodic_amount class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Month4 Cumulative Amount</label> {% render_field form.month4_cumulative_amount class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Trimester Periodic Amount</label> {% render_field form.trimester_periodic class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Trimester cumulative Amount</label> {% render_field form.trimester_cumulative class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Periodic Target Amount</label> {% render_field form.periodic_target class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                           
+                            
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Periodic Physical Progress</label> {% render_field form.periodic_physical_progress class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">Overall</label> {% render_field form.overrall class="form-control tractor-input" %}
+                                    
+                                </div>
+                            </div>
+                            
+                            {% comment %} {% for field in form %}
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label class="tractor-label">{{ field.label }}</label> {% render_field field class="form-control" %}
+                                </div>
+                            </div>
+                            {% endfor %} {% endcomment %}
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" href="" class="btn btn-success btn-theme-admin rounded-0">Update
+                                    </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,112 @@
+{% extends 'layout/admin/base.html' %}
+<!-- load -->
+{% load static %} {% block static %}
+<link rel="stylesheet" href="{% static 'admin/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/custom-dataTables.css' %}">
+<link rel="stylesheet" href="{% static 'css/cooltipz.min.css' %}">
+<link rel="stylesheet" href="{% static 'admin/css/sweetalert2.min.css' %}"> {% endblock %}
+<!-- title -->
+{% block title %}Reservoir{% endblock %}
+<!-- content -->
+{% block content %}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5 class="content-title">Reservoir</h5>
+            </div>
+            <!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">Reservoir</li>
+                </ol>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6 col-md-3 col-lg-2">
+                {% include 'admin/fade_call.html' %}
+                <a class="reservoir-create btn btn-block btn-success btn-theme-admin rounded-0" data-id="{% url 'company:reservoir-create' %}">Add Reservoir</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table id="data-table" class="table table-striped table-bordered" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th width="2%">SN</th>
+                                <th>Image1</th>
+                                <th>Image2</th>
+                                <th>Image3</th>
+                                <th width="12%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in reservoir %}
+                            <tr>
+                                <td class="text-center">1</td>
+                                <td class="table-image">{% if item.image1 %}<img src="{{ item.image1.url }}" alt="">{% else %}Image not uploaded{% endif %}</td>
+                                <td class="table-image">{% if item.image2 %}<img src="{{ item.image2.url }}" alt="">{% else %}Image not uploaded{% endif %}</td>
+                                <td class="table-image">{% if item.image3 %}<img src="{{ item.image3.url }}" alt="">{% else %}Image not uploaded{% endif %}</td>
+                                <td class="text-center">
+                                    <span class="action-icon mr-3"><a class="reservoir-edit" data-id="{% url 'company:reservoir-update' item.pk %}"
+                                        data-cooltipz-dir="bottom" aria-label="Edit"><i
+                                            class="fas fa-edit text-secondary"></i></a></span>
+                                    <span class="action-icon mr-3"><a class="reservoir-delete" data-id="{% url 'company:reservoir-delete' item.pk %}"
+                                            data-cooltipz-dir="bottom" aria-label="Delete"><i
+                                                class="fas fa-trash text-danger "></i></a></span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} {% block script%}
+<script src="{% static 'admin/js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'admin/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'admin/js/sweetalert.min.js' %}"></script>
+<!-- django extra ajax based form display -->
+{% include 'admin/django_bootstrap_js.html' %}
+<script>
+    $(document).ready(function() {
+        $('#data-table').DataTable();
+    });
+    //create
+    $(".reservoir-create").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data('id')
+        });
+    });
+
+    //update
+    $(".reservoir-edit").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data('id')
+        });
+    });
+
+    //delete
+    $(".reservoir-delete").each(function() {
+        $(this).modalForm({
+            formURL: $(this).data('id')
+        });
+    });
+</script>
+{% endblock %}
